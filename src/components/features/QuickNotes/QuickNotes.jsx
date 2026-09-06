@@ -28,12 +28,10 @@ export const QuickNotes = ({ note = "", onConfigChange, onClose }) => {
               className="
                   w-full    
                   h-full
-                  p-3
                   text-lg
                   text-gray-700
                   font-['Indie_Flower',cursive]
                   leading-6
-                  bg-linear-to-tl from-white to-gray-300
                   resize-none
                   outline-none
                   rounded
