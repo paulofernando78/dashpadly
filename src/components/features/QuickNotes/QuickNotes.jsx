@@ -28,7 +28,7 @@ export const QuickNotes = ({ note = "", onConfigChange, onClose }) => {
               className="
                   w-full    
                   h-full
-                  text-lg
+                  text-xl
                   text-gray-700
                   font-['Indie_Flower',cursive]
                   leading-6

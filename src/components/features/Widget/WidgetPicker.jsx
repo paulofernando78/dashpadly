@@ -78,7 +78,7 @@ export const WidgetPicker = ({ onAdd, ref }) => {
                 type="button"
                 onClick={() => handleAdd(type)}
                 style={widget.widgetStyle}
-                className={`clickable picker-button ${widget.widgetClassName}`}
+                className={`clickable ${widget.widgetClassName}`}
               >
                 {widget.title}
               </button>

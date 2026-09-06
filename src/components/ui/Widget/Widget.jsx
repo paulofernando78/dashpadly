@@ -53,8 +53,8 @@ const WidgetHeader = ({ imageName, onClose }) => {
         mb-4
       "
     >
-      <WindowControls onClose={onClose} />
       <WidgetIcons imageName={imageName} />
+      <WindowControls onClose={onClose} />
     </div>
   );
 };
