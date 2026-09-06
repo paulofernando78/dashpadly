@@ -250,7 +250,7 @@ export const Clock = ({
                     mt-2
                     p-1
                     w-full
-                    h-14.25
+                    h-19
                     bg-gray-700
                     rounded
                     shadow-lg
