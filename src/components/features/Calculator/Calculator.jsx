@@ -356,7 +356,7 @@ export const Calculator = ({
   }
 
   const button = `
-    size-10
+    aspect-square
     !rounded-full
     flex
     items-center
@@ -381,10 +381,6 @@ export const Calculator = ({
             flex
             justify-end
             mr-2
-
-
-
-            
           "
         >
           <div className="grid">
@@ -403,10 +399,9 @@ export const Calculator = ({
                 flex
                 items-center
                 gap-[0.1rem]
-                min-h-4
+                justify-end
                 text-sm
                 text-gray-300/90
-                justify-end
               "
             >
               {renderDisplayValue(expressionLabel, 14, "text-gray-3c00/90")}
@@ -420,7 +415,7 @@ export const Calculator = ({
             grid
             grid-cols-4
             gap-1
-            -translate-y-1
+            w-full
           "
         >
           <button

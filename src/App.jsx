@@ -143,7 +143,7 @@ function App() {
         <TaskBoard />
       </SectionPanel>
 
-      <SectionPanel title="Notes">
+      <SectionPanel title="Notes" storageKey="section-notes">
         <div className="grid grid-cols-[200px_1fr] gap-2 flex-1">
           <Sidebar />
           <div className="space-y-2">

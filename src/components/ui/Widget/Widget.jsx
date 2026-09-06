@@ -9,16 +9,14 @@ export const WidgetCard = ({
   widgetClassName = "bg-gray-500/30",
   widgetStyle,
   imageName,
+  onClose,
   children,
   ref,
 }) => {
-  const widgetImage = widgetImages[imageName];
-
   return (
     <article
       ref={ref}
       className="
-        min-w-[194px]
         font-['Oswald_Variable']
         scroll-mr-2
       "
@@ -26,40 +24,107 @@ export const WidgetCard = ({
       <div
         style={widgetStyle}
         className={`
-          relative
+          widget-width
+          widget-body-height
         text-white
           rounded-lg
           overflow-hidden
           [text-shadow:0_0_6px_rgba(255,255,255,0.2)]
           global-border
-          widget-body-height
           ${widgetClassName}
           `}
       >
-        <div className="relative z-10 h-full">{children}</div>
-        {widgetImage && (
-          <img
-            width="100"
-            height="100"
-            src={widgetImage.src}
-            alt={widgetImage.alt}
-            className="
-                pointer-events-none
-                absolute
-                -bottom-15
-                -left-15
-                z-0
-                size-32
-                opacity-[0.5]
-              "
-          />
-        )}
+        <div className="flex h-full flex-col">
+          <WidgetHeader imageName={imageName} onClose={onClose} />
+          <div className="min-h-0 flex-1">{children}</div>
+        </div>
       </div>
     </article>
   );
 };
 
-export const WidgetBody = ({ onClose, top, middle, subMiddle, bottom }) => {
+const WidgetHeader = ({ imageName, onClose }) => {
+  return (
+    <div
+      className="
+        flex
+        justify-between
+        gap-2
+        mb-4
+      "
+    >
+      <WindowControls onClose={onClose} />
+      <WidgetIcons imageName={imageName} />
+    </div>
+  );
+};
+
+const WindowControls = ({ onClose }) => {
+  return (
+    <div
+      className="
+        flex
+        gap-1.5
+      "
+    >
+      <button
+        type="button"
+        title="close"
+        aria-label="close widget"
+        onClick={onClose}
+        className="window-control bg-red-400"
+      >
+        <Icon name="x" size={10} className="text-gray-600" />
+      </button>
+      {/* <button
+        type="button"
+        title="minimize"
+        aria-label="minimize widget"
+        className="window-control bg-yellow-500"
+      >
+        <Icon name="minus" size={10} />
+      </button> */}
+      <button
+        type="button"
+        title="maximize"
+        aria-label="maximize widget"
+        className="window-control bg-green-600"
+      >
+        <Icon name="maximize2" size={10} />
+      </button>
+    </div>
+  );
+};
+
+const WidgetIcons = ({ imageName }) => {
+  const widgetImage = widgetImages[imageName];
+
+  return (
+    <div
+      className="
+        flex
+        min-w-0
+        items-center
+      "
+    >
+      {widgetImage && (
+        <img
+          width="100"
+          height="100"
+          src={widgetImage.src}
+          alt={widgetImage.alt}
+          className="
+            size-7
+            shrink-0
+            pointer-events-none
+          "
+        />
+      )}
+    </div>
+  );
+};
+
+export const WidgetBody = ({ top, middle, subMiddle, bottom }) => {
   return (
     <div
       className="
@@ -69,7 +134,6 @@ export const WidgetBody = ({ onClose, top, middle, subMiddle, bottom }) => {
         h-full
       "
     >
-      <WindowControls onClose={onClose}/>
       {top && (
         <div
           className="
@@ -112,43 +176,6 @@ export const WidgetBody = ({ onClose, top, middle, subMiddle, bottom }) => {
         </div>
       )}
       {bottom && <div className="self-center">{bottom}</div>}
-    </div>
-  );
-};
-
-export const WindowControls = ({ onClose }) => {
-  return (
-    <div
-      className="
-        flex
-        gap-1.5
-      "
-    >
-      <button
-        type="button"
-        title="close"
-        aria-label="close widget"
-        onClick={onClose}
-        className="window-control bg-red-400"
-      >
-        <Icon name="x" size={10} className="text-gray-600" />
-      </button>
-      {/* <button
-        type="button"
-        title="minimize"
-        aria-label="minimize widget"
-        className="window-control bg-yellow-500"
-      >
-        <Icon name="minus" size={10} />
-      </button>
-      <button
-        type="button"
-        title="maximize"
-        aria-label="maximize widget"
-        className="window-control bg-green-500"
-      >
-        <Icon name="maximize2" size={10} />
-      </button> */}
     </div>
   );
 };

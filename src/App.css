@@ -1,5 +1,19 @@
 @reference "tailwindcss";
 
+:root {
+  --widget-width: 194px;
+  --widget-layout-height: 319.19px;
+}
+
+.widget-width {
+  width: var(--widget-width);
+  min-width: var(--widget-width);
+}
+
+.widget-body-height {
+  height: var(--widget-layout-height);
+}
+
 html,
 h1,
 h2,
@@ -41,20 +55,18 @@ hr {
 }
 
 .global-border {
-  @apply
-    p-2
+  @apply p-2
     border
   border-gray-500/50
-    rounded-lg
+    rounded-lg;
 }
 
 .widget-body-height {
-  @apply h-[319.19px];
+  @apply h-[323px];
 }
 
 .window-control {
-  @apply
-    grid
+  @apply grid
     place-items-center
     size-4
     rounded-full
@@ -63,8 +75,7 @@ hr {
 }
 
 .clickable {
-  @apply
-    p-2
+  @apply p-2
     border
     border-gray-700
     bg-gray-700
@@ -96,9 +107,11 @@ hr {
 .widget-gradient {
   background-image: linear-gradient(
     to top left,
-    color-mix(in srgb,
-    var(--widget-from) 100%, transparent) 10%,
-    color-mix(in srgb,
-    var(--widget-to) 100%, transparent) 100%
+    color-mix(in srgb, var(--widget-from) 100%, transparent) 10%,
+    color-mix(in srgb, var(--widget-to) 100%, transparent) 100%
   );
+}
+
+.picker-button {
+  @apply uppercase rounded!;
 }

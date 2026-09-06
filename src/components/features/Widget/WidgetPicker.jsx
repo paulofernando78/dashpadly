@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 
+import { widgetCatalog } from "./WidgetCatalog";
+
 export const WidgetPicker = ({ onAdd, ref }) => {
   const [isOpen, setIsOpen] = useState(false);
   const pickerRef = useRef(null);
@@ -63,61 +65,24 @@ export const WidgetPicker = ({ onAdd, ref }) => {
               flex
               flex-col
               gap-2
-              pt-2
-              pr-[0.3rem]
-              rb-2
-              pl-2
+              p-2
               bg-gray-500/30
               rounded-lg
               overflow-y-auto
               widget-body-height
-              `
-            }
+              `}
           >
-            <button
-              onClick={() => handleAdd("clock")}
-              className="uppercase clickable"
-            >
-              clock
-            </button>
-            <button
-              onClick={() => handleAdd("quickNotes")}
-              className="uppercase clickable"
-            >
-              quick notes
-            </button>
-            {/* --- */}
-            <hr />
-            <button
-              onClick={() => handleAdd("pomodoro")}
-              className="uppercase clickable"
-            >
-              pomodoro
-            </button>
-            <button
-              onClick={() => handleAdd("timer")}
-              className="uppercase clickable"
-            >
-              timer
-            </button>
-            <button
-              onClick={() => handleAdd("calculator")}
-              className="uppercase clickable"
-            >
-              calculator
-            </button>
-            <button
-              onClick={() => handleAdd("markets")}
-              className="uppercase clickable"
-            >
-              markets
-            </button>
-            <button
-              onClick={() => handleAdd("waterIntake")}
-              className="uppercase clickable"
-            >
-              water Intake
-            </button>
+            {Object.entries(widgetCatalog).map(([type, widget]) => (
+              <button
+                Key={type}
+                type="button"
+                onClick={() => handleAdd(type)}
+                style={widget.widgetStyle}
+                className={`clickable picker-button ${widget.widgetClassName}`}
+              >
+                {widget.title}
+              </button>
+            ))}
           </div>
         </div>
       )}
