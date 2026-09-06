@@ -232,7 +232,7 @@ export const Clock = ({
                   }
                   placeholder="Type location"
                   className="  
-                    w-53
+                    w-full
                     border
                     rounded
                     px-2
@@ -249,7 +249,7 @@ export const Clock = ({
                     z-10
                     mt-2
                     p-1
-                    w-53
+                    w-full
                     h-14.25
                     bg-gray-700
                     rounded
