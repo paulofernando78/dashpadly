@@ -380,7 +380,11 @@ export const Calculator = ({
           className="
             flex
             justify-end
-            mr-[1.6rem]
+            mr-2
+
+
+
+            
           "
         >
           <div className="grid">
@@ -416,7 +420,7 @@ export const Calculator = ({
             grid
             grid-cols-4
             gap-1
-            mb-0.75
+            -translate-y-1
           "
         >
           <button

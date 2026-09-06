@@ -18,7 +18,7 @@ export const WidgetCard = ({
     <article
       ref={ref}
       className="
-        min-w-48.5
+        min-w-[194px]
         font-['Oswald_Variable']
         scroll-mr-2
       "

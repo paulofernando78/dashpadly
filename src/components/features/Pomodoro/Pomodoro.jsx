@@ -405,7 +405,7 @@ export const Pomodoro = ({
                 <div
                   className="
                     grid
-                    grid-cols-[62px_62px_62px]
+                    grid-cols-[58px_58px_58px]
                 "
                 >
                   {/* FOCUS */}

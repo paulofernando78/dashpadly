@@ -10,6 +10,15 @@ const bgFrom = 500;
 const bgTo = 600;
 
 const widgetColors = {
+  black: {
+    100: "#f4f4f5",
+    200: "#e4e4e7",
+    300: "#d4d4d8",
+    400: "#a1a1aa",
+    500: "#71717a",
+    600: "#3f3f46",
+    700: "#18181b",
+  },
   slate: {
     100: "#f1f5f9",
     200: "#e2e8f0",
@@ -55,6 +64,24 @@ const widgetColors = {
     600: "#16a34a",
     700: "#15803d",
   },
+  purple: {
+    100: "#f3e8ff",
+    200: "#e9d5ff",
+    300: "#d8b4fe",
+    400: "#c084fc",
+    500: "#a855f7",
+    600: "#9333ea",
+    700: "#7e22ce",
+  },
+  violet: {
+    100: "#ede9fe",
+    200: "#ddd6fe",
+    300: "#c4b5fd",
+    400: "#a78bfa",
+    500: "#8b5cf6",
+    600: "#7c3aed",
+    700: "#6d28d9",
+  },
 };
 
 function getWidgetGradientStyle(colorName) {
@@ -83,7 +110,7 @@ export const widgetCatalog = {
   quickNotes: {
     title: "quick notes",
     widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("slate"),
+    widgetStyle: getWidgetGradientStyle("yellow"),
     imageName: "quickNotes",
     Component: QuickNotes,
     defaultConfig: {
@@ -93,7 +120,7 @@ export const widgetCatalog = {
   pomodoro: {
     title: "pomodoro",
     widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("slate"),
+    widgetStyle: getWidgetGradientStyle("red"),
     imageName: "pomodoro",
     Component: Pomodoro,
     defaultConfig: {
@@ -106,7 +133,7 @@ export const widgetCatalog = {
   timer: {
     title: "timer",
     widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("slate"),
+    widgetStyle: getWidgetGradientStyle("purple"),
     imageName: "timer",
     Component: Timer,
     defaultConfig: {
@@ -118,7 +145,7 @@ export const widgetCatalog = {
   calculator: {
     title: "calculator",
     widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("slate"),
+    widgetStyle: getWidgetGradientStyle("black"),
     imageName: "calculator",
     Component: Calculator,
     defaultConfig: {
@@ -128,7 +155,7 @@ export const widgetCatalog = {
   markets: {
     title: "markets",
     widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("slate"),
+    widgetStyle: getWidgetGradientStyle("green"),
     imageName: "markets",
     Component: Markets,
     defaultConfig: {},
@@ -136,7 +163,7 @@ export const widgetCatalog = {
   waterIntake: {
     title: "water intake",
     widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("slate"),
+    widgetStyle: getWidgetGradientStyle("blue"),
     imageName: "waterIntake",
     Component: WaterIntake,
     defaultConfig: {},
