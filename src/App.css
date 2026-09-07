@@ -62,6 +62,7 @@ hr {
 
 .widget-body-height {
   height: var(--widget-layout-height);
+  min-height: var(--widget-layout-height);
 }
 
 .widget-gradient {
@@ -70,9 +71,6 @@ hr {
     color-mix(in srgb, var(--widget-from) 100%, transparent) 10%,
     color-mix(in srgb, var(--widget-to) 100%, transparent) 100%
   );
-}
-.widget-body-height {
-  @apply h-[323px];
 }
 
 .window-control {
@@ -94,6 +92,10 @@ hr {
     shadow-black/40
     cursor-pointer
     hover:bg-gray-600;
+}
+
+.widget-picker {
+  @apply rounded!
 }
 
 /* Scroll */

@@ -10,6 +10,7 @@ import {
   CirclePause,
   CirclePlay,
   CirclePlus,
+  ChartCandlestick,
   Check,
   ChevronDown,
   ChevronRight,
@@ -19,6 +20,7 @@ import {
   Delete,
   Divide,
   Dot,
+  Droplet,
   Equal,
   // E
   Ellipsis,
@@ -48,6 +50,7 @@ import {
   SquareText,
   // T
   Thermometer,
+  Timer,
   Trash,
   // W
   GlassWater,
@@ -57,6 +60,23 @@ import {
   // X
   X,
 } from "lucide-react";
+
+const Pomodoro = ({ size = 20, className = "", ...props }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    {...props}
+  >
+    <path d="M12 5c-4.97 0-9 3.8-9 8.5S7.03 22 12 22s9-3.8 9-8.5S16.97 5 12 5ZM12 5c.35-1.55 1.1-2.5 2.2-3M12 5c-.35-1.55-1.1-2.5-2.2-3M12 5c-1.55-.25-2.95-.1-4.2.85M12 5c1.55-.25 2.95-.1 4.2.85M12 5c-.9 1-2.05 1.72-3.45 2.15M12 5c.9 1 2.05 1.72 3.45 2.15" />
+  </svg>
+);
 
 const icons = {
   // A
@@ -70,15 +90,17 @@ const icons = {
   circlePause: CirclePause,
   circlePlay: CirclePlay,
   circlePlus: CirclePlus,
+  markets: ChartCandlestick,
   check: Check,
   chevronDown: ChevronDown,
   chevronRight: ChevronRight,
   clock: Clock,
-  creditCard: CreditCard,
+  purchases: CreditCard,
   // D
   delete: Delete,
   divide: Divide,
   dot: Dot,
+  waterIntake: Droplet,
   equal: Equal,
   // E
   ellipsis: Ellipsis,
@@ -94,12 +116,13 @@ const icons = {
   messageCircleWarning: MessageCircleWarning,
   minus: Minus,
   // N
-  noteBookPen: NotebookPen,
+  quickNotes: NotebookPen,
   notepadText: NotepadText,
   // P
   parentheses: Parentheses,
   paintBucket: PaintBucket,
   plus: Plus,
+  pomodoro: Pomodoro,
   // R
   rotateCcw: RotateCcw,
   // S
@@ -108,6 +131,7 @@ const icons = {
   squareText: SquareText,
   // T
   thermometer: Thermometer,
+  timer: Timer,
   trash: Trash,
   // W
   glassWater: GlassWater,

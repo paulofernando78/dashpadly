@@ -37,6 +37,7 @@ export const WidgetPicker = ({ onAdd, ref }) => {
       flex
       gap-2
       uppercase
+      widget-body-height
       scroll-mr-2
       "
     >
@@ -78,7 +79,7 @@ export const WidgetPicker = ({ onAdd, ref }) => {
                 type="button"
                 onClick={() => handleAdd(type)}
                 style={widget.widgetStyle}
-                className={`clickable ${widget.widgetClassName}`}
+                className={`clickable widget-picker ${widget.widgetClassName}`}
               >
                 {widget.title}
               </button>
