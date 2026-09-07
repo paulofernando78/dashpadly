@@ -104,15 +104,17 @@ const WidgetIcons = ({ iconName }) => {
         items-center
       "
     >
-      <Icon
-        name={iconName}
-        cursorNone
-      />
+      <Icon name={iconName} cursorNone />
     </div>
   );
 };
 
-export const WidgetBody = ({ top, middle, subMiddle, bottom }) => {
+export const WidgetBody = ({
+  top,
+  middle,
+  subMiddle,
+  bottom,
+}) => {
   return (
     <div
       className="

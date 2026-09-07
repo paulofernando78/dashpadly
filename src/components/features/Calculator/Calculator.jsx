@@ -389,6 +389,7 @@ export const Calculator = ({
                 flex
                 items-center
                 justify-end
+                mt-5
                 text-2xl
             "
             >

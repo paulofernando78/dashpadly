@@ -2,7 +2,7 @@
 
 :root {
   --widget-width: 194px;
-  --widget-layout-height: 331px;
+  --widget-layout-height: 351px;
 }
 
 html,
@@ -79,7 +79,6 @@ hr {
     rounded-full
     border
     border-gray-400
-    p-0;
 }
 
 .clickable {

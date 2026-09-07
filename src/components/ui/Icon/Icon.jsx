@@ -15,6 +15,12 @@ import {
   ChevronDown,
   ChevronRight,
   Clock,
+  Cloud,
+  CloudFog,
+  CloudLightning,
+  CloudRain,
+  CloudSnow,
+  CloudSun,
   CreditCard,
   // D
   Delete,
@@ -35,6 +41,7 @@ import {
   Maximize2,
   MessageCircleWarning,
   Minus,
+  Moon,
   // N
   NotebookPen,
   NotepadText,
@@ -48,6 +55,7 @@ import {
   Search,
   SquarePen,
   SquareText,
+  Sun,
   // T
   Thermometer,
   Timer,
@@ -95,6 +103,12 @@ const icons = {
   chevronDown: ChevronDown,
   chevronRight: ChevronRight,
   clock: Clock,
+  cloud: Cloud,
+  cloudFog: CloudFog,
+  cloudLightning: CloudLightning,
+  cloudRain: CloudRain,
+  cloudSnow: CloudSnow,
+  cloudSun: CloudSun,
   purchases: CreditCard,
   // D
   delete: Delete,
@@ -115,6 +129,7 @@ const icons = {
   maximize2: Maximize2,
   messageCircleWarning: MessageCircleWarning,
   minus: Minus,
+  moon: Moon,
   // N
   quickNotes: NotebookPen,
   notepadText: NotepadText,
@@ -129,6 +144,7 @@ const icons = {
   search: Search,
   squarePen: SquarePen,
   squareText: SquareText,
+  sun: Sun,
   // T
   thermometer: Thermometer,
   timer: Timer,
