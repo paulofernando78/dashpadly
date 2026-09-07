@@ -311,7 +311,7 @@ export const widgetCatalog = {
     Component: Clock,
     title: "Clock",
     iconName: "clock",
-    widgetWidthClassName: "w-80",
+    widgetWidthClassName: "w-75",
     widgetStyle: getWidgetGradientStyle("slate"),
     widgetClassName: "widget-gradient",
     defaultConfig: {

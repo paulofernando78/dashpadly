@@ -312,21 +312,32 @@ export const Clock = ({
               <div
                 className="
                   grid
-                  grid-cols-7
-                  rounded
-                  text-xs
-                  border
+                  grid-cols-8
                 "
               >
+                <div
+                  className="
+                      justify-self-center
+                      flex
+                      flex-col
+                      justify-end
+                      gap-2
+                      p-1
+                      text-sm
+                    "
+                >
+                  <span>min</span>
+                  <span>max</span>
+                </div>
                 {weather.nextDays.map((day) => (
                   <div
                     key={day.date}
                     className="
-                      grid
-                      place-items-center
-                      gap-1
-                      p-1
-                    "
+                        grid
+                        place-items-center
+                        gap-1
+                        p-1
+                      "
                   >
                     <span>{formatWeekday(day.date)}</span>
 
