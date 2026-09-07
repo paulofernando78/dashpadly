@@ -2,7 +2,7 @@
 
 :root {
   --widget-width: 194px;
-  --widget-layout-height: 319.19px;
+  --widget-layout-height: 315px;
 }
 
 html,
@@ -78,7 +78,8 @@ hr {
     place-items-center
     size-4
     rounded-full
-    border-0
+    border
+    border-gray-400
     p-0;
 }
 
