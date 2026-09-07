@@ -389,8 +389,6 @@ export const Calculator = ({
                 flex
                 items-center
                 justify-end
-                mt-5
-                text-2xl
             "
             >
               {renderDisplayValue(display)}
@@ -401,12 +399,12 @@ export const Calculator = ({
                 items-center
                 gap-[0.1rem]
                 justify-end
-                min-h-4
-                text-sm
+                min-h-7.5
+                text-lg
                 text-gray-300/90
               "
             >
-              {renderDisplayValue(expressionLabel, 14, "text-gray-3c00/90")}
+              {renderDisplayValue(expressionLabel, 14, "text-gray-300/90")}
             </span>
           </div>
         </div>
