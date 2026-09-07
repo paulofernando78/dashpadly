@@ -121,7 +121,7 @@ function App() {
                 title={definition.title}
                 widgetClassName={definition.widgetClassName}
                 widgetStyle={definition.widgetStyle}
-                imageName={definition.imageName}
+                iconName={definition.iconName}
                 key={widgetInstance.id}
                 onClose={() => removeWidget(widgetInstance.id)}
               >

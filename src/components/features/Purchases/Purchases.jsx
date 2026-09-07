@@ -2,17 +2,8 @@ import { useState } from "react";
 
 import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
 
-export const Template = ({ onConfigChange, onClose }) => {
+export const Purchases = () => {
   const [isEditing, setIsEditing] = useState(false);
-
-  function handleEdit() {
-    setIsEditing(true);
-  }
-
-  function handleConfirm() {
-    onConfigChange?.({});
-    setIsEditing(false);
-  }
 
   function handleReset() {
     setIsEditing(false);
@@ -29,12 +20,7 @@ export const Template = ({ onConfigChange, onClose }) => {
       bottom={
         <WidgetControls>
           <WidgetControls.Reset onClick={handleReset} />
-          <WidgetControls.Edit
-            isEditing={isEditing}
-            onEdit={handleEdit}
-            onConfirm={handleConfirm}
-          />
-          <WidgetControls.Erase onClick={onClose} />
+         
         </WidgetControls>
       }
     />

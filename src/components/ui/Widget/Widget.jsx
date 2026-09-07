@@ -1,14 +1,11 @@
 import { Icon } from "@/components/ui/Icon";
-import { widgetImages } from "@/assets/widgetImages";
 
 export const WidgetContainer = ({ children }) => {
   return <div className="flex gap-2">{children}</div>;
 };
 
 export const WidgetCard = ({
-  widgetClassName = "bg-gray-500/30",
-  widgetStyle,
-  imageName,
+  iconName,
   onClose,
   children,
   ref,
@@ -22,7 +19,6 @@ export const WidgetCard = ({
       "
     >
       <div
-        style={widgetStyle}
         className={`
           widget-width
           widget-body-height
@@ -31,11 +27,10 @@ export const WidgetCard = ({
           overflow-hidden
           [text-shadow:0_0_6px_rgba(255,255,255,0.2)]
           global-border
-          ${widgetClassName}
           `}
       >
         <div className="flex h-full flex-col">
-          <WidgetHeader imageName={imageName} onClose={onClose} />
+          <WidgetHeader iconName={iconName} onClose={onClose} />
           <div className="min-h-0 flex-1">{children}</div>
         </div>
       </div>
@@ -43,17 +38,17 @@ export const WidgetCard = ({
   );
 };
 
-const WidgetHeader = ({ imageName, onClose }) => {
+const WidgetHeader = ({ iconName, onClose }) => {
   return (
     <div
       className="
         flex
         justify-between
         gap-2
-        mb-4
+        mb-1
       "
     >
-      <WidgetIcons imageName={imageName} />
+      <WidgetIcons iconName={iconName} />
       <WindowControls onClose={onClose} />
     </div>
   );
@@ -67,6 +62,14 @@ const WindowControls = ({ onClose }) => {
         gap-1.5
       "
     >
+      <button
+        type="button"
+        title="maximize"
+        aria-label="maximize widget"
+        className="window-control bg-green-600"
+      >
+        <Icon name="maximize2" size={10} />
+      </button>
       <button
         type="button"
         title="close"
@@ -84,21 +87,11 @@ const WindowControls = ({ onClose }) => {
       >
         <Icon name="minus" size={10} />
       </button> */}
-      <button
-        type="button"
-        title="maximize"
-        aria-label="maximize widget"
-        className="window-control bg-green-600"
-      >
-        <Icon name="maximize2" size={10} />
-      </button>
     </div>
   );
 };
 
-const WidgetIcons = ({ imageName }) => {
-  const widgetImage = widgetImages[imageName];
-
+const WidgetIcons = ({ iconName }) => {
   return (
     <div
       className="
@@ -107,32 +100,24 @@ const WidgetIcons = ({ imageName }) => {
         items-center
       "
     >
-      {widgetImage && (
-        <img
-          width="100"
-          height="100"
-          src={widgetImage.src}
-          alt={widgetImage.alt}
-          className="
-            size-7
-            shrink-0
-            pointer-events-none
-          "
-        />
-      )}
+      <Icon name={iconName} cursorNone />
     </div>
   );
 };
 
-export const WidgetBody = ({ top, middle, subMiddle, bottom }) => {
+export const WidgetBody = ({ widgetClassName = "bg-gray-500/30", widgetStyle, top, middle, subMiddle, bottom }) => {
   return (
     <div
-      className="
+      style={widgetStyle}
+      className={`
         flex
         flex-col
         gap-4
+        pt-4
         h-full
-      "
+        rounded
+        ${widgetClassName}
+      `}
     >
       {top && (
         <div
@@ -231,6 +216,14 @@ WidgetControls.Info = ({ onClick, ...props }) => {
   return (
     <button type="button" onClick={onClick} {...props} className="clickable">
       <Icon name="info" />
+    </button>
+  );
+};
+
+WidgetControls.Erase = ({ onClick }) => {
+  return (
+    <button onClick={onClick} className="clickable">
+      <Icon name="trash" />
     </button>
   );
 };

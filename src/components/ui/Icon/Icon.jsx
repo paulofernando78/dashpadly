@@ -12,6 +12,8 @@ import {
   Check,
   ChevronDown,
   ChevronRight,
+  Clock,
+  CreditCard,
   // D
   Delete,
   Divide,
@@ -31,6 +33,7 @@ import {
   MessageCircleWarning,
   Minus,
   // N
+  NotebookPen,
   NotepadText,
   // P
   Parentheses,
@@ -68,6 +71,8 @@ const icons = {
   check: Check,
   chevronDown: ChevronDown,
   chevronRight: ChevronRight,
+  clock: Clock,
+  creditCard: CreditCard,
   // D
   delete: Delete,
   divide: Divide,
@@ -87,6 +92,7 @@ const icons = {
   messageCircleWarning: MessageCircleWarning,
   minus: Minus,
   // N
+  noteBookPen: NotebookPen,
   notepadText: NotepadText,
   // P
   parentheses: Parentheses,

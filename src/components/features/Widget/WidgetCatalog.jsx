@@ -5,6 +5,7 @@ import { Timer } from "@/components/features/Timer";
 import { WaterIntake } from "@/components/features/WaterIntake";
 import { Calculator } from "@/components/features/Calculator";
 import { Markets } from "@/components/features/Markets";
+import { Purchases } from "@/components/features/Purchases";
 
 const bgFrom = 400;
 const bgTo = 500;
@@ -95,11 +96,11 @@ function getWidgetGradientStyle(colorName) {
 
 export const widgetCatalog = {
   clock: {
-    title: "clock",
-    widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("slate"),
-    imageName: "clock",
     Component: Clock,
+    title: "clock",
+    iconName: "clock",
+    widgetStyle: getWidgetGradientStyle("slate"),
+    widgetClassName: "widget-gradient",
     defaultConfig: {
       location: "São Paulo, São Paulo, Brasil",
       latitude: -23.55052,
@@ -108,21 +109,21 @@ export const widgetCatalog = {
     },
   },
   quickNotes: {
-    title: "quick notes",
-    widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("yellow"),
-    imageName: "quickNotes",
     Component: QuickNotes,
+    title: "quick notes",
+    iconName: "noteBookPen",
+    widgetStyle: getWidgetGradientStyle("yellow"),
+    widgetClassName: "widget-gradient",
     defaultConfig: {
       note: "",
     },
   },
   pomodoro: {
-    title: "pomodoro",
-    widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("red"),
-    imageName: "pomodoro",
     Component: Pomodoro,
+    title: "pomodoro",
+    iconName: "pomodoro",
+    widgetStyle: getWidgetGradientStyle("red"),
+    widgetClassName: "widget-gradient",
     defaultConfig: {
       focusMinutes: 25,
       breakMinutes: 5,
@@ -131,11 +132,11 @@ export const widgetCatalog = {
     },
   },
   timer: {
-    title: "timer",
-    widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("purple"),
-    imageName: "timer",
     Component: Timer,
+    title: "timer",
+    iconName: "timer",
+    widgetStyle: getWidgetGradientStyle("purple"),
+    widgetClassName: "widget-gradient",
     defaultConfig: {
       hours: 0,
       minutes: 0,
@@ -143,29 +144,37 @@ export const widgetCatalog = {
     },
   },
   calculator: {
-    title: "calculator",
-    widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("black"),
-    imageName: "calculator",
     Component: Calculator,
+    title: "calculator",
+    iconName: "calculator",
+    widgetStyle: getWidgetGradientStyle("black"),
+    widgetClassName: "widget-gradient",
     defaultConfig: {
       display: "0",
     },
   },
   markets: {
-    title: "markets",
-    widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("green"),
-    imageName: "markets",
     Component: Markets,
+    title: "markets",
+    iconName: "markets",
+    widgetStyle: getWidgetGradientStyle("green"),
+    widgetClassName: "widget-gradient",
     defaultConfig: {},
   },
   waterIntake: {
-    title: "water intake",
-    widgetClassName: "widget-gradient",
-    widgetStyle: getWidgetGradientStyle("blue"),
-    imageName: "waterIntake",
     Component: WaterIntake,
+    title: "water intake",
+    iconName: "waterIntake",
+    widgetStyle: getWidgetGradientStyle("blue"),
+    widgetClassName: "widget-gradient",
     defaultConfig: {},
   },
+  purchases: {
+    Component: Purchases,
+    title: "purchases",
+    iconName: "purchases",
+    widgetStyle: getWidgetGradientStyle("green"),
+    widgetClassName: "widget-gradient",
+    defaultConfig: {},
+  }
 };

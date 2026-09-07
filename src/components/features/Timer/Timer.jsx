@@ -218,6 +218,7 @@ export const Timer = ({
                   className="
                     flex
                     items-center
+                    justify-between
                     gap-2
                     
                   "

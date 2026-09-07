@@ -74,7 +74,7 @@ export const WidgetPicker = ({ onAdd, ref }) => {
           >
             {Object.entries(widgetCatalog).map(([type, widget]) => (
               <button
-                Key={type}
+                key={type}
                 type="button"
                 onClick={() => handleAdd(type)}
                 style={widget.widgetStyle}
