@@ -400,6 +400,7 @@ export const Calculator = ({
                 items-center
                 gap-[0.1rem]
                 justify-end
+                min-h-4
                 text-sm
                 text-gray-300/90
               "

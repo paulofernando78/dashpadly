@@ -2,7 +2,7 @@
 
 :root {
   --widget-width: 194px;
-  --widget-layout-height: 315px;
+  --widget-layout-height: 331px;
 }
 
 html,
@@ -52,7 +52,6 @@ hr {
     rounded-lg;
 }
 
-
 /* Widget */
 
 .widget-width {
@@ -93,6 +92,10 @@ hr {
     shadow-black/40
     cursor-pointer
     hover:bg-gray-600;
+}
+
+.clickable-label {
+  @apply rounded!
 }
 
 .widget-picker {

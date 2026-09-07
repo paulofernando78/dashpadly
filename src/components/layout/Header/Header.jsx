@@ -5,9 +5,14 @@ export const Header = () => {
     <div className="flex justify-between items-center gap-2 mb-6 p-2 border-b border-gray-700">
       <div className="flex items-center gap-2">
         <Icon name="brain" />
-        <h1 className="text-lg text-white font-bold uppercase">my workstation</h1>
+        <h1 className="text-lg text-white font-bold uppercase">
+          my workstation
+        </h1>
       </div>
-      <button className="clickable">English</button>
+      <div className="space-x-2 font-bold">
+        <button className="clickable clickable-label">Eng</button>
+        <button className="clickable clickable-label">Por</button>
+      </div>
     </div>
   );
 };
