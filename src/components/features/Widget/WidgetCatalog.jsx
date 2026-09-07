@@ -1,11 +1,18 @@
 import { Clock } from "@/components/features/Clock";
 import { QuickNotes } from "@/components/features/QuickNotes";
+
+// Productivity
 import { Pomodoro } from "@/components/features/Pomodoro";
 import { Timer } from "@/components/features/Timer";
-import { WaterIntake } from "@/components/features/WaterIntake";
+
+// Finance
 import { Calculator } from "@/components/features/Calculator";
-import { Markets } from "@/components/features/Markets";
 import { Purchases } from "@/components/features/Purchases";
+import { Markets } from "@/components/features/Markets";
+
+// Health
+import { WaterIntake } from "@/components/features/WaterIntake";
+import { Breathing } from "@/components/features/Breathing";
 
 const bgFrom = 500;
 const bgTo = 600;
@@ -300,6 +307,7 @@ function getWidgetGradientStyle(colorName) {
 
 export const widgetCatalog = {
   clock: {
+    category: "utilities",
     Component: Clock,
     title: "clock",
     iconName: "clock",
@@ -313,6 +321,7 @@ export const widgetCatalog = {
     },
   },
   quickNotes: {
+    category: "productivity",
     Component: QuickNotes,
     title: "quick notes",
     iconName: "quickNotes",
@@ -322,7 +331,10 @@ export const widgetCatalog = {
       note: "",
     },
   },
+
+  // Productivity
   pomodoro: {
+    category: "productivity",
     Component: Pomodoro,
     title: "pomodoro",
     iconName: "pomodoro",
@@ -336,6 +348,7 @@ export const widgetCatalog = {
     },
   },
   timer: {
+    category: "productivity",
     Component: Timer,
     title: "timer",
     iconName: "timer",
@@ -347,7 +360,10 @@ export const widgetCatalog = {
       seconds: 0,
     },
   },
+
+  // Finance
   calculator: {
+    category: "finance",
     Component: Calculator,
     title: "calculator",
     iconName: "calculator",
@@ -357,7 +373,17 @@ export const widgetCatalog = {
       display: "0",
     },
   },
+  purchases: {
+    category: "finance",
+    Component: Purchases,
+    title: "purchases",
+    iconName: "purchases",
+    widgetStyle: getWidgetGradientStyle("lime"),
+    widgetClassName: "widget-gradient",
+    defaultConfig: {},
+  },
   markets: {
+    category: "finance",
     Component: Markets,
     title: "markets",
     iconName: "markets",
@@ -365,20 +391,24 @@ export const widgetCatalog = {
     widgetClassName: "widget-gradient",
     defaultConfig: {},
   },
+
+  // Health
   waterIntake: {
-    Component: WaterIntake,
+    category: "health",
     title: "water intake",
+    Component: WaterIntake,
     iconName: "waterIntake",
     widgetStyle: getWidgetGradientStyle("blue"),
     widgetClassName: "widget-gradient",
     defaultConfig: {},
   },
-  purchases: {
-    Component: Purchases,
-    title: "purchases",
-    iconName: "purchases",
-    widgetStyle: getWidgetGradientStyle("lime"),
+  breating: {
+    category: "health",
+    title: "breating",
+    Component: Breathing,
+    iconName: "waterIntake",
+    widgetStyle: getWidgetGradientStyle("blue"),
     widgetClassName: "widget-gradient",
     defaultConfig: {},
-  }
+  },
 };

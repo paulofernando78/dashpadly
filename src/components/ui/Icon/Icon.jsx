@@ -86,11 +86,29 @@ const Pomodoro = ({ size = 20, className = "", ...props }) => (
   </svg>
 );
 
+const Breathing = ({ size = 20, className = "", ...props }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    {...props}
+  >
+    <path d="M12 3v9m0 0-3-3m3 3 3-3M9 5.5C7.7 5.9 6.8 7.1 6.3 8.6L4.4 14.3C3.7 16.5 3.9 19 5.5 20.2c.7.5 1.5.8 2.4.8H10v-7.5M15 5.5c1.3.4 2.2 1.6 2.7 3.1l1.9 5.7c.7 2.2.5 4.7-1.1 5.9-.7.5-1.5.8-2.4.8H14v-7.5" />
+  </svg>
+);
+
 const icons = {
   // A
   arrowRight: ArrowRight,
   // B
   bookmark: Bookmark,
+  breathing: Breathing,
   brain: Brain,
   // C
   calendar: Calendar,
