@@ -6,6 +6,7 @@ export const WidgetContainer = ({ children }) => {
 
 export const WidgetCard = ({
   widgetClassName = "bg-gray-500/30",
+  widgetWidthClassName = "widget-width",
   widgetStyle,
   iconName,
   onClose,
@@ -23,7 +24,7 @@ export const WidgetCard = ({
       <div
         style={widgetStyle}
         className={`
-          widget-width
+          ${widgetWidthClassName}
           widget-body-height
         text-white
           rounded-lg

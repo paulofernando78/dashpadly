@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
 
-export const Breathing = ({ onConfigChange, onClose }) => {
+export const Breathing = ({ onConfigChange }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEdit() {
@@ -34,7 +34,6 @@ export const Breathing = ({ onConfigChange, onClose }) => {
             onEdit={handleEdit}
             onConfirm={handleConfirm}
           />
-          <WidgetControls.Erase onClick={onClose} />
         </WidgetControls>
       }
     />

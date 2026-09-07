@@ -120,6 +120,7 @@ function App() {
               <WidgetCard
                 title={definition.title}
                 widgetClassName={definition.widgetClassName}
+                widgetWidthClassName={definition.widgetWidthClassName}
                 widgetStyle={definition.widgetStyle}
                 iconName={definition.iconName}
                 key={widgetInstance.id}

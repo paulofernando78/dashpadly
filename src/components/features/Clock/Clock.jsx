@@ -261,8 +261,6 @@ export const Clock = ({
                 className="
                   grid
                   grid-cols-7
-                  gap-
-                  text-xs
                   border-b
                   border-gray-400
                   pb-1.5
@@ -315,10 +313,9 @@ export const Clock = ({
                 className="
                   grid
                   grid-cols-7
-                  gap-
                   rounded
-              
                   text-xs
+                  border
                 "
               >
                 {weather.nextDays.map((day) => (
