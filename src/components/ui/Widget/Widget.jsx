@@ -5,6 +5,8 @@ export const WidgetContainer = ({ children }) => {
 };
 
 export const WidgetCard = ({
+  widgetClassName = "bg-gray-500/30",
+  widgetStyle,
   iconName,
   onClose,
   children,
@@ -19,6 +21,7 @@ export const WidgetCard = ({
       "
     >
       <div
+        style={widgetStyle}
         className={`
           widget-width
           widget-body-height
@@ -27,6 +30,7 @@ export const WidgetCard = ({
           overflow-hidden
           [text-shadow:0_0_6px_rgba(255,255,255,0.2)]
           global-border
+          ${widgetClassName}
           `}
       >
         <div className="flex h-full flex-col">
@@ -45,7 +49,7 @@ const WidgetHeader = ({ iconName, onClose }) => {
         flex
         justify-between
         gap-2
-        mb-1
+        mb-4
       "
     >
       <WidgetIcons iconName={iconName} />
@@ -100,24 +104,23 @@ const WidgetIcons = ({ iconName }) => {
         items-center
       "
     >
-      <Icon name={iconName} cursorNone />
+      <Icon
+        name={iconName}
+        cursorNone
+      />
     </div>
   );
 };
 
-export const WidgetBody = ({ widgetClassName = "bg-gray-500/30", widgetStyle, top, middle, subMiddle, bottom }) => {
+export const WidgetBody = ({ top, middle, subMiddle, bottom }) => {
   return (
     <div
-      style={widgetStyle}
-      className={`
+      className="
         flex
         flex-col
         gap-4
-        pt-4
         h-full
-        rounded
-        ${widgetClassName}
-      `}
+      "
     >
       {top && (
         <div

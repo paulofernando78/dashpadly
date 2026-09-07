@@ -6,6 +6,7 @@ import {
   Brain,
   // C
   Calendar,
+  Calculator,
   CirclePause,
   CirclePlay,
   CirclePlus,
@@ -65,6 +66,7 @@ const icons = {
   brain: Brain,
   // C
   calendar: Calendar,
+  calculator: Calculator,
   circlePause: CirclePause,
   circlePlay: CirclePlay,
   circlePlus: CirclePlus,

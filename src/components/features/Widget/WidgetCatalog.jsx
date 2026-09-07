@@ -7,8 +7,8 @@ import { Calculator } from "@/components/features/Calculator";
 import { Markets } from "@/components/features/Markets";
 import { Purchases } from "@/components/features/Purchases";
 
-const bgFrom = 400;
-const bgTo = 500;
+const bgFrom = 500;
+const bgTo = 600;
 
 const widgetColors = {
   black: {
