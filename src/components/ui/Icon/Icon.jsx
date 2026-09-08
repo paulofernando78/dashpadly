@@ -103,13 +103,101 @@ const Breathing = ({ size = 20, className = "", ...props }) => (
   </svg>
 );
 
+function WeatherSun({ className = "", ...props }) {
+  return (
+    <Sun
+      className={`
+        [&>circle]:stroke-yellow-400
+        [&>path]:stroke-yellow-400
+        ${className}
+      `}
+      {...props}
+    />
+  );
+}
+
+function WeatherMoon({ className = "", ...props }) {
+  return (
+    <Moon
+      className={`
+        [&>path]:stroke-yellow-200
+        ${className}
+      `}
+      {...props}
+    />
+  );
+}
+
 function WeatherCloudSun({ className = "", ...props }) {
   return (
     <CloudSun
       className={`
         [&>path:not(:last-child)]:stroke-yellow-400
         [&>path:last-child]:stroke-slate-400
-        [&>path:last-child]:fill-slate-400
+        ${className}
+      `}
+      {...props}
+    />
+  );
+}
+
+function WeatherCloud({ className = "", ...props }) {
+  return (
+    <Cloud
+      className={`
+        [&>path]:stroke-slate-400
+        ${className}
+      `}
+      {...props}
+    />
+  );
+}
+
+function WeatherCloudFog({ className = "", ...props }) {
+  return (
+    <CloudFog
+      className={`
+        [&>path:first-child]:stroke-slate-400
+        [&>path:not(:first-child)]:stroke-gray-300
+        ${className}
+      `}
+      {...props}
+    />
+  );
+}
+
+function WeatherCloudLightning({ className = "", ...props }) {
+  return (
+    <CloudLightning
+      className={`
+        [&>path:first-child]:stroke-slate-400
+        [&>path:last-child]:stroke-yellow-400
+        ${className}
+      `}
+      {...props}
+    />
+  );
+}
+
+function WeatherCloudRain({ className = "", ...props }) {
+  return (
+    <CloudRain
+      className={`
+        [&>path:first-child]:stroke-slate-400
+        [&>path:not(:first-child)]:stroke-blue-400
+        ${className}
+      `}
+      {...props}
+    />
+  );
+}
+
+function WeatherCloudSnow({ className = "", ...props }) {
+  return (
+    <CloudSnow
+      className={`
+        [&>path:first-child]:stroke-slate-400
+        [&>path:not(:first-child)]:stroke-slate-100
         ${className}
       `}
       {...props}
@@ -135,11 +223,11 @@ const icons = {
   chevronDown: ChevronDown,
   chevronRight: ChevronRight,
   clock: Clock,
-  cloud: Cloud,
-  cloudFog: CloudFog,
-  cloudLightning: CloudLightning,
-  cloudRain: CloudRain,
-  cloudSnow: CloudSnow,
+  cloud: WeatherCloud,
+  cloudFog: WeatherCloudFog,
+  cloudLightning: WeatherCloudLightning,
+  cloudRain: WeatherCloudRain,
+  cloudSnow: WeatherCloudSnow,
   cloudSun: WeatherCloudSun,
   purchases: CreditCard,
   // D
@@ -161,7 +249,7 @@ const icons = {
   maximize2: Maximize2,
   messageCircleWarning: MessageCircleWarning,
   minus: Minus,
-  moon: Moon,
+  moon: WeatherMoon,
   // N
   quickNotes: NotebookPen,
   notepadText: NotepadText,
@@ -176,7 +264,7 @@ const icons = {
   search: Search,
   squarePen: SquarePen,
   squareText: SquareText,
-  sun: Sun,
+  sun: WeatherSun,
   // T
   thermometer: Thermometer,
   timer: Timer,
