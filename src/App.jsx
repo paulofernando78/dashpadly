@@ -5,6 +5,9 @@ import { Header } from "@/components/layout/Header";
 
 import { SectionPanel } from "@/components/ui/SectionPanel";
 
+//Calendar
+import { Calendar } from "@/components/features/Calendar";
+
 // Widget / ui
 import { WidgetContainer, WidgetCard } from "@/components/ui/Widget";
 // Widget / features
@@ -14,9 +17,7 @@ import { widgetCatalog, WidgetPicker } from "@/components/features/Widget";
 import { TaskBoard } from "@/components/features/TaskBoard";
 
 // Notes
-import { Note } from "@/components/features/Note";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { SearchBar } from "@/components/ui/SearchBar";
+import { Notes } from "@/components/features/Notes";
 
 const WIDGETS_STORAGE_KEY = "widgets";
 
@@ -101,6 +102,12 @@ function App() {
     >
       <Header />
 
+      {/* Calendar */}
+      <SectionPanel title="Calendar" storageKey="section-calendar">
+        <Calendar />
+      </SectionPanel>
+
+      {/* Widgets */}
       <SectionPanel
         title="Widgets"
         widgetClassName
@@ -140,22 +147,15 @@ function App() {
         </WidgetContainer>
       </SectionPanel>
 
+      {/* Task Board */}
       <SectionPanel title="Task Board" storageKey="section-task-board">
         <TaskBoard />
       </SectionPanel>
 
+      {/* Notes */}
       <SectionPanel title="Notes" storageKey="section-notes">
-        <div className="grid grid-cols-[200px_1fr] gap-2 flex-1">
-          <Sidebar />
-          <div className="space-y-2">
-            <SearchBar />
-            New Note
-            <main className="flex flex-wrap gap-2 flex-1">
-              <Note />
-              <Note />
-            </main>
-          </div>
-        </div>
+        <Notes />
+        <Notes />
       </SectionPanel>
     </div>
   );

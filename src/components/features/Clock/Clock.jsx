@@ -28,10 +28,7 @@ function getWeatherIconName(code, isDay = true) {
 }
 
 function formatHourTime(time) {
-  return new Date(time).toLocaleTimeString("en-US", {
-    hour: "numeric",
-    hour12: false,
-  });
+  return time.slice(11, 16);
 }
 
 function formatWeekday(date) {
@@ -39,6 +36,8 @@ function formatWeekday(date) {
     weekday: "short",
   });
 }
+
+const WEATHER_ICON_SIZE = 16;
 
 export const Clock = ({
   location = "São Paulo, São Paulo, Brasil",
@@ -95,15 +94,17 @@ export const Clock = ({
       if (selectedLatitude == null || selectedLongitude == null) return;
 
       const response = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${selectedLatitude}&longitude=${selectedLongitude}&current=temperature_2m,weather_code,is_day&hourly=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=7`,
+        `https://api.open-meteo.com/v1/forecast?latitude=${selectedLatitude}&longitude=${selectedLongitude}&current=temperature_2m,weather_code,is_day&hourly=temperature_2m,weather_code,precipitation_probability&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=7`,
       );
 
       const data = await response.json();
 
-      const now = new Date();
+      if (data.timezone) {
+        setSelectedTimezone(data.timezone);
+      }
 
       const nextHourIndex = data.hourly.time.findIndex((time) => {
-        return new Date(time) > now;
+        return time > data.current.time;
       });
 
       const nextHours = data.hourly.time
@@ -114,6 +115,8 @@ export const Clock = ({
             data.hourly.temperature_2m[nextHourIndex + index],
           ),
           weatherCode: data.hourly.weather_code[nextHourIndex + index],
+          precipitationProbability:
+            data.hourly.precipitation_probability[nextHourIndex + index],
         }));
 
       const nextDays = data.daily.time.map((date, index) => ({
@@ -256,62 +259,58 @@ export const Clock = ({
               <span className="truncate">{selectedLocation}</span>
             </div>
             {weather && (
-              <div
+              <WeatherWrapper
                 className="
                   grid
                   grid-cols-7
-                  border-b
-                  border-gray-400
-                  pb-1.5
+                  gap-2                  
                 "
               >
                 <div
                   className="
-                    grid
-                    place-items-center
-                    gap-1
-                    p-1
+                    flex
+                    flex-col
+                    items-center
+                    gap-2
                   "
                 >
-                  <span>Now</span>
-
+                  <span className="text-sm">Now</span>
+                  <span>{weather.current.temperature}°</span>
                   <Icon
                     name={getWeatherIconName(
                       weather.current.weatherCode,
                       weather.current.isDay === 1,
                     )}
-                    size={13}
+                    size={WEATHER_ICON_SIZE}
                   />
-
-                  <span>{weather.current.temperature}°</span>
                 </div>
-
                 {weather.nextHours.map((hour) => (
                   <div
                     key={hour.time}
                     className="
                       grid
                       place-items-center
-                      gap-1
-                      p-1
-                    "
+                      gap-2                    "
                   >
-                    <span>{formatHourTime(hour.time)}</span>
-
+                    <span className="text-sm">{formatHourTime(hour.time)}</span>
+                    <span>{hour.temperature}°</span>
                     <Icon
                       name={getWeatherIconName(hour.weatherCode)}
-                      size={13}
+                      size={WEATHER_ICON_SIZE}
                     />
-                    <span>{hour.temperature}°</span>
+                    <span className="text-sm">
+                      {hour.precipitationProbability}%
+                    </span>
                   </div>
                 ))}
-              </div>
+              </WeatherWrapper>
             )}
             {weather && (
-              <div
+              <WeatherWrapper
                 className="
                   grid
                   grid-cols-8
+                  gap-2
                 "
               >
                 <div
@@ -319,7 +318,7 @@ export const Clock = ({
                       justify-self-center
                       flex
                       flex-col
-                      justify-end
+                      justify-center
                       gap-2
                       p-1
                       text-sm
@@ -334,33 +333,32 @@ export const Clock = ({
                     className="
                         grid
                         place-items-center
-                        gap-1
-                        p-1
+                        gap-2
                       "
                   >
                     <span>{formatWeekday(day.date)}</span>
-
-                    <Icon
-                      name={getWeatherIconName(day.weatherCode)}
-                      size={13}
-                    />
-
                     <span>{day.min}°</span>
                     <span>{day.max}°</span>
+                    <Icon
+                      name={getWeatherIconName(day.weatherCode)}
+                      size={WEATHER_ICON_SIZE}
+                    />
                   </div>
                 ))}
-              </div>
+              </WeatherWrapper>
             )}
           </div>
         ) : (
           <div
             className="
-            relative
-            flex
-            h-37
+              relative
+              grid
+              grid-cols-[auto_1fr]
+              items-center
+              gap-2 
             "
           >
-            {/* <Icon name="mapPin" size={25} /> */}
+            <Icon name="mapPin" size={25} />
             <div>
               <label>
                 <input
@@ -373,12 +371,12 @@ export const Clock = ({
                   }
                   placeholder="Type location"
                   className="  
-                  w-full
-                  border
-                  rounded
-                  px-2
-                  pt-1
-                  pb-1
+                    w-full
+                    px-2
+                    pt-1
+                    pb-1
+                    border
+                    rounded
                   "
                 />
               </label>
@@ -441,3 +439,18 @@ export const Clock = ({
     />
   );
 };
+
+function WeatherWrapper({ children, className }) {
+  return (
+    <div
+      className={`
+        p-2
+        rounded
+      bg-gray-500/50
+        ${className}
+      `}
+    >
+      {children}
+    </div>
+  );
+}

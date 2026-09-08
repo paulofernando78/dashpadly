@@ -41,8 +41,8 @@ button {
 }
 
 hr {
-  margin-block: 0.3rem;
-  color: gray;
+  margin-block: 0.1rem;
+  color: lightgray;
 }
 
 .global-border {
