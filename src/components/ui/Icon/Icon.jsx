@@ -103,6 +103,20 @@ const Breathing = ({ size = 20, className = "", ...props }) => (
   </svg>
 );
 
+function WeatherCloudSun({ className = "", ...props }) {
+  return (
+    <CloudSun
+      className={`
+        [&>path:not(:last-child)]:stroke-yellow-400
+        [&>path:last-child]:stroke-slate-400
+        [&>path:last-child]:fill-slate-400
+        ${className}
+      `}
+      {...props}
+    />
+  );
+}
+
 const icons = {
   // A
   arrowRight: ArrowRight,
@@ -126,7 +140,7 @@ const icons = {
   cloudLightning: CloudLightning,
   cloudRain: CloudRain,
   cloudSnow: CloudSnow,
-  cloudSun: CloudSun,
+  cloudSun: WeatherCloudSun,
   purchases: CreditCard,
   // D
   delete: Delete,
