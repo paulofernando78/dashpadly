@@ -246,6 +246,7 @@ export const Clock = ({
               flex-col
               gap-1
               w-full
+              h-242
             "
           >
             <div
