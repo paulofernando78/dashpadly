@@ -37,7 +37,7 @@ function formatWeekday(date) {
   });
 }
 
-const WEATHER_ICON_SIZE = 16;
+const WEATHER_ICON_SIZE = 20;
 
 export const Clock = ({
   location = "São Paulo, São Paulo, Brasil",
@@ -201,7 +201,7 @@ export const Clock = ({
     const response = await fetch(
       `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
         value,
-      )}&count=5&language=pt&format=json`,
+      )}&count=100&language=pt&format=json`,
     );
 
     const data = await response.json();
@@ -244,7 +244,7 @@ export const Clock = ({
             className="
               flex
               flex-col
-              gap-2
+              gap-1
               w-full
             "
           >
@@ -352,13 +352,9 @@ export const Clock = ({
           <div
             className="
               relative
-              grid
-              grid-cols-[auto_1fr]
-              items-center
-              gap-2 
+              h-full
             "
           >
-            <Icon name="mapPin" size={25} />
             <div>
               <label>
                 <input
@@ -389,7 +385,7 @@ export const Clock = ({
                     mt-2
                     p-1
                     w-full
-                    h-30.25
+                    h-49.5
                     bg-gray-700
                     rounded
                     shadow-lg
