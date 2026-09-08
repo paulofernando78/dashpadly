@@ -34,6 +34,8 @@ import {
   FolderClosed,
   FolderOpen,
   FolderPlus,
+  // G
+  GripHorizontal,
   // I
   Info,
   // M
@@ -242,6 +244,8 @@ const icons = {
   folderClosed: FolderClosed,
   folderOpen: FolderOpen,
   folderPlus: FolderPlus,
+  // G
+  gripHorizontal: GripHorizontal,
   // I
   info: Info,
   // M
