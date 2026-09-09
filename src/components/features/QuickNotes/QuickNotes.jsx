@@ -20,7 +20,7 @@ export function QuickNotes({ note = "", onConfigChange, onClose }) {
   return (
     <WidgetBody onClose={onClose}
       middle={
-          <div className="w-full h-full p-4">
+          <div className="w-full h-full">
             <textarea
               value={currentNote}
               onChange={handleNoteChange}

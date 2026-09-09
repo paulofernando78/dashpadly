@@ -232,6 +232,7 @@ export function Clock({
   return (
     <WidgetBody
       onClose={onClose}
+      className=""
       top={
         <>
           <span className="block">{currentTime}</span>

@@ -4,7 +4,7 @@ export function WidgetContainer({ children }) {
   return <div className="flex gap-2">{children}</div>;
 }
 
-const widgetWidth = `min-w-[194px]`;
+const widgetWidth = `w-max min-w-[194px]`;
 
 export const widgetHeight = `h-[388px]`;
 
@@ -58,9 +58,7 @@ const windowControl = `
 
 function WidgetHeader({ iconName, onClose }) {
   return (
-    <div
-      className="header"
-    >
+    <div className="header">
       <WidgetIcons iconName={iconName} />
       <Icon name="gripHorizontal" />
       <WindowControls onClose={onClose} />
@@ -119,15 +117,24 @@ function WidgetIcons({ iconName }) {
   );
 }
 
-export function WidgetBody({ top, middle, subMiddle, bottom }) {
+export function WidgetBody({
+  top,
+  middlePosition,
+  middle,
+  subMiddle,
+  bottomPosition,
+  bottom,
+  className,
+}) {
   return (
     <div
-      className="
+      className={`
         flex
         flex-col
         gap-4
         h-full
-      "
+        ${className}
+      `}
     >
       {top && (
         <div
@@ -143,17 +150,19 @@ export function WidgetBody({ top, middle, subMiddle, bottom }) {
           {top}
         </div>
       )}
-
       {middle && (
         <div
-          className="
-          flex
-          flex-col
-          justify-center
-          w-full
-          h-full
-          min-h-0
-        "
+          className={`
+            flex
+            flex-col
+            ${middlePosition === "top"
+              ? "justify-start"
+              : "justify-center"
+            }
+            w-full
+            ${bottomPosition ? "" : "h-full"}
+            min-h-0
+          `}
         >
           {middle}
         </div>
@@ -169,7 +178,18 @@ export function WidgetBody({ top, middle, subMiddle, bottom }) {
           {subMiddle}
         </div>
       )}
-      {bottom && <div className="self-center">{bottom}</div>}
+      {bottom && (
+        <div
+          className={`
+            ${bottomPosition === "left"
+              ? "flex-1 w-full min-h-0 self-start"
+              : "self-center"
+            }
+          `}
+        >
+          {bottom}
+        </div>
+      )}
     </div>
   );
 }

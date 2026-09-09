@@ -11,6 +11,7 @@ export function Calculator({
   const [expressionLabel, setExpressionLabel] = useState("");
   const [display, setDisplay] = useState(savedDisplay);
   const [shouldResetDisplay, setShouldResetDisplay] = useState(false);
+  const [history, setHistory] = useState([]);
 
   function inputDigit(digit) {
     if (shouldResetDisplay || display === "Error") {
@@ -137,8 +138,20 @@ export function Calculator({
         return;
       }
 
-      setExpressionLabel(formatExpression(normalizedExpression));
-      updateDisplay(formatResult(result));
+      const formattedExpression = formatExpression(normalizedExpression);
+      const formattedResult = formatResult(result);
+
+      setHistory((currentHistory) => [
+        {
+          id: crypto.randomUUID(),
+          expression: formattedExpression,
+          result: formattedResult,
+        },
+        ...currentHistory,
+      ]);
+
+      setExpressionLabel(formattedExpression);
+      updateDisplay(formattedResult);
       setShouldResetDisplay(true);
     } catch {
       updateDisplay("Error");
@@ -409,6 +422,7 @@ export function Calculator({
           </div>
         </div>
       }
+      middlePosition="top"
       middle={
         <div
           className="
@@ -535,6 +549,38 @@ export function Calculator({
           >
             <Icon name="equal" className="text-white" />
           </button>
+        </div>
+      }
+      bottomPosition="left"
+      bottom={
+        <div
+          className="
+            h-full
+            p-1.75
+            text-sm
+            border
+            border-gray-300
+            rounded
+            overflow-y-auto
+          "
+        >
+          {history.map((calculation) => (
+            <div
+              key={calculation.id}
+              className="
+                flex
+              "
+            >
+              <span className="flex text-gray-300/90">
+                {renderDisplayValue(
+                  calculation.expression,
+                  14,
+                  "",
+                )}
+              </span>
+              <span className="ml-1">= {calculation.result}</span>
+            </div>
+          ))}
         </div>
       }
     />
