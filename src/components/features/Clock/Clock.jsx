@@ -39,14 +39,14 @@ function formatWeekday(date) {
 
 const WEATHER_ICON_SIZE = 20;
 
-export const Clock = ({
+export function Clock({
   location = "São Paulo, São Paulo, Brasil",
   latitude = -23.55052,
   longitude = -46.63331,
   timezone = "America/Sao_Paulo",
   onConfigChange,
   onClose,
-}) => {
+}) {
   const locationInputRef = useRef(null);
 
   // Clock
@@ -246,7 +246,6 @@ export const Clock = ({
               flex-col
               gap-1
               w-full
-              h-242
             "
           >
             <div
@@ -435,15 +434,15 @@ export const Clock = ({
       }
     />
   );
-};
+}
 
 function WeatherWrapper({ children, className }) {
   return (
     <div
       className={`
         p-2
-        rounded
-      bg-gray-500/50
+        rounded-md
+      bg-gray-500/80
         ${className}
       `}
     >

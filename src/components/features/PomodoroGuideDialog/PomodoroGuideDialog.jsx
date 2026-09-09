@@ -20,11 +20,11 @@ const pomodoroCycle = [
   { restPhase: "long", restMinutes: 15 },
 ];
 
-const PhaseLabel = ({ phase }) => {
+function PhaseLabel({ phase }) {
   return <span className={`${phaseColors[phase]} uppercase`}>{phase}</span>;
-};
+}
 
-const Tomate = ({ className }) => {
+function Tomate({ className }) {
   return (
     <img
       width="28"
@@ -34,9 +34,9 @@ const Tomate = ({ className }) => {
       className={className}
     />
   );
-};
+}
 
-export const PomodoroGuideDialog = () => {
+export function PomodoroGuideDialog() {
   const dialogRef = useRef(null);
 
   return (
@@ -146,4 +146,4 @@ export const PomodoroGuideDialog = () => {
       </Dialog>
     </>
   );
-};
+}

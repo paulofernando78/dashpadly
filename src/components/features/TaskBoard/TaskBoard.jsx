@@ -23,7 +23,27 @@ const statusOptions = [
   },
 ];
 
-const TaskBoardNotice = () => {
+export function TaskBoard() {
+  return (
+    <div className="grid">
+      <TaskBoardNotice />
+      <div
+        className="
+      overflow-x-auto
+      text-slate-100
+      "
+      >
+        <div className="grid gap-2 pt-2 [grid-template-columns:repeat(4,minmax(220px,1fr))]">
+          {statusOptions.map((status) => (
+            <TaskBoardColumn key={status.id} status={status} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TaskBoardNotice() {
   return (
     <div
       className="
@@ -41,9 +61,29 @@ const TaskBoardNotice = () => {
       </p>
     </div>
   );
-};
+}
 
-const TaskComposer = ({ color }) => {
+function TaskBoardColumn({ status }) {
+  return (
+    <section className="flex flex-col gap-2">
+      <div
+        className={`
+          p-2
+          global-border
+          ${status.color}
+        `}
+      >
+        <div className="flex items-center justify-between">
+          <span className="block mb-2 font-bold uppercase">{status.label}</span>
+          <Icon name="ellipsis" className="translate-y-[-0.4rem]" />
+        </div>
+        <TaskComposer color={status.color} />
+      </div>
+    </section>
+  );
+}
+
+function TaskComposer({ color }) {
   return (
     <div
       className={`
@@ -67,45 +107,4 @@ const TaskComposer = ({ color }) => {
       />
     </div>
   );
-};
-
-const TaskBoardColumn = ({ status }) => {
-  return (
-    <section className="flex flex-col gap-2">
-      <div
-        className={`
-          p-2
-          global-border
-          ${status.color}
-        `}
-      >
-        <div className="flex items-center justify-between">
-          <span className="block mb-2 font-bold uppercase">{status.label}</span>
-          <Icon name="ellipsis" className="translate-y-[-0.4rem]" />
-        </div>
-        <TaskComposer color={status.color} />
-      </div>
-    </section>
-  );
-};
-
-export const TaskBoard = () => {
-  return (
-    <div className="grid">
-      <TaskBoardNotice />
-      <div
-        className="
-      overflow-x-auto
-      text-slate-100
-      "
-      >
-        
-        <div className="grid gap-2 pt-2 [grid-template-columns:repeat(4,minmax(220px,1fr))]">
-          {statusOptions.map((status) => (
-            <TaskBoardColumn key={status.id} status={status} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
+}

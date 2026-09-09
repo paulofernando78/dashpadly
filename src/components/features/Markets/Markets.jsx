@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
 
-export const Markets = ({ onConfigChange, onClose }) => {
+export function Markets({ onConfigChange, onClose }) {
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEdit() {
@@ -38,4 +38,4 @@ export const Markets = ({ onConfigChange, onClose }) => {
       }
     />
   );
-};
+}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Icon } from "@/components/ui/Icon";
 
-export const Sidebar = () => {
+export function Sidebar() {
   const [folderOpen, setFolderOpen] = useState(false);
 
   function handleFolderToggle() {
@@ -44,4 +44,4 @@ export const Sidebar = () => {
       </aside>
     </div>
   );
-};
+}

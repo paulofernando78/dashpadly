@@ -1,4 +1,4 @@
-export const NumberInput = ({
+export function NumberInput({
   label,
   hideLabel = false,
   name,
@@ -8,7 +8,7 @@ export const NumberInput = ({
   max,
   className = "",
   wrapperClassName = "",
-}) => {
+}) {
   return (
     <label className={`text-center ${wrapperClassName}`}>
       {hideLabel ? (
@@ -38,4 +38,4 @@ export const NumberInput = ({
       />
     </label>
   );
-};
+}

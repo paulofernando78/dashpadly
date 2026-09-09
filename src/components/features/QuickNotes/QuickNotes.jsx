@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
 
-export const QuickNotes = ({ note = "", onConfigChange, onClose }) => {
+export function QuickNotes({ note = "", onConfigChange, onClose }) {
   const [currentNote, setCurrentNote] = useState(note);
 
   function handleNoteChange(event) {
@@ -24,7 +24,7 @@ export const QuickNotes = ({ note = "", onConfigChange, onClose }) => {
             <textarea
               value={currentNote}
               onChange={handleNoteChange}
-              placeholder="Jot down..."
+              placeholder="Quick notes..."
               className="
                   w-full    
                   h-full
@@ -46,4 +46,4 @@ export const QuickNotes = ({ note = "", onConfigChange, onClose }) => {
       }
     />
   );
-};
+}

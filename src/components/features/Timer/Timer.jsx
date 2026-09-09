@@ -42,13 +42,13 @@ function playAlarm() {
   playTone(1320, 0.22);
 }
 
-export const Timer = ({
+export function Timer({
   hours = 0,
   minutes = 0,
   seconds = 0,
   onConfigChange,
   onClose
-}) => {
+}) {
   const initialTime = hours * 3600 + minutes * 60 + seconds;
 
   const [time, setTime] = useState(initialTime);
@@ -316,4 +316,4 @@ export const Timer = ({
       }
     />
   );
-};
+}

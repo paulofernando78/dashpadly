@@ -3,4 +3,5 @@ export {
   WidgetCard,
   WidgetContainer,
   WidgetControls,
+  widgetHeight
 } from "./Widget";

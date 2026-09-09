@@ -1,6 +1,6 @@
 import { Icon } from "@/components/ui/Icon";
 
-export const SearchBar = () => {
+export function SearchBar() {
   return (
     <>
       <label className="relative">
@@ -25,4 +25,4 @@ export const SearchBar = () => {
       </label>
     </>
   );
-};
+}

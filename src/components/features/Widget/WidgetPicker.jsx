@@ -3,7 +3,9 @@ import { Icon } from "@/components/ui/Icon";
 
 import { widgetCatalog } from "./WidgetCatalog";
 
-export const WidgetPicker = ({ onAdd, ref }) => {
+import { widgetHeight } from "@/components/ui/Widget";
+
+export function WidgetPicker({ onAdd, ref }) {
   const [isOpen, setIsOpen] = useState(false);
   const pickerRef = useRef(null);
 
@@ -48,6 +50,10 @@ export const WidgetPicker = ({ onAdd, ref }) => {
     setIsOpen(false);
   }
 
+  const widgetPickerBorder = `
+    rounded!
+  `;
+
   return (
     <div
       ref={ref}
@@ -79,6 +85,9 @@ export const WidgetPicker = ({ onAdd, ref }) => {
             scroll-mr-2
           "
         >
+          <header className="header">
+            <span className="w-full text-center">Select</span>
+          </header>
           <div
             className={`
               flex
@@ -86,9 +95,10 @@ export const WidgetPicker = ({ onAdd, ref }) => {
               gap-4
               p-2
               bg-gray-500/30
-              rounded-lg
+              rounded-bl-md
+              rounded-br-md
               overflow-y-auto
-              widget-body-height
+              ${widgetHeight}
               `}
           >
             {Object.entries(widgetsByCategory).map(([category, widgets]) => (
@@ -116,7 +126,7 @@ export const WidgetPicker = ({ onAdd, ref }) => {
                       type="button"
                       onClick={() => handleAdd(widgetId)}
                       style={widget.widgetStyle}
-                      className={`clickable widget-picker ${widget.widgetClassName}`}
+                      className={`clickable ${widgetPickerBorder} ${widget.widgetClassName}`}
                     >
                       <span>{widget.title}</span>
                     </button>
@@ -129,4 +139,4 @@ export const WidgetPicker = ({ onAdd, ref }) => {
       )}
     </div>
   );
-};
+}

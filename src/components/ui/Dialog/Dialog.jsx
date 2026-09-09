@@ -1,5 +1,5 @@
 
-export const Dialog = ({ dialogRef, children, className = "" }) => {
+export function Dialog({ dialogRef, children, className = "" }) {
   return (
     <dialog
       ref={dialogRef}
@@ -26,4 +26,4 @@ export const Dialog = ({ dialogRef, children, className = "" }) => {
       {children}
     </dialog>
   );
-};
+}

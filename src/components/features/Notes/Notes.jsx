@@ -4,7 +4,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { SearchBar } from "@/components/ui/SearchBar";
 
-export const Notes = () => {
+export function Notes() {
   const [bookmark, setBookmark] = useState(false);
 
   function handleBookmark() {
@@ -51,7 +51,7 @@ export const Notes = () => {
       </div>
     </div>
   );
-};
+}
 
 Notes.Card = () => {
   return (

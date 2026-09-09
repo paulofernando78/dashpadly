@@ -1,18 +1,21 @@
 import { Icon } from "@/components/ui/Icon";
 
-export const WidgetContainer = ({ children }) => {
+export function WidgetContainer({ children }) {
   return <div className="flex gap-2">{children}</div>;
-};
+}
 
-export const WidgetCard = ({
+const widgetWidth = `min-w-[194px]`;
+
+export const widgetHeight = `h-[388px]`;
+
+export function WidgetCard({
   widgetClassName = "bg-gray-500/30",
-  widgetWidthClassName = "widget-width",
   widgetStyle,
   iconName,
   onClose,
   children,
   ref,
-}) => {
+}) {
   return (
     <article
       ref={ref}
@@ -21,45 +24,51 @@ export const WidgetCard = ({
         scroll-mr-2
       "
     >
+      <WidgetHeader iconName={iconName} onClose={onClose} />
       <div
         style={widgetStyle}
         className={`
-          ${widgetWidthClassName}
-          widget-body-height
-        text-white
-          rounded-lg
-          overflow-hidden
-          [text-shadow:0_0_6px_rgba(255,255,255,0.2)]
-          global-border
-          ${widgetClassName}
-          `}
+            ${widgetWidth}
+            ${widgetHeight}
+            rounded-t-0
+            rounded-bl-lg
+            rounded-br-lg
+          text-white
+            overflow-hidden
+            [text-shadow:0_0_6px_rgba(255,255,255,0.2)]
+            global-border
+            ${widgetClassName}
+            `}
       >
         <div className="flex h-full flex-col">
-          <WidgetHeader iconName={iconName} onClose={onClose} />
           <div className="min-h-0 flex-1">{children}</div>
         </div>
       </div>
     </article>
   );
-};
+}
 
-const WidgetHeader = ({ iconName, onClose }) => {
+const windowControl = `
+  grid
+  place-items-center
+  size-4
+  rounded-full
+  
+`;
+
+function WidgetHeader({ iconName, onClose }) {
   return (
     <div
-      className="
-        flex
-        justify-between
-        gap-2
-        mb-4
-      "
+      className="header"
     >
       <WidgetIcons iconName={iconName} />
+      <Icon name="gripHorizontal" />
       <WindowControls onClose={onClose} />
     </div>
   );
-};
+}
 
-const WindowControls = ({ onClose }) => {
+function WindowControls({ onClose }) {
   return (
     <div
       className="
@@ -71,7 +80,7 @@ const WindowControls = ({ onClose }) => {
         type="button"
         title="maximize"
         aria-label="maximize widget"
-        className="window-control bg-green-600"
+        className={`${windowControl} bg-green-600`}
       >
         <Icon name="maximize2" size={10} />
       </button>
@@ -80,7 +89,7 @@ const WindowControls = ({ onClose }) => {
         title="close"
         aria-label="close widget"
         onClick={onClose}
-        className="window-control bg-red-400"
+        className={`${windowControl} bg-red-400`}
       >
         <Icon name="x" size={10} className="text-gray-600" />
       </button>
@@ -94,9 +103,9 @@ const WindowControls = ({ onClose }) => {
       </button> */}
     </div>
   );
-};
+}
 
-const WidgetIcons = ({ iconName }) => {
+function WidgetIcons({ iconName }) {
   return (
     <div
       className="
@@ -108,14 +117,9 @@ const WidgetIcons = ({ iconName }) => {
       <Icon name={iconName} cursorNone />
     </div>
   );
-};
+}
 
-export const WidgetBody = ({
-  top,
-  middle,
-  subMiddle,
-  bottom,
-}) => {
+export function WidgetBody({ top, middle, subMiddle, bottom }) {
   return (
     <div
       className="
@@ -168,9 +172,9 @@ export const WidgetBody = ({
       {bottom && <div className="self-center">{bottom}</div>}
     </div>
   );
-};
+}
 
-export const WidgetControls = ({ children }) => {
+export function WidgetControls({ children }) {
   return (
     <>
       <div
@@ -183,7 +187,7 @@ export const WidgetControls = ({ children }) => {
       </div>
     </>
   );
-};
+}
 
 WidgetControls.Play = ({ isRunning, onClick, disabled = false }) => {
   return (
@@ -225,10 +229,10 @@ WidgetControls.Info = ({ onClick, ...props }) => {
   );
 };
 
-WidgetControls.Erase = ({ onClick }) => {
-  return (
-    <button onClick={onClick} className="clickable">
-      <Icon name="trash" />
-    </button>
-  );
-};
+// WidgetControls.Erase = ({ onClick }) => {
+//   return (
+//     <button onClick={onClick} className="clickable">
+//       <Icon name="trash" />
+//     </button>
+//   );
+// };

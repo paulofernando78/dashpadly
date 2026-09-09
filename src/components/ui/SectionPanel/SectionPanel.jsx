@@ -3,13 +3,13 @@ import { useDragScroll } from "@/hooks/useDragScroll";
 
 import { Icon } from "@/components/ui/Icon";
 
-export const SectionPanel = ({
+export function SectionPanel({
   title,
   children,
   defaultOpen = true,
   storageKey,
   count,
-}) => {
+}) {
   const headingId = useId();
   const dragScroll = useDragScroll();
   const [isOpen, setIsOpen] = useState(() => {
@@ -90,4 +90,4 @@ export const SectionPanel = ({
       )}
     </section>
   );
-};
+}

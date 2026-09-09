@@ -71,39 +71,43 @@ import {
   X,
 } from "lucide-react";
 
-const Pomodoro = ({ size = 20, className = "", ...props }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-    {...props}
-  >
-    <path d="M12 5c-4.97 0-9 3.8-9 8.5S7.03 22 12 22s9-3.8 9-8.5S16.97 5 12 5ZM12 5c.35-1.55 1.1-2.5 2.2-3M12 5c-.35-1.55-1.1-2.5-2.2-3M12 5c-1.55-.25-2.95-.1-4.2.85M12 5c1.55-.25 2.95-.1 4.2.85M12 5c-.9 1-2.05 1.72-3.45 2.15M12 5c.9 1 2.05 1.72 3.45 2.15" />
-  </svg>
-);
+function Pomodoro({ size = 20, className = "", ...props }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...props}
+    >
+      <path d="M12 5c-4.97 0-9 3.8-9 8.5S7.03 22 12 22s9-3.8 9-8.5S16.97 5 12 5ZM12 5c.35-1.55 1.1-2.5 2.2-3M12 5c-.35-1.55-1.1-2.5-2.2-3M12 5c-1.55-.25-2.95-.1-4.2.85M12 5c1.55-.25 2.95-.1 4.2.85M12 5c-.9 1-2.05 1.72-3.45 2.15M12 5c.9 1 2.05 1.72 3.45 2.15" />
+    </svg>
+  );
+}
 
-const Breathing = ({ size = 20, className = "", ...props }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-    {...props}
-  >
-    <path d="M12 3v9m0 0-3-3m3 3 3-3M9 5.5C7.7 5.9 6.8 7.1 6.3 8.6L4.4 14.3C3.7 16.5 3.9 19 5.5 20.2c.7.5 1.5.8 2.4.8H10v-7.5M15 5.5c1.3.4 2.2 1.6 2.7 3.1l1.9 5.7c.7 2.2.5 4.7-1.1 5.9-.7.5-1.5.8-2.4.8H14v-7.5" />
-  </svg>
-);
+function Breathing({ size = 20, className = "", ...props }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...props}
+    >
+      <path d="M12 3v9m0 0-3-3m3 3 3-3M9 5.5C7.7 5.9 6.8 7.1 6.3 8.6L4.4 14.3C3.7 16.5 3.9 19 5.5 20.2c.7.5 1.5.8 2.4.8H10v-7.5M15 5.5c1.3.4 2.2 1.6 2.7 3.1l1.9 5.7c.7 2.2.5 4.7-1.1 5.9-.7.5-1.5.8-2.4.8H14v-7.5" />
+    </svg>
+  );
+}
 
 function WeatherSun({ className = "", ...props }) {
   return (
@@ -282,13 +286,13 @@ const icons = {
   x: X,
 };
 
-export const Icon = ({
+export function Icon({
   name,
   size = 20,
   className = "text-gray-300",
   cursorNone = false,
   ...props
-}) => {
+}) {
   const LucideIcon = icons[name];
   if (!LucideIcon) return null;
 
@@ -303,4 +307,4 @@ export const Icon = ({
       {...props}
     />
   );
-};
+}

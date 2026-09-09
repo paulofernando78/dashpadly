@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
 
-export const Breathing = ({ onConfigChange }) => {
+export function Breathing({ onConfigChange }) {
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEdit() {
@@ -38,4 +38,4 @@ export const Breathing = ({ onConfigChange }) => {
       }
     />
   );
-};
+}

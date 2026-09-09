@@ -3,11 +3,11 @@ import { useState } from "react";
 import { WidgetBody } from "@/components/ui/Widget";
 import { Icon } from "@/components/ui/Icon";
 
-export const Calculator = ({
+export function Calculator({
   display: savedDisplay = "0",
   onConfigChange,
   onClose,
-}) => {
+}) {
   const [expressionLabel, setExpressionLabel] = useState("");
   const [display, setDisplay] = useState(savedDisplay);
   const [shouldResetDisplay, setShouldResetDisplay] = useState(false);
@@ -539,4 +539,4 @@ export const Calculator = ({
       }
     />
   );
-};
+}

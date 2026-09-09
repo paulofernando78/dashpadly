@@ -71,14 +71,14 @@ const durationDisplay = `
   font-bold
 `;
 
-export const Pomodoro = ({
+export function Pomodoro({
   focusMinutes: initialFocusMinutes = DEFAULT_FOCUS_MINUTES,
   breakMinutes: initialBreakMinutes = DEFAULT_BREAK_MINUTES,
   longBreakMinutes: initialLongBreakMinutes = DEFAULT_LONG_BREAK_MINUTES,
   pomodoroGoal: initialPomodoroGoal = 4,
   onConfigChange,
   onClose,
-}) => {
+}) {
   const [focusMinutes, setFocusMinutes] = useState(initialFocusMinutes);
   const [breakMinutes, setBreakMinutes] = useState(initialBreakMinutes);
   const [longBreakMinutes, setLongBreakMinutes] = useState(
@@ -497,4 +497,4 @@ export const Pomodoro = ({
       />
     </>
   );
-};
+}

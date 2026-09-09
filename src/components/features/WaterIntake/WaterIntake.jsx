@@ -4,7 +4,7 @@ import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
 import { Icon } from "@/components/ui/Icon";
 import { NumberInput } from "@/components/ui/NumberInput";
 
-export const WaterIntake = ({ onConfigChange, onClose }) => {
+export function WaterIntake({ onConfigChange, onClose }) {
   const [glassMl, setGlassMl] = useState(500);
   const [goalGlasses, setGoalGlasses] = useState(6);
   const [completedGlasses, setCompletedGlasses] = useState(0);
@@ -148,4 +148,4 @@ export const WaterIntake = ({ onConfigChange, onClose }) => {
       }
     />
   );
-};
+}

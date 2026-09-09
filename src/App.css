@@ -1,10 +1,5 @@
 @reference "tailwindcss";
 
-:root {
-  --widget-width: 194px;
-  --widget-layout-height: 424px;
-}
-
 html,
 h1,
 h2,
@@ -46,22 +41,10 @@ hr {
 }
 
 .global-border {
-  @apply p-2
+  @apply
+    p-2
     border
   border-gray-500/50
-    rounded-lg;
-}
-
-/* Widget */
-
-.widget-width {
-  width: var(--widget-width);
-  min-width: var(--widget-width);
-}
-
-.widget-body-height {
-  height: var(--widget-layout-height);
-  min-height: var(--widget-layout-height);
 }
 
 .widget-gradient {
@@ -70,15 +53,6 @@ hr {
     color-mix(in srgb, var(--widget-from) 100%, transparent) 10%,
     color-mix(in srgb, var(--widget-to) 100%, transparent) 100%
   );
-}
-
-.window-control {
-  @apply grid
-    place-items-center
-    size-4
-    rounded-full
-    border
-    border-gray-400
 }
 
 .clickable {
@@ -93,12 +67,8 @@ hr {
     hover:bg-gray-600;
 }
 
-.clickable-label {
-  @apply rounded!
-}
-
-.widget-picker {
-  @apply rounded!
+.clickable-label { @apply
+  rounded!
 }
 
 /* Scroll */
@@ -118,4 +88,17 @@ hr {
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.header { @apply
+  flex
+  items-center
+  justify-between
+  gap-2
+  w-full
+  h-[36px]
+  p-2
+  rounded-tl-md
+  rounded-tr-md
+  bg-black
 }

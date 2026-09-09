@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
 
-export const Template = ({ onConfigChange, onClose }) => {
+export function Template({ onConfigChange, onClose }) {
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEdit() {
@@ -39,4 +39,4 @@ export const Template = ({ onConfigChange, onClose }) => {
       }
     />
   );
-};
+}

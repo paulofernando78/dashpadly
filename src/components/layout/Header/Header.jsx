@@ -1,6 +1,6 @@
 import { Icon } from "@/components/ui/Icon";
 
-export const Header = () => {
+export function Header() {
   return (
     <div className="flex justify-between items-center gap-2 mb-6 p-2 border-b border-gray-700">
       <div className="flex items-center gap-2">
@@ -15,4 +15,4 @@ export const Header = () => {
       </div>
     </div>
   );
-};
+}

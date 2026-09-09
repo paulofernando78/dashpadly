@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
 
-export const Purchases = () => {
+export function Purchases() {
   const [isEditing, setIsEditing] = useState(false);
 
   function handleReset() {
@@ -25,4 +25,4 @@ export const Purchases = () => {
       }
     />
   );
-};
+}
