@@ -368,7 +368,7 @@ export function Clock({
                   }
                   placeholder="Type location"
                   className="  
-                    w-full
+                    w-[301.63px]  
                     px-2
                     pt-1
                     pb-1

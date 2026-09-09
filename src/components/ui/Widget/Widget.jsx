@@ -33,7 +33,6 @@ export function WidgetCard({
             rounded-t-0
             rounded-bl-lg
             rounded-br-lg
-          text-white
             overflow-hidden
             [text-shadow:0_0_6px_rgba(255,255,255,0.2)]
             global-border
@@ -155,10 +154,7 @@ export function WidgetBody({
           className={`
             flex
             flex-col
-            ${middlePosition === "top"
-              ? "justify-start"
-              : "justify-center"
-            }
+            ${middlePosition === "top" ? "justify-start" : "justify-center"}
             w-full
             ${bottomPosition ? "" : "h-full"}
             min-h-0
@@ -181,9 +177,10 @@ export function WidgetBody({
       {bottom && (
         <div
           className={`
-            ${bottomPosition === "left"
-              ? "flex-1 w-full min-h-0 self-start"
-              : "self-center"
+            ${
+              bottomPosition === "left"
+                ? "flex-1 w-full min-h-0 self-start"
+                : "self-center"
             }
           `}
         >
