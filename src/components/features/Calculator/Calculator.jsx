@@ -412,12 +412,11 @@ export function Calculator({
                 items-center
                 gap-[0.1rem]
                 justify-end
-                min-h-7.5
                 text-lg
                 text-gray-300/90
               "
             >
-              {renderDisplayValue(expressionLabel, 14, "text-gray-300/90")}
+              {/* {renderDisplayValue(expressionLabel, 14, "text-gray-300/90")} */}
             </span>
           </div>
         </div>

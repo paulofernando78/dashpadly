@@ -231,13 +231,13 @@ export function Clock({
 
   return (
     <WidgetBody
+      width="clock"
       onClose={onClose}
-      className=""
       top={
-        <>
+        <div>
           <span className="block">{currentTime}</span>
           <span className="text-lg">{currentDate}</span>
-        </>
+        </div>
       }
       middle={
         !isEditingWeather ? (
@@ -247,6 +247,7 @@ export function Clock({
               flex-col
               gap-1
               w-full
+              h-[240px]
             "
           >
             <div

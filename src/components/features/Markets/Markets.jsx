@@ -2,6 +2,79 @@ import { useState, useEffect } from "react";
 
 import { WidgetBody } from "@/components/ui/Widget";
 
+async function fetchJson(url, options, marketName) {
+  const response = await fetch(url, options);
+
+  if (!response.ok) {
+    throw new Error(
+      `${marketName}: erro ${response.status} ${response.statusText}`,
+    );
+  }
+
+  try {
+    return await response.json();
+  } catch {
+    throw new Error(`${marketName}: resposta inválida`);
+  }
+}
+
+function requireFiniteNumber(value, marketName) {
+  const number = Number(value);
+
+  if (!Number.isFinite(number)) {
+    throw new Error(`${marketName}: valor inválido`);
+  }
+
+  return number;
+}
+
+async function fetchBrapiIndex({ symbol, id, name, token, signal }) {
+  if (!token) {
+    throw new Error(`${name}: token da brapi não configurado`);
+  }
+
+  const data = await fetchJson(
+    `https://brapi.dev/api/quote/${encodeURIComponent(symbol)}`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+      signal,
+    },
+    name,
+  );
+  const quote = data?.results?.[0];
+
+  if (!quote) {
+    throw new Error(`${name}: cotação não encontrada`);
+  }
+
+  return {
+    id,
+    name,
+    value: requireFiniteNumber(quote.regularMarketPrice, name),
+    change: requireFiniteNumber(quote.regularMarketChangePercent, name),
+  };
+}
+
+async function fetchDollar(signal) {
+  const data = await fetchJson(
+    "https://economia.awesomeapi.com.br/last/USD-BRL",
+    { signal },
+    "Dólar",
+  );
+  const quote = data?.USDBRL;
+
+  if (!quote) {
+    throw new Error("Dólar: cotação não encontrada");
+  }
+
+  return {
+    id: "dollar",
+    name: "Dólar",
+    value: requireFiniteNumber(quote.bid, "Dólar"),
+    change: requireFiniteNumber(quote.pctChange, "Dólar"),
+  };
+}
+
 export function Markets({ onClose }) {
   const [markets, setMarkets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -9,75 +82,62 @@ export function Markets({ onClose }) {
 
   useEffect(() => {
     const controller = new AbortController();
+    let isActive = true;
 
     async function loadMarkets() {
       try {
         setIsLoading(true);
         setError("");
 
-        const headers = {
-          Authorization: `Bearer ${import.meta.env.VITE_BRAPI_TOKEN}`,
-        };
-
-        const options = {
-          headers,
-          signal: controller.signal,
-        };
-
-        const [ibovResponse, sp500Response, dollarResponse] = await Promise.all(
-          [
-            fetch("https://brapi.dev/api/quote/%5EBVSP", options),
-            fetch("https://brapi.dev/api/quote/%5EGSPC", options),
-            fetch("https://economia.awesomeapi.com.br/last/USD-BRL", {
-              signal: controller.signal,
-            }),
-          ],
-        );
-
-        if (!ibovResponse.ok || !sp500Response.ok || !dollarResponse.ok) {
-          throw new Error("Não foi possível buscar as cotações");
-        }
-
-        const ibovData = await ibovResponse.json();
-        const sp500Data = await sp500Response.json();
-        const dollarData = await dollarResponse.json();
-
-        const ibovespa = ibovData.results[0];
-        const sp500 = sp500Data.results[0];
-        const dollar = dollarData.USDBRL;
-
-        setMarkets([
-          {
+        const token = import.meta.env.VITE_BRAPI_TOKEN;
+        const requests = await Promise.allSettled([
+          fetchBrapiIndex({
+            symbol: "^GSPC",
             id: "sp500",
             name: "S&P 500",
-            value: sp500?.regularMarketPrice,
-            change: sp500?.regularMarketChangePercent,
-          },
-          {
+            token,
+            signal: controller.signal,
+          }),
+          fetchBrapiIndex({
+            symbol: "^BVSP",
             id: "ibovespa",
             name: "Ibovespa",
-            value: ibovespa?.regularMarketPrice,
-            change: ibovespa?.regularMarketChangePercent,
-          },
-          {
-            id: "dollar",
-            name: "Dólar",
-            value: Number(dollar?.bid),
-            change: Number(dollar?.pctChange),
-          },
+            token,
+            signal: controller.signal,
+          }),
+          fetchDollar(controller.signal),
         ]);
+
+        if (!isActive) return;
+
+        const loadedMarkets = requests
+          .filter((request) => request.status === "fulfilled")
+          .map((request) => request.value);
+        const requestErrors = requests
+          .filter(
+            (request) =>
+              request.status === "rejected" &&
+              request.reason?.name !== "AbortError",
+          )
+          .map((request) => request.reason?.message ?? "Erro desconhecido");
+
+        setMarkets(loadedMarkets);
+        setError(requestErrors.join(" | "));
       } catch (requestError) {
-        if (requestError.name !== "AbortError") {
+        if (isActive && requestError.name !== "AbortError") {
           setError(requestError.message);
         }
       } finally {
-        setIsLoading(false);
+        if (isActive) setIsLoading(false);
       }
     }
 
     loadMarkets();
 
-    return () => controller.abort();
+    return () => {
+      isActive = false;
+      controller.abort();
+    };
   }, []);
 
   function formatValue(market) {
@@ -105,7 +165,7 @@ export function Markets({ onClose }) {
       middle={
         isLoading ? (
           <span>Carregando...</span>
-        ) : error ? (
+        ) : markets.length === 0 && error ? (
           <span className="text-red-400">{error}</span>
         ) : (
           <div
@@ -149,6 +209,7 @@ export function Markets({ onClose }) {
                 </div>
               </div>
             ))}
+            {error && <span className="text-xs text-red-400">{error}</span>}
           </div>
         )
       }

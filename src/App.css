@@ -16,10 +16,6 @@ body {
   font-family: "Montserrat Variable", sans-serif;
 }
 
-.icon-color {
-  color: gray;
-}
-
 input[type="number"].show-spinner {
   color-scheme: dark;
 }
@@ -40,11 +36,24 @@ hr {
   color: lightgray;
 }
 
-.global-border {
+.global-border-style {
   @apply
-    p-2
     border
-  border-gray-500/50
+  border-gray-400
+  rounded-lg
+}
+
+.header { @apply
+  flex
+  items-center
+  justify-between
+  gap-2
+  w-full
+  h-[36px]
+  p-2
+  bg-black
+  rounded-tl-md
+  rounded-tr-md
 }
 
 .widget-gradient {
@@ -88,17 +97,4 @@ hr {
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
-}
-
-.header { @apply
-  flex
-  items-center
-  justify-between
-  gap-2
-  w-full
-  h-[36px]
-  p-2
-  rounded-tl-md
-  rounded-tr-md
-  bg-black
 }
