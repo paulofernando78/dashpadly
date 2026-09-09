@@ -59,14 +59,10 @@ function playTick() {
 const durationTitle = `
   flex
   flex-col
-  pt-2
-  pb-[0.7rem]
-  rounded-xl
   justify-self-center
 `;
 
 const durationDisplay = `
-  pt-2
   font-['Segoe_UI',sans-serif]
   font-bold
 `;
@@ -393,53 +389,37 @@ export function Pomodoro({
                     flex
                     flex-col
                     gap-2
-                    global-border
+                    global-border-style
                   "
                 >
-                  {/* 1 OF 4 */}
-                  <div
-                    className="
-                      flex
-                      items-center
-                      pl-2.75
-                      w-max
-                      gap-2
-                    "
-                  >
-                    <div className="space-x-2">
-                      <span>{displayedPomodoro}</span>
-                      <span>of</span>
-                    </div>
-                    <span>{pomodoroGoal}</span>
-                  </div>
                   {/* Focus • Break • Long  */}
                   <div
                     className="
-                      grid
-                      grid-cols-[58px_58px_58px]
+                      flex
+                      justify-evenly
+                      gap-3
+                      p-2
                   "
                   >
                     {/* FOCUS */}
-                    <div className={`w-15.5 ${durationTitle}`}>
-                      <>
-                        <span
-                          className={`${
-                            mode === "focus" && isRunning
-                              ? activeFocusModeClass
-                              : inactiveModeClass
-                          } text-[1rem]`}
-                        >
-                          Focus
-                        </span>
+                    <div className={`space-y-2 ${durationTitle}`}>
+                      <span
+                        className={`${
+                          mode === "focus" && isRunning
+                            ? activeFocusModeClass
+                            : inactiveModeClass
+                        } text-[1rem]`}
+                      >
+                        Focus
+                      </span>
 
-                        <span className={durationDisplay}>
-                          {formatTime(mode === "focus" ? time : focusDuration)}
-                        </span>
-                      </>
+                      <span className={durationDisplay}>
+                        {formatTime(mode === "focus" ? time : focusDuration)}
+                      </span>
                     </div>
 
                     {/* BREAK */}
-                    <div className={`w-15.5 ${durationTitle}`}>
+                    <div className={`space-y-2 ${durationTitle}`}>
                       <span
                         className={`${
                           mode === "break" && isRunning
@@ -455,7 +435,7 @@ export function Pomodoro({
                     </div>
 
                     {/* LONG */}
-                    <div className={`w-15.5 ${durationTitle}`}>
+                    <div className={`space-y-2 ${durationTitle}`}>
                       <span
                         className={`${
                           mode === "long" && isRunning
@@ -470,6 +450,12 @@ export function Pomodoro({
                       </span>
                     </div>
                   </div>
+                </div>
+                {/* 1 OF 4 */}
+                <div className="space-x-2">
+                  <span>
+                    focus {displayedPomodoro} of {pomodoroGoal}
+                  </span>
                 </div>
               </div>
             )}

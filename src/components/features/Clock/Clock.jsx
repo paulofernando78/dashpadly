@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 
-import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
+import {
+  WidgetBody,
+  WidgetControls,
+  widgetInnerBorder
+} from "@/components/ui/Widget";
 import { Icon } from "@/components/ui/Icon";
 
 import { submitOnEnter } from "@/utils/keyboard";
@@ -247,7 +251,7 @@ export function Clock({
               flex-col
               gap-1
               w-full
-              h-[240px]
+              h-60
             "
           >
             <div
@@ -318,16 +322,14 @@ export function Clock({
                 <div
                   className="
                       justify-self-center
-                      flex
-                      flex-col
-                      justify-center
-                      gap-2
-                      p-1
+                      grid
+                      grid-rows-4
+                      gap-1
                       text-sm
                     "
                 >
-                  <span>min</span>
-                  <span>max</span>
+                  <span className="row-start-2">min</span>
+                  <span className="row-start-3">max</span>
                 </div>
                 {weather.nextDays.map((day) => (
                   <div
@@ -338,7 +340,7 @@ export function Clock({
                         gap-2
                       "
                   >
-                    <span>{formatWeekday(day.date)}</span>
+                    <span className="text-sm">{formatWeekday(day.date)}</span>
                     <span>{day.min}°</span>
                     <span>{day.max}°</span>
                     <Icon
@@ -442,9 +444,7 @@ function WeatherWrapper({ children, className }) {
   return (
     <div
       className={`
-        p-2
-        rounded-md
-      bg-gray-500/80
+        ${widgetInnerBorder}
         ${className}
       `}
     >

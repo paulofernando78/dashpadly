@@ -27,15 +27,8 @@ input[type="number"].show-spinner::-webkit-outer-spin-button {
   cursor: pointer;
 }
 
-.global-border-style {
-  @apply
-    border
-  border-gray-400
-  rounded-lg
-}
-
-.header { @apply
-  flex
+.header {
+  @apply flex
   items-center
   justify-between
   gap-2
@@ -43,7 +36,7 @@ input[type="number"].show-spinner::-webkit-outer-spin-button {
   p-2
   bg-black
   rounded-tl-lg
-  rounded-tr-lg
+  rounded-tr-lg;
 }
 
 .widget-gradient {
@@ -66,8 +59,8 @@ input[type="number"].show-spinner::-webkit-outer-spin-button {
     hover:bg-gray-600;
 }
 
-.clickable-label { @apply
-  rounded!
+.clickable-label {
+  @apply rounded!;
 }
 
 button {
