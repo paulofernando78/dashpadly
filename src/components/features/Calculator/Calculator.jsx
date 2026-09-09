@@ -559,7 +559,7 @@ export function Calculator({
             text-sm
             border
             border-gray-300
-            bg-
+            bg-linear-to-tr from-gray-200 to-white
             rounded
             overflow-y-auto
           "
@@ -572,11 +572,7 @@ export function Calculator({
               "
             >
               <span className="flex text-gray-300/90">
-                {renderDisplayValue(
-                  calculation.expression,
-                  14,
-                  "",
-                )}
+                {renderDisplayValue(calculation.expression, 14, "")}
               </span>
               <span className="ml-1">= {calculation.result}</span>
             </div>
