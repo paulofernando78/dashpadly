@@ -379,7 +379,7 @@ export const widgetCatalog = {
     Component: Markets,
     title: "Markets",
     iconName: "markets",
-    widgetStyle: getWidgetGradientStyle("emerald"),
+    widgetStyle: getWidgetGradientStyle("slate"),
     widgetClassName: "widget-gradient",
     defaultConfig: {},
   },
