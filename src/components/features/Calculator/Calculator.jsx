@@ -552,7 +552,7 @@ export function Calculator({
             text-sm
             border
             border-gray-300
-            bg-linear-to-tr from-gray-200 to-white
+            bg-linear-to-tl from-gray-50 to-stone-50
             rounded
             overflow-y-auto
           "

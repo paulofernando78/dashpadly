@@ -29,13 +29,11 @@ export function QuickNotes({ note = "", onConfigChange, onClose }) {
                   w-full    
                   h-full
                   p-2
-                  text-xl
-                  text-gray-200
+                  text-black
                   font-['Indie_Flower',cursive]
+                  rounded
                   leading-6
                   resize-none
-                  outline-none
-                  rounded
                 "
             />
           </div>
