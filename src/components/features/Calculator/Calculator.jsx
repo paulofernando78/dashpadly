@@ -559,6 +559,7 @@ export function Calculator({
             text-sm
             border
             border-gray-300
+            bg-
             rounded
             overflow-y-auto
           "

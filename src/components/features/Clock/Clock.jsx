@@ -371,7 +371,7 @@ export function Clock({
                   }
                   placeholder="Type location"
                   className="  
-                    w-[301.63px]  
+                    w-full  
                     px-2
                     pt-1
                     pb-1

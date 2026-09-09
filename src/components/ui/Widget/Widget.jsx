@@ -5,12 +5,12 @@ export function WidgetContainer({ children }) {
 }
 const widgetWidth = `w-[194px]`;
 export const widgetHeight = `h-[388px]`;
-const clockWidth = `min-w-[300px] w-[300px]`;
+const clockWidth = `min-w-[295px] w-[295px]`;
 
 export const widgetInnerBorder = `
   p-2
   rounded-md
-  bg-gray-500/80
+  bg-gray-500/90
 `;
 
 export function WidgetCard({
