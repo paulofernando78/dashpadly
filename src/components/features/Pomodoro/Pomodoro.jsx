@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
+import {
+    WidgetBody,
+    WidgetControls,
+    widgetInnerBorder
+  } from "@/components/ui/Widget";
 import { NumberInput } from "@/components/ui/NumberInput";
 import { Icon } from "@/components/ui/Icon";
 
@@ -385,12 +389,12 @@ export function Pomodoro({
                 <p>No social media</p>
                 <p>You can do it!</p>
                 <div
-                  className="
+                  className={`
                     flex
                     flex-col
                     gap-2
-                    global-border-style
-                  "
+                    ${widgetInnerBorder}
+                  `}
                 >
                   {/* Focus • Break • Long  */}
                   <div
