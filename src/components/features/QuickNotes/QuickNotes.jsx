@@ -28,8 +28,9 @@ export function QuickNotes({ note = "", onConfigChange, onClose }) {
               className="
                   w-full    
                   h-full
+                  p-2
                   text-xl
-                  text-gray-700
+                  text-gray-200
                   font-['Indie_Flower',cursive]
                   leading-6
                   resize-none

@@ -8,7 +8,6 @@ export function Calculator({
   onConfigChange,
   onClose,
 }) {
-  const [expressionLabel, setExpressionLabel] = useState("");
   const [display, setDisplay] = useState(savedDisplay);
   const [shouldResetDisplay, setShouldResetDisplay] = useState(false);
   const [history, setHistory] = useState([]);
@@ -17,7 +16,6 @@ export function Calculator({
     if (shouldResetDisplay || display === "Error") {
       updateDisplay(digit);
       setShouldResetDisplay(false);
-      setExpressionLabel("");
       return;
     }
 
@@ -38,7 +36,6 @@ export function Calculator({
 
   function inputDecimal() {
     if (shouldResetDisplay || display === "Error") {
-      setExpressionLabel("");
       updateDisplay("0.");
       setShouldResetDisplay(false);
       return;
@@ -81,10 +78,6 @@ export function Calculator({
   }
 
   function inputParentheses() {
-    if (shouldResetDisplay || display === "Error") {
-      setExpressionLabel("");
-    }
-
     const openCount = countMatches(display, "(");
     const closeCount = countMatches(display, ")");
     const lastCharacter = getLastCharacter(display);
@@ -133,7 +126,7 @@ export function Calculator({
 
       if (!Number.isFinite(result)) {
         updateDisplay("Error");
-        setExpressionLabel("");
+        ("");
         setShouldResetDisplay(true);
         return;
       }
@@ -150,12 +143,12 @@ export function Calculator({
         ...currentHistory,
       ]);
 
-      setExpressionLabel(formattedExpression);
+      (formattedExpression);
       updateDisplay(formattedResult);
       setShouldResetDisplay(true);
     } catch {
       updateDisplay("Error");
-      setExpressionLabel("");
+      ("");
       setShouldResetDisplay(true);
     }
   }
@@ -206,21 +199,21 @@ export function Calculator({
 
   function clearCalculator() {
     updateDisplay("0");
-    setExpressionLabel("");
+    ("");
     setShouldResetDisplay(false);
   }
 
   function deleteLastDigit() {
     if (shouldResetDisplay) {
       updateDisplay("0");
-      setExpressionLabel("");
+      ("");
       setShouldResetDisplay(false);
       return;
     }
 
     if (display === "Error") {
       updateDisplay("0");
-      setExpressionLabel("");
+      ("");
       return;
     }
 
