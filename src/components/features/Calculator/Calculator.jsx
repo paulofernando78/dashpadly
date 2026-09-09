@@ -571,10 +571,10 @@ export function Calculator({
                 flex
               "
             >
-              <span className="flex text-gray-300/90">
+              <span className="flex text-gray-800">
                 {renderDisplayValue(calculation.expression, 14, "")}
               </span>
-              <span className="ml-1">= {calculation.result}</span>
+              <span className="ml-1 text-gray-900/50">= {calculation.result}</span>
             </div>
           ))}
         </div>
