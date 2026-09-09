@@ -31,8 +31,8 @@ export function WidgetCard({
         className={`
             ${widgetHeight}
             rounded-t-0
-            rounded-bl-lg
-            rounded-br-lg
+            rounded-bl-[7px]
+            rounded-br-[7px]
             [text-shadow:0_0_6px_rgba(255,255,255,0.2)]
             ${widgetClassName}
             `}

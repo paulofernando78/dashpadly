@@ -35,6 +35,7 @@ import {
   FolderOpen,
   FolderPlus,
   // G
+  GalleryHorizontalEnd,
   GripHorizontal,
   // I
   Info,
@@ -249,6 +250,7 @@ const icons = {
   folderOpen: FolderOpen,
   folderPlus: FolderPlus,
   // G
+  galleryHorizontalEnd: GalleryHorizontalEnd,
   gripHorizontal: GripHorizontal,
   // I
   info: Info,
