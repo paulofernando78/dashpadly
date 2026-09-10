@@ -57,13 +57,14 @@ export function WidgetPicker({ onAdd, ref }) {
   return (
     <div
       ref={ref}
-      className="
-      flex
-      gap-2
-      uppercase
-      widget-body-height
-      scroll-mr-2
-      "
+      className={`
+        flex
+        gap-2
+        ${widgetHeight}
+        uppercase
+        scroll-mr-2
+        overflow-hidden
+      `}
     >
       <button
         type="button"
