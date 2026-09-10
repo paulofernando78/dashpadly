@@ -233,6 +233,22 @@ WidgetControls.Reset = ({ onClick }) => {
   );
 };
 
+WidgetControls.Undo = ({ onClick }) => {
+  return (
+    <button onClick={onClick} className="clickable">
+      <Icon name="undo" />
+    </button>
+  );
+};
+
+WidgetControls.Redo = ({ onClick }) => {
+  return (
+    <button onClick={onClick} className="clickable">
+      <Icon name="redo" />
+    </button>
+  );
+};
+
 WidgetControls.Edit = ({ isEditing, onEdit, onConfirm }) => {
   return isEditing ? (
     <button onClick={onConfirm} className="clickable">

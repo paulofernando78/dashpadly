@@ -547,6 +547,7 @@ export function Calculator({
       bottom={
         <div
           className="
+            relative
             h-full
             p-1.75
             text-sm
@@ -557,6 +558,12 @@ export function Calculator({
             overflow-y-auto
           "
         >
+          <Icon
+                name="listClock"
+                color="gray"
+                className="absolute top-1 right-1"
+                aria-hidden="true"
+              />
           {history.map((calculation) => (
             <div
               key={calculation.id}

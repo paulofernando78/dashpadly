@@ -41,6 +41,8 @@ export function QuickNotes({ note = "", onConfigChange, onClose }) {
       bottom={
         <WidgetControls>
           <WidgetControls.Reset onClick={handleReset} />
+          <WidgetControls.Undo onClick={handleReset} />
+          <WidgetControls.Redo onClick={handleReset} />
         </WidgetControls>
       }
     />

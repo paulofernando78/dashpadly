@@ -39,6 +39,8 @@ import {
   GripHorizontal,
   // I
   Info,
+  // L
+  ListClock,
   // M
   MapPin,
   Maximize2,
@@ -53,6 +55,7 @@ import {
   PaintBucket,
   Plus,
   // R
+  Redo2,
   RotateCcw,
   // S
   Search,
@@ -63,6 +66,8 @@ import {
   Thermometer,
   Timer,
   Trash,
+  // U
+  Undo2,
   // W
   GlassWater,
   // V
@@ -254,6 +259,8 @@ const icons = {
   gripHorizontal: GripHorizontal,
   // I
   info: Info,
+  // L
+  listClock: ListClock,
   // M
   mapPin: MapPin,
   maximize2: Maximize2,
@@ -269,6 +276,7 @@ const icons = {
   plus: Plus,
   pomodoro: Pomodoro,
   // R
+  redo: Redo2,
   rotateCcw: RotateCcw,
   // S
   search: Search,
@@ -279,6 +287,8 @@ const icons = {
   thermometer: Thermometer,
   timer: Timer,
   trash: Trash,
+  // U
+  undo: Undo2,
   // W
   glassWater: GlassWater,
   // V

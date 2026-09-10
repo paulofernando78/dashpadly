@@ -3,27 +3,44 @@ import { useState, useEffect, useRef } from "react";
 import {
   WidgetBody,
   WidgetControls,
-  widgetInnerBorder
+  widgetInnerBorder,
 } from "@/components/ui/Widget";
 import { Icon } from "@/components/ui/Icon";
 
 import { submitOnEnter } from "@/utils/keyboard";
 
 function getWeatherIconName(code, isDay = true) {
-  if (code === 0) return isDay ? "sun" : "moon";
+  // Céu limpo
+  if (code === 0) {
+    return isDay ? "sun" : "moon";
+  }
 
-  if ([1, 2, 3].includes(code)) return "cloudSun";
+  // Parcialmente nublado
+  if ([1, 2].includes(code)) {
+    return isDay ? "cloudSun" : "cloud";
+  }
 
-  if ([45, 48].includes(code)) return "cloudFog";
+  // Nublado
+  if (code === 3) {
+    return "cloud";
+  }
 
+  // Neblina
+  if ([45, 48].includes(code)) {
+    return "cloudFog";
+  }
+
+  // Chuva
   if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) {
     return "cloudRain";
   }
 
+  // Neve
   if ([71, 73, 75, 77, 85, 86].includes(code)) {
     return "cloudSnow";
   }
 
+  // Tempestade
   if ([95, 96, 99].includes(code)) {
     return "cloudLightning";
   }
@@ -98,18 +115,22 @@ export function Clock({
       if (selectedLatitude == null || selectedLongitude == null) return;
 
       const response = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${selectedLatitude}&longitude=${selectedLongitude}&current=temperature_2m,weather_code,is_day&hourly=temperature_2m,weather_code,precipitation_probability&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=7`,
+        `https://api.open-meteo.com/v1/forecast?latitude=${selectedLatitude}&longitude=${selectedLongitude}&current=temperature_2m,weather_code,is_day&hourly=temperature_2m,weather_code,precipitation_probability,is_day&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto&forecast_days=7`,
       );
 
       const data = await response.json();
+
+      const currentHourIndex = data.hourly.time.findLastIndex(
+        (hourTime) => hourTime <= data.current.time,
+      );
 
       if (data.timezone) {
         setSelectedTimezone(data.timezone);
       }
 
-      const nextHourIndex = data.hourly.time.findIndex((time) => {
-        return time > data.current.time;
-      });
+      const nextHourIndex = data.hourly.time.findIndex(
+        (hourTime) => hourTime > data.current.time,
+      );
 
       const nextHours = data.hourly.time
         .slice(nextHourIndex, nextHourIndex + 6)
@@ -119,6 +140,7 @@ export function Clock({
             data.hourly.temperature_2m[nextHourIndex + index],
           ),
           weatherCode: data.hourly.weather_code[nextHourIndex + index],
+          isDay: data.hourly.is_day[nextHourIndex + index],
           precipitationProbability:
             data.hourly.precipitation_probability[nextHourIndex + index],
         }));
@@ -135,6 +157,8 @@ export function Clock({
           temperature: Math.round(data.current.temperature_2m),
           weatherCode: data.current.weather_code,
           isDay: data.current.is_day,
+          precipitationProbability:
+            data.hourly.precipitation_probability[currentHourIndex] ?? 0,
         },
         nextHours,
         nextDays,
@@ -289,6 +313,9 @@ export function Clock({
                     )}
                     size={WEATHER_ICON_SIZE}
                   />
+                  <span className="text-sm">
+                    {weather.current.precipitationProbability}%
+                  </span>
                 </div>
                 {weather.nextHours.map((hour) => (
                   <div
@@ -301,7 +328,10 @@ export function Clock({
                     <span className="text-sm">{formatHourTime(hour.time)}</span>
                     <span>{hour.temperature}°</span>
                     <Icon
-                      name={getWeatherIconName(hour.weatherCode)}
+                      name={getWeatherIconName(
+                        hour.weatherCode,
+                        hour.isDay === 1,
+                      )}
                       size={WEATHER_ICON_SIZE}
                     />
                     <span className="text-sm">
