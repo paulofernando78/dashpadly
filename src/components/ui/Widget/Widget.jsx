@@ -11,7 +11,7 @@ const widgetBorder = `
   border
   border-gray-500/70
   rounded-lg
-`
+`;
 
 export const widgetInnerBorder = `
   p-2
@@ -72,11 +72,7 @@ const windowControl = `
   
 `;
 
-function WidgetHeader({
-  iconName,
-  onClose,
-  dragHandleRef={dragHandleRef},
-}) {
+function WidgetHeader({ iconName, onClose, dragHandleRef }) {
   return (
     <div className="header">
       <WindowControls onClose={onClose} />

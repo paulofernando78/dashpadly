@@ -65,9 +65,7 @@ function SortableWidget({
     <WidgetCard
       ref={ref}
       dragHandleRef={handleRef}
-      title={definition.title}
       widgetClassName={definition.widgetClassName}
-      widgetWidthClassName={definition.widgetWidthClassName}
       widgetStyle={definition.widgetStyle}
       iconName={definition.iconName}
       onClose={onRemove}
@@ -128,8 +126,8 @@ function App() {
     );
   }
 
-  function handleDragEnd() {
-    if (event.canceled || !event.stopImmediatePropagation.target) return;
+  function handleDragEnd(event) {
+    if (event.canceled || !event.operation.target) return;
 
     setWidgets((currentWidgets) => move(currentWidgets, event));
   }
