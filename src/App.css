@@ -31,6 +31,7 @@ input[type="number"].show-spinner::-webkit-outer-spin-button {
   @apply
     grid
     grid-cols-[1fr_auto_1fr]
+    items-center
     gap-2
     h-[36px]
     p-2
