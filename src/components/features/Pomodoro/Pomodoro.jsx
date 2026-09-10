@@ -385,9 +385,11 @@ export function Pomodoro({
               </div>
             ) : (
               <div className="grid gap-4">
-                <p>No distraction</p>
-                <p>No social media</p>
-                <p>You can do it!</p>
+                <div className="grid gap-2">
+                  <p>No distraction</p>
+                  <p>No social media</p>
+                  <p>You can do it!</p>
+                </div>
                 <div
                   className={`
                     flex
