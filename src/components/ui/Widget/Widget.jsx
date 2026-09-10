@@ -7,14 +7,20 @@ const widgetWidth = `w-[210px]`;
 export const widgetHeight = `h-[388px]`;
 const clockWidth = `min-w-[295px] w-[295px]`;
 
+const widgetBorder = `
+  border
+  border-gray-500/70
+  rounded-lg
+`
+
 export const widgetInnerBorder = `
   p-2
   rounded-md
-  bg-gray-500/90
+  bg-[#222531]
 `;
 
 export function WidgetCard({
-  widgetClassName = "bg-gray-500/30",
+  widgetClassName,
   widgetStyle,
   iconName,
   onClose,
@@ -29,7 +35,7 @@ export function WidgetCard({
       className={`
         font-['Oswald_Variable']
         scroll-mr-2
-        global-border-style
+        ${widgetBorder}
         ${isDragging ? "z-10 opacity-60" : ""}
         
       `}

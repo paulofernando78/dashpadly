@@ -99,6 +99,10 @@ async function fetchBitcoin(signal) {
   };
 }
 
+const marketTitles = `
+  font-bold uppercase
+`;
+
 export function Markets({ onClose }) {
   const [markets, setMarkets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -138,6 +142,22 @@ export function Markets({ onClose }) {
         const loadedMarkets = requests
           .filter((request) => request.status === "fulfilled")
           .map((request) => request.value);
+
+        const bitcoin = loadedMarkets.find((market) => market.id === "bitcoin");
+
+        const dollar = loadedMarkets.find((market) => market.id === "dollar");
+
+        const marketsWithConversions = loadedMarkets.map((market) => {
+          if (market.id !== "bitcoin" || !bitcoin || !dollar) {
+            return market;
+          }
+
+          return {
+            ...market,
+            usdValue: bitcoin.value / dollar.value,
+          };
+        });
+
         const requestErrors = requests
           .filter(
             (request) =>
@@ -146,7 +166,7 @@ export function Markets({ onClose }) {
           )
           .map((request) => request.reason?.message ?? "Erro desconhecido");
 
-        setMarkets(loadedMarkets);
+        setMarkets(marketsWithConversions);
         setError(requestErrors.join(" | "));
       } catch (requestError) {
         if (isActive && requestError.name !== "AbortError") {
@@ -178,6 +198,15 @@ export function Markets({ onClose }) {
     });
   }
 
+  function formatUsdValue(value) {
+    if (value == null) return "--";
+
+    return value.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "USD",
+    });
+  }
+
   function formatChange(change) {
     if (change == null) return "--";
 
@@ -205,6 +234,12 @@ export function Markets({ onClose }) {
       <span>{market.name}</span>
 
       <div className="grid gap-1">
+        {market.id === "bitcoin" && (
+          <span className="justify-self-end">
+            {formatUsdValue(market.usdValue)}
+          </span>
+        )}
+
         <span className="justify-self-end">{formatValue(market)}</span>
 
         <span
@@ -232,31 +267,32 @@ export function Markets({ onClose }) {
           <div
             className="
               grid
-              gap-2
+              gap-4
               w-full
               text-sm
             "
           >
-            {crypto.length > 0 && (
-              <section className="grid gap-1">
-                <h3 className="font-bold">Crypto</h3>
-                {crypto.map(renderMarket)}
-              </section>
-            )}
-
             {indexes.length > 0 && (
               <section className="grid gap-1">
-                <h3 className="font-bold">Indexes</h3>
+                <h3 className={marketTitles}>Indexes</h3>
                 {indexes.map(renderMarket)}
               </section>
             )}
 
             {currencies.length > 0 && (
               <section className="grid gap-1">
-                <h3 className="font-bold">Currency</h3>
+                <h3 className={marketTitles}>Currency</h3>
                 {currencies.map(renderMarket)}
               </section>
             )}
+
+            {crypto.length > 0 && (
+              <section className="grid gap-1">
+                <h3 className={marketTitles}>Crypto</h3>
+                {crypto.map(renderMarket)}
+              </section>
+            )}
+
             {error && <span className="text-xs text-red-400">{error}</span>}
           </div>
         )
