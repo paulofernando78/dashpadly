@@ -14,7 +14,6 @@ export function NumberInput({
       {hideLabel ? (
         <>
           <span className="sr-only">{label}</span>
-          <span aria-hidden="true" className="block mb-1"></span>
         </>
       ) : (
         <span className="block mb-1">{label}</span>

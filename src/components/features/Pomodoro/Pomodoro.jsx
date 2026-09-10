@@ -292,10 +292,6 @@ export function Pomodoro({
     setTime(focusMinutes * 60);
   }
 
-  const inputAlign = `
-    translate-y-[-0.08rem]
-  `;
-
   return (
     <>
       <WidgetBody
@@ -332,7 +328,6 @@ export function Pomodoro({
             className="
               text-center
               uppercase
-              h-full
             "
           >
             {isEditing ? (
@@ -340,10 +335,12 @@ export function Pomodoro({
                 className="
                   grid
                   grid-cols-2
-                  gap-1
+                  gap-2
+                  mx-auto
+                  w-max
                 "
               >
-                <span className="self-center">focus</span>
+                <span className="place-self-center">focus</span>
                 <NumberInput
                   hideLabel
                   label="Pomodoro Goal"
@@ -351,9 +348,8 @@ export function Pomodoro({
                   value={editPomodoroGoal}
                   onChange={setEditPomodoroGoal}
                   min={1}
-                  className={inputAlign}
                 />
-                <span className="self-center">minutes</span>
+                <span className="place-self-center">minutes</span>
                 <NumberInput
                   hideLabel
                   label="focus"
@@ -361,9 +357,8 @@ export function Pomodoro({
                   value={editFocusMinutes}
                   onChange={setEditFocusMinutes}
                   min={1}
-                  className={inputAlign}
                 />
-                <span className="self-center">break</span>
+                <span className="place-self-center">break</span>
                 <NumberInput
                   hideLabel
                   label="break"
@@ -371,9 +366,8 @@ export function Pomodoro({
                   value={editBreakMinutes}
                   onChange={setEditBreakMinutes}
                   min={0}
-                  className={inputAlign}
                 />
-                <span className="self-center">long</span>
+                <span className="place-self-center">long</span>
                 <NumberInput
                   hideLabel
                   label="long break"
@@ -381,7 +375,6 @@ export function Pomodoro({
                   value={editLongBreakMinutes}
                   onChange={setEditLongBreakMinutes}
                   min={0}
-                  className={inputAlign}
                 />
               </div>
             ) : (
@@ -390,6 +383,7 @@ export function Pomodoro({
                   flex
                   flex-col
                   justify-evenly
+                  gap-4
                   h-full
                 "
               >
@@ -496,14 +490,13 @@ export function Pomodoro({
               onClick={handleToggle}
               disabled={mode === "done" && !isEditing}
             />
-            <WidgetControls.Reset onClick={handleReset} />
             <WidgetControls.Edit
               isEditing={isEditing}
               onEdit={handleEdit}
               onConfirm={handleConfirmEdit}
             />
+            <WidgetControls.Reset onClick={handleReset} />
             <PomodoroGuideDialog />
-            {/* <WidgetControls.Erase onClick={onRemove} /> */}
           </WidgetControls>
         }
       />

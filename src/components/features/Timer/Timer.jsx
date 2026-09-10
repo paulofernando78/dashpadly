@@ -275,30 +275,37 @@ export function Timer({
         ) : (
           <div
             className="
-            flex
-            gap-3
-            translate-y-[-0.1rem]
+              grid
+              grid-cols-2
+              gap-2
+              mx-auto
+              w-max
+              uppercase
             "
           >
+            <span className="place-self-center">hour</span>
             <NumberInput
-              label="h"
-              name="hours"
+              hideLabel
+              label="hour"
+              name="hour"
               value={editHours}
               onChange={setEditHours}
             />
+            <span className="place-self-center">minute</span>
             <NumberInput
-              label="m"
-              name="minutes"
+              hideLabel
+              label="minute"
+              name="minute"
               value={editMinutes}
               onChange={setEditMinutes}
-              max={59}
             />
+            <span className="place-self-center">second</span>
             <NumberInput
-              label="s"
-              name="seconds"
+              hideLabel
+              label="second"
+              name="second"
               value={editSeconds}
               onChange={setEditSeconds}
-              max={59}
             />
           </div>
         )
@@ -310,12 +317,12 @@ export function Timer({
             onClick={handleToggle}
             disabled={mode === "done" && !isEditing}
           />
-          <WidgetControls.Reset onClick={handleReset} />
           <WidgetControls.Edit
             isEditing={isEditing}
             onEdit={handleEdit}
             onConfirm={handleConfirmEdit}
           />
+          <WidgetControls.Reset onClick={handleReset} />
         </WidgetControls>
       }
     />
