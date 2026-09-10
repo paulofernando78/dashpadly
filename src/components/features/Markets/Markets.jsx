@@ -170,9 +170,10 @@ export function Markets({ onClose }) {
         ) : (
           <div
             className="
-              grid
-              gap-2
+            grid  
+            gap-2
               w-full
+              text-sm
             "
           >
             {markets.map((market) => (
@@ -180,9 +181,9 @@ export function Markets({ onClose }) {
                 key={market.id}
                 className="
                   flex
-                  flex-col
+                  items-center
+                  justify-between
                   gap-2
-                  text-center
                   p-2
                   border
                   rounded
@@ -190,19 +191,14 @@ export function Markets({ onClose }) {
                   bg-slate-500
                 "
               >
-                <span className="text-2xl">
-                  {market.name}</span>
-                <div className="">
-                  <strong className="block mb-1">
-                    {formatValue(market)}
-                  </strong>
+                <span>{market.name}</span>
+                <div className="grid gap-1">
+                  <span className="">{formatValue(market)}</span>
                   <span
                     className={`
-                    
-                      ${market.change >= 0
-                      ? "text-green-400"
-                      : "text-red-400"}
-                    `}
+                      
+                        ${market.change >= 0 ? "text-green-400" : "text-red-400"}
+                      `}
                   >
                     {formatChange(market.change)}
                   </span>

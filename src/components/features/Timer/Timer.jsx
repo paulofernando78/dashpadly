@@ -257,7 +257,7 @@ export function Timer({
                       font-[Arial]
                       border
                       border-gray-500
-                      rounded-md
+                      rounded-sm
                       placeholder:italic
                       paper-texture
                     "
