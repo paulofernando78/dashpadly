@@ -48,6 +48,7 @@ async function fetchBrapiIndex({ symbol, id, name, token, signal }) {
   }
 
   return {
+    category: "indexes",
     id,
     name,
     value: requireFiniteNumber(quote.regularMarketPrice, name),
@@ -68,10 +69,33 @@ async function fetchDollar(signal) {
   }
 
   return {
+    category: "currency",
     id: "dollar",
     name: "Dólar",
     value: requireFiniteNumber(quote.bid, "Dólar"),
     change: requireFiniteNumber(quote.pctChange, "Dólar"),
+  };
+}
+
+async function fetchBitcoin(signal) {
+  const data = await fetchJson(
+    "https://economia.awesomeapi.com.br/last/BTC-BRL",
+    { signal },
+    "Bitcoin",
+  );
+
+  const quote = data?.BTCBRL;
+
+  if (!quote) {
+    throw new Error("Bitcoin: cotação não encontrada");
+  }
+
+  return {
+    category: "crypto",
+    id: "bitcoin",
+    name: "Bitcoin",
+    value: requireFiniteNumber(quote.bid, "Bitcoin"),
+    change: requireFiniteNumber(quote.pctChange, "Bitcoin"),
   };
 }
 
@@ -92,20 +116,21 @@ export function Markets({ onClose }) {
         const token = import.meta.env.VITE_BRAPI_TOKEN;
         const requests = await Promise.allSettled([
           fetchBrapiIndex({
-            symbol: "^GSPC",
-            id: "sp500",
-            name: "S&P 500",
-            token,
-            signal: controller.signal,
-          }),
-          fetchBrapiIndex({
             symbol: "^BVSP",
             id: "ibovespa",
             name: "Ibovespa",
             token,
             signal: controller.signal,
           }),
+          fetchBrapiIndex({
+            symbol: "^GSPC",
+            id: "sp500",
+            name: "S&P 500",
+            token,
+            signal: controller.signal,
+          }),
           fetchDollar(controller.signal),
+          fetchBitcoin(controller.signal),
         ]);
 
         if (!isActive) return;
@@ -141,7 +166,7 @@ export function Markets({ onClose }) {
   }, []);
 
   function formatValue(market) {
-    if (market.id === "dollar") {
+    if (market.id === "dollar" || market.id === "bitcoin") {
       return market.value?.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
@@ -159,9 +184,48 @@ export function Markets({ onClose }) {
     return `${change >= 0 ? "+" : ""}${change.toFixed(2)}%`;
   }
 
+  const crypto = markets.filter((market) => market.category === "crypto");
+
+  const indexes = markets.filter((market) => market.category === "indexes");
+
+  const currencies = markets.filter((market) => market.category === "currency");
+
+  const renderMarket = (market) => (
+    <div
+      key={market.id}
+      className="
+      flex
+      items-center
+      justify-between
+      gap-2
+      p-2
+      border
+      rounded
+      border-slate-700
+      bg-slate-500
+    "
+    >
+      <span>{market.name}</span>
+
+      <div className="grid gap-1">
+        <span className="justify-self-end">{formatValue(market)}</span>
+
+        <span
+          className={`
+          justify-self-end
+          ${market.change >= 0 ? "text-green-400" : "text-red-400"}
+        `}
+        >
+          {formatChange(market.change)}
+        </span>
+      </div>
+    </div>
+  );
+
   return (
     <WidgetBody
       onClose={onClose}
+      middlePosition="top"
       middle={
         isLoading ? (
           <span>Carregando...</span>
@@ -170,41 +234,32 @@ export function Markets({ onClose }) {
         ) : (
           <div
             className="
-            grid  
-            gap-2
+              grid  
+              gap-2
               w-full
               text-sm
             "
           >
-            {markets.map((market) => (
-              <div
-                key={market.id}
-                className="
-                  flex
-                  items-center
-                  justify-between
-                  gap-2
-                  p-2
-                  border
-                  rounded
-                  border-slate-700
-                  bg-slate-500
-                "
-              >
-                <span>{market.name}</span>
-                <div className="grid gap-1">
-                  <span className="">{formatValue(market)}</span>
-                  <span
-                    className={`
-                      
-                        ${market.change >= 0 ? "text-green-400" : "text-red-400"}
-                      `}
-                  >
-                    {formatChange(market.change)}
-                  </span>
-                </div>
-              </div>
-            ))}
+            {crypto.length > 0 && (
+              <section className="grid gap-1">
+                <h3 className="font-bold">Crypto</h3>
+                {crypto.map(renderMarket)}
+              </section>
+            )}
+
+            {indexes.length > 0 && (
+              <section className="grid gap-1">
+                <h3 className="font-bold">Indexes</h3>
+                {indexes.map(renderMarket)}
+              </section>
+            )}
+
+            {currencies.length > 0 && (
+              <section className="grid gap-1">
+                <h3 className="font-bold">Currency</h3>
+                {currencies.map(renderMarket)}
+              </section>
+            )}
             {error && <span className="text-xs text-red-400">{error}</span>}
           </div>
         )
