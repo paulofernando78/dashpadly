@@ -60,7 +60,6 @@ export function WidgetPicker({ onAdd, ref }) {
       className={`
         flex
         gap-2
-        ${widgetHeight}
         uppercase
         scroll-mr-2
         overflow-hidden
