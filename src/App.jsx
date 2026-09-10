@@ -19,6 +19,10 @@ import { TaskBoard } from "@/components/features/TaskBoard";
 // Notes
 import { Notes } from "@/components/features/Notes";
 
+import { DragDropProvider } from "@dnd-kit/react";
+import { useSortable } from "@dnd-kit/react/sortable";
+import { move } from "@dnd-kit/helpers";
+
 const WIDGETS_STORAGE_KEY = "widgets";
 
 function createDefaultWidgets() {
@@ -41,6 +45,41 @@ function getSavedWidgets() {
   } catch {
     return createDefaultWidgets();
   }
+}
+
+function SortableWidget({
+  widgetInstance,
+  definition,
+  index,
+  onRemove,
+  onConfigChange,
+}) {
+  const { ref, handleRef, isDragging } = useSortable({
+    id: widgetInstance.id,
+    index,
+  });
+
+  const Component = definition.Component;
+
+  return (
+    <WidgetCard
+      ref={ref}
+      dragHandleRef={handleRef}
+      title={definition.title}
+      widgetClassName={definition.widgetClassName}
+      widgetWidthClassName={definition.widgetWidthClassName}
+      widgetStyle={definition.widgetStyle}
+      iconName={definition.iconName}
+      onClose={onRemove}
+      isDragging={isDragging}
+    >
+      <Component
+        {...widgetInstance.config}
+        onConfigChange={onConfigChange}
+        onClose={onRemove}
+      />
+    </WidgetCard>
+  );
 }
 
 function App() {
@@ -89,6 +128,12 @@ function App() {
     );
   }
 
+  function handleDragEnd() {
+    if (event.canceled || !event.stopImmediatePropagation.target) return;
+
+    setWidgets((currentWidgets) => move(currentWidgets, event));
+  }
+
   return (
     <div
       className="
@@ -114,37 +159,27 @@ function App() {
         storageKey="section-widget"
         count={widgets.length}
       >
-        <WidgetContainer>
-          {widgets.map((widgetInstance) => {
-            const definition = widgetCatalog[widgetInstance.type];
-            const Component = definition.Component;
+        <DragDropProvider onDragEnd={handleDragEnd}>
+          <WidgetContainer>
+            {widgets.map((widgetInstance, index) => {
+              const definition = widgetCatalog[widgetInstance.type];
 
-            const handleRemove = () => {
-              removeWidget(widgetInstance.id);
-            };
-
-            return (
-              <WidgetCard
-                title={definition.title}
-                widgetClassName={definition.widgetClassName}
-                widgetWidthClassName={definition.widgetWidthClassName}
-                widgetStyle={definition.widgetStyle}
-                iconName={definition.iconName}
-                key={widgetInstance.id}
-                onClose={() => removeWidget(widgetInstance.id)}
-              >
-                <Component
-                  {...widgetInstance.config}
+              return (
+                <SortableWidget
+                  key={widgetInstance.id}
+                  widgetInstance={widgetInstance}
+                  definition={definition}
+                  index={index}
+                  onRemove={() => removeWidget(widgetInstance.id)}
                   onConfigChange={(nextConfig) =>
                     updateWidgetConfig(widgetInstance.id, nextConfig)
                   }
-                  onClose={handleRemove}
                 />
-              </WidgetCard>
-            );
-          })}
-          <WidgetPicker ref={widgetPickerRef} onAdd={addWidget} />
-        </WidgetContainer>
+              );
+            })}
+            <WidgetPicker ref={widgetPickerRef} onAdd={addWidget} />
+          </WidgetContainer>
+        </DragDropProvider>
       </SectionPanel>
 
       {/* Task Board */}

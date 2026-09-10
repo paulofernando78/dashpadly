@@ -20,6 +20,8 @@ export function WidgetCard({
   onClose,
   children,
   ref,
+  dragHandleRef,
+  isDragging,
 }) {
   return (
     <article
@@ -28,10 +30,15 @@ export function WidgetCard({
         font-['Oswald_Variable']
         scroll-mr-2
         global-border-style
+        ${isDragging ? "z-10 opacity-60" : ""}
         
       `}
     >
-      <WidgetHeader iconName={iconName} onClose={onClose} />
+      <WidgetHeader
+        iconName={iconName}
+        onClose={onClose}
+        dragHandleRef={dragHandleRef}
+      />
       <div
         style={widgetStyle}
         className={`
@@ -59,11 +66,25 @@ const windowControl = `
   
 `;
 
-function WidgetHeader({ iconName, onClose }) {
+function WidgetHeader({
+  iconName,
+  onClose,
+  dragHandleRef={dragHandleRef},
+}) {
   return (
     <div className="header">
       <WindowControls onClose={onClose} />
-      <Icon name="gripHorizontal" />
+
+      <button
+        ref={dragHandleRef}
+        type="button"
+        aria-label="Reorder widget"
+        title="Reorder widget"
+        className="cursor-grab touch-none active:cursor-grabbing"
+      >
+        <Icon name="gripHorizontal" />
+      </button>
+
       <WidgetIcons iconName={iconName} />
     </div>
   );

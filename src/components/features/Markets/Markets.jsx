@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { WidgetBody } from "@/components/ui/Widget";
+import { WidgetBody, widgetInnerBorder } from "@/components/ui/Widget";
 
 async function fetchJson(url, options, marketName) {
   const response = await fetch(url, options);
@@ -193,17 +193,14 @@ export function Markets({ onClose }) {
   const renderMarket = (market) => (
     <div
       key={market.id}
-      className="
-      flex
-      items-center
-      justify-between
-      gap-2
-      p-2
-      border
-      rounded
-      border-slate-700
-      bg-slate-500
-    "
+      className={`
+        flex
+        items-center
+        justify-between
+        gap-2
+        p-2
+        ${widgetInnerBorder}
+      `}
     >
       <span>{market.name}</span>
 
@@ -234,7 +231,7 @@ export function Markets({ onClose }) {
         ) : (
           <div
             className="
-              grid  
+              grid
               gap-2
               w-full
               text-sm
