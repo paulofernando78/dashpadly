@@ -3,10 +3,9 @@ import { Icon } from "@/components/ui/Icon";
 export function WidgetContainer({ children }) {
   return <div className="flex gap-2">{children}</div>;
 }
-const widgetWidth = `w-[210px]`;
 export const widgetHeight = `h-[388px]`;
-const clockWidth = `min-w-[295px] w-[295px]`;
 
+// + WidgetPicker
 export const widgetBorder = `
   border
   border-gray-500/80
@@ -38,6 +37,7 @@ export function WidgetCard({
     <article
       ref={ref}
       className={`
+        shrink-0
         font-['Oswald_Variable']
         scroll-mr-2
         ${widgetBorder}
@@ -148,7 +148,6 @@ function WidgetIcons({ iconName, className }) {
 }
 
 export function WidgetBody({
-  width,
   top,
   middlePosition,
   middle,
@@ -160,7 +159,6 @@ export function WidgetBody({
   return (
     <div
       className={`
-        ${width === "clock" ? clockWidth : widgetWidth}
         flex
         flex-col
         gap-4

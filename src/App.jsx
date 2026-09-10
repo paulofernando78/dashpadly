@@ -66,7 +66,6 @@ function SortableWidget({
       ref={ref}
       dragHandleRef={handleRef}
       widgetClassName={definition.widgetClassName}
-      widgetStyle={definition.widgetStyle}
       iconName={definition.iconName}
       onClose={onRemove}
       isDragging={isDragging}

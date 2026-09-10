@@ -24,7 +24,6 @@ export const widgetCatalog = {
     Component: Clock,
     title: "Clock",
     iconName: "clock",
-    widgetWidthClassName: "w-75",
     widgetClassName: bg,
     defaultConfig: {
       location: "São Paulo, São Paulo, Brasil",
@@ -63,7 +62,6 @@ export const widgetCatalog = {
     Component: Timer,
     title: "Timer",
     iconName: "timer",
-    // widgetStyle: getWidgetGradientStyle("slate"),
     widgetClassName: bg,
     defaultConfig: {
       hours: 0,
@@ -78,7 +76,6 @@ export const widgetCatalog = {
     Component: Calculator,
     title: "Calculator",
     iconName: "calculator",
-    // widgetStyle: getWidgetGradientStyle("slate"),
     widgetClassName: bg,
     defaultConfig: {
       display: "0",
@@ -89,7 +86,7 @@ export const widgetCatalog = {
     Component: Markets,
     title: "Markets",
     iconName: "markets",
-    // widgetStyle: getWidgetGradientStyle("slate"),
+    widgetWidthClassName: "w-75",
     widgetClassName: bg,
     defaultConfig: {},
   },
@@ -109,7 +106,6 @@ export const widgetCatalog = {
     title: "Water intake",
     Component: WaterIntake,
     iconName: "waterIntake",
-    // widgetStyle: getWidgetGradientStyle("slate"),
     widgetClassName: bg,
     defaultConfig: {},
   },
@@ -118,7 +114,6 @@ export const widgetCatalog = {
     title: "Breating",
     Component: Breathing,
     iconName: "breathing",
-    // widgetStyle: getWidgetGradientStyle("slate"),
     widgetClassName: bg,
     defaultConfig: {},
   },

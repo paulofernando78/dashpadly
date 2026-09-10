@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { WidgetBody, widgetInnerBorder } from "@/components/ui/Widget";
+import { MarketLineChart } from "./MarketLineChart";
 
 async function fetchJson(url, options, marketName) {
   const response = await fetch(url, options);
@@ -102,6 +103,16 @@ async function fetchBitcoin(signal) {
 const marketTitles = `
   font-bold uppercase
 `;
+
+const testIbovespaHistory = [
+  { time: "2026-09-01", value: 181000 },
+  { time: "2026-09-02", value: 182500 },
+  { time: "2026-09-03", value: 181800 },
+  { time: "2026-09-04", value: 184000 },
+  { time: "2026-09-05", value: 183200 },
+  { time: "2026-09-06", value: 186000 },
+  { time: "2026-09-07", value: 188500 },
+];
 
 export function Markets({ onClose }) {
   const [markets, setMarkets] = useState([]);
@@ -224,6 +235,7 @@ export function Markets({ onClose }) {
       key={market.id}
       className={`
         flex
+        
         items-center
         justify-between
         gap-2
@@ -251,6 +263,9 @@ export function Markets({ onClose }) {
           {formatChange(market.change)}
         </span>
       </div>
+      {market.id === "ibovespa" && (
+      <MarketLineChart data={testIbovespaHistory} />
+    )}
     </div>
   );
 
@@ -270,6 +285,8 @@ export function Markets({ onClose }) {
               gap-4
               w-full
               text-sm
+              overflow-y-scroll
+              
             "
           >
             {indexes.length > 0 && (

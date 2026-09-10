@@ -84,7 +84,7 @@ export function WaterIntake({ onConfigChange, onClose }) {
       }
       middle={
         !isEditing ? (
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             {glasses.map((glass, index) => {
               const isCompleted = index < completedGlasses;
 
