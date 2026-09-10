@@ -213,7 +213,7 @@ export function Timer({
             flex
             flex-col
             items-center
-            gap-2
+            gap-2.75
             `}
           >
             <div className="flex flex-col gap-2">
