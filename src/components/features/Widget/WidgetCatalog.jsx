@@ -305,10 +305,6 @@ function getWidgetGradientStyle(colorName) {
   };
 }
 
-const quickNotes = `
-  bg-linear-to-tl from-gray-50 to-stone-50
-`
-
 export const widgetCatalog = {
   clock: {
     category: "utilities",
@@ -331,7 +327,7 @@ export const widgetCatalog = {
     title: "Quick Notes",
     iconName: "quickNotes",
     widgetStyle: getWidgetGradientStyle("slate"),
-    widgetClassName: quickNotes,
+    widgetClassName: "paper-texture",
     defaultConfig: {
       note: "",
     },

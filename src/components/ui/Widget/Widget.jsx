@@ -62,9 +62,9 @@ const windowControl = `
 function WidgetHeader({ iconName, onClose }) {
   return (
     <div className="header">
-      <WidgetIcons iconName={iconName} />
-      <Icon name="gripHorizontal" />
       <WindowControls onClose={onClose} />
+      <Icon name="gripHorizontal" />
+      <WidgetIcons iconName={iconName} />
     </div>
   );
 }
@@ -79,20 +79,20 @@ function WindowControls({ onClose }) {
     >
       <button
         type="button"
-        title="maximize"
-        aria-label="maximize widget"
-        className={`${windowControl} bg-green-600`}
-      >
-        <Icon name="maximize2" size={10} />
-      </button>
-      <button
-        type="button"
         title="close"
         aria-label="close widget"
         onClick={onClose}
         className={`${windowControl} bg-red-400`}
       >
         <Icon name="x" size={10} className="text-gray-600" />
+      </button>
+      <button
+        type="button"
+        title="maximize"
+        aria-label="maximize widget"
+        className={`${windowControl} bg-green-600`}
+      >
+        <Icon name="maximize2" size={10} />
       </button>
       {/* <button
         type="button"
@@ -138,7 +138,7 @@ export function WidgetBody({
         flex-col
         gap-4
         h-full
-        p-2
+        p-4
         ${className}
       `}
     >

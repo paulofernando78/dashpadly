@@ -72,6 +72,10 @@ hr {
   color: lightgray;
 }
 
+.paper-texture {
+  @apply bg-linear-to-tl from-gray-50 to-stone-50;
+}
+
 /* Scroll */
 * {
   scrollbar-width: thin;

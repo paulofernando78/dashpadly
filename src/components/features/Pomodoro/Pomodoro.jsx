@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 import {
-    WidgetBody,
-    WidgetControls,
-    widgetInnerBorder
-  } from "@/components/ui/Widget";
+  WidgetBody,
+  WidgetControls,
+  widgetInnerBorder,
+} from "@/components/ui/Widget";
 import { NumberInput } from "@/components/ui/NumberInput";
 import { Icon } from "@/components/ui/Icon";
 
@@ -332,6 +332,7 @@ export function Pomodoro({
             className="
               text-center
               uppercase
+              h-full
             "
           >
             {isEditing ? (
@@ -384,7 +385,14 @@ export function Pomodoro({
                 />
               </div>
             ) : (
-              <div className="grid gap-4">
+              <div
+                className="
+                  flex
+                  flex-col
+                  justify-evenly
+                  h-full
+                "
+              >
                 <div className="grid gap-2">
                   <p>No distraction</p>
                   <p>No social media</p>
@@ -401,85 +409,85 @@ export function Pomodoro({
                   {/* Focus • Break • Long  */}
                   <div
                     className="
-                      flex
-                      justify-evenly
-                      gap-3
-                      p-2
+                      grid
+                      gap-2
                   "
                   >
-                    {/* FOCUS */}
-                    <div className={`space-y-2 ${durationTitle}`}>
-                      <span
-                        className={`${
-                          mode === "focus" && isRunning
-                            ? activeFocusModeClass
-                            : inactiveModeClass
-                        } text-[1rem]`}
-                      >
-                        Focus
-                      </span>
+                    {/* 1 OF 4 */}
+                    <span>
+                      focus {displayedPomodoro} of {pomodoroGoal}
+                    </span>
+                    <div
+                      className="
+                        flex
+                        justify-evenly
+                      "
+                    >
+                      {/* FOCUS */}
+                      <div className={`space-y-2 ${durationTitle}`}>
+                        <span
+                          className={`${
+                            mode === "focus" && isRunning
+                              ? activeFocusModeClass
+                              : inactiveModeClass
+                          } text-[1rem]`}
+                        >
+                          Focus
+                        </span>
 
-                      <span className={durationDisplay}>
-                        {formatTime(mode === "focus" ? time : focusDuration)}
-                      </span>
-                    </div>
+                        <span className={durationDisplay}>
+                          {formatTime(mode === "focus" ? time : focusDuration)}
+                        </span>
+                      </div>
 
-                    {/* BREAK */}
-                    <div className={`space-y-2 ${durationTitle}`}>
-                      <span
-                        className={`${
-                          mode === "break" && isRunning
-                            ? activeBreakModeClass
-                            : inactiveModeClass
-                        } text-[1rem]`}
-                      >
-                        Break
-                      </span>
-                      <span className={durationDisplay}>
-                        {formatTime(mode === "break" ? time : breakDuration)}
-                      </span>
-                    </div>
+                      {/* BREAK */}
+                      <div className={`space-y-2 ${durationTitle}`}>
+                        <span
+                          className={`${
+                            mode === "break" && isRunning
+                              ? activeBreakModeClass
+                              : inactiveModeClass
+                          } text-[1rem]`}
+                        >
+                          Break
+                        </span>
+                        <span className={durationDisplay}>
+                          {formatTime(mode === "break" ? time : breakDuration)}
+                        </span>
+                      </div>
 
-                    {/* LONG */}
-                    <div className={`space-y-2 ${durationTitle}`}>
-                      <span
-                        className={`${
-                          mode === "long" && isRunning
-                            ? activeLongModeClass
-                            : inactiveModeClass
-                        } text-[1rem]`}
-                      >
-                        Long
-                      </span>
-                      <span className={durationDisplay}>
-                        {formatTime(mode === "long" ? time : longBreakDuration)}
-                      </span>
+                      {/* LONG */}
+                      <div className={`space-y-2 ${durationTitle}`}>
+                        <span
+                          className={`${
+                            mode === "long" && isRunning
+                              ? activeLongModeClass
+                              : inactiveModeClass
+                          } text-[1rem]`}
+                        >
+                          Long
+                        </span>
+                        <span className={durationDisplay}>
+                          {formatTime(
+                            mode === "long" ? time : longBreakDuration,
+                          )}
+                        </span>
+                      </div>
                     </div>
+                    <span
+                      className={`block uppercase ${
+                        mode === "done"
+                          ? activePomodoroDoneModeClass
+                          : inactiveModeClass
+                      }`}
+                    >
+                      done
+                    </span>
                   </div>
-                </div>
-                {/* 1 OF 4 */}
-                <div className="space-x-2">
-                  <span>
-                    focus {displayedPomodoro} of {pomodoroGoal}
-                  </span>
                 </div>
               </div>
             )}
           </div>
-        }
-        subMiddle={
-          !isEditing && (
-            <span
-              className={`block uppercase ${
-                mode === "done"
-                  ? activePomodoroDoneModeClass
-                  : inactiveModeClass
-              }
-                  `}
-            >
-              done
-            </span>
-          )
         }
         bottom={
           <WidgetControls>

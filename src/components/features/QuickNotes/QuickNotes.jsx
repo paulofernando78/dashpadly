@@ -28,7 +28,6 @@ export function QuickNotes({ note = "", onConfigChange, onClose }) {
               className="
                   w-full    
                   h-full
-                  p-2
                   text-black
                   font-['Indie_Flower',cursive]
                   rounded

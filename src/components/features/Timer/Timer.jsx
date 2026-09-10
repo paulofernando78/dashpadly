@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 
-import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
+import {
+  WidgetBody,
+  WidgetControls,
+  widgetInnerBorder,
+} from "@/components/ui/Widget";
 import { Icon } from "@/components/ui/Icon";
 
 import { NumberInput } from "@/components/ui/NumberInput";
@@ -47,7 +51,7 @@ export function Timer({
   minutes = 0,
   seconds = 0,
   onConfigChange,
-  onClose
+  onClose,
 }) {
   const initialTime = hours * 3600 + minutes * 60 + seconds;
 
@@ -199,17 +203,18 @@ export function Timer({
   }
 
   return (
-    <WidgetBody onClose={onClose}
+    <WidgetBody
+      onClose={onClose}
       top={<span>{getFormattedTime}</span>}
       middle={
         !isEditing ? (
           <div
-            className="
+            className={`
             flex
             flex-col
             items-center
             gap-2
-            "
+            `}
           >
             <div className="flex flex-col gap-2">
               {shortCuts.map((minutes) => (
@@ -241,22 +246,32 @@ export function Timer({
                 </div>
               ))}
             </div>
-            {/* <label>
-              <input
-                type="text"
-                className="
-                    mt-2
-                    w-45
-                    px-[0.6rem] py-[0.4rem]
-                    font-[Arial]
-                    border
-                    border-gray-500
-                    rounded-lg
-                    placeholder:italic
-                  "
-                placeholder="ex: boiling water..."
-              />
-            </label> */}
+            <div className={`grid gap-2 w-full ${widgetInnerBorder}`}>
+              <label>
+                <input
+                  type="text"
+                  className="
+                      mt-2
+                      w-full
+                      px-[0.6rem] py-[0.4rem]
+                      text-gray-500
+                      font-[Arial]
+                      border
+                      border-gray-500
+                      rounded-md
+                      placeholder:italic
+                      paper-texture
+                    "
+                  placeholder="ex: boiling water..."
+                />
+              </label>
+              <span
+                className={`uppercase border
+              ${mode === "done" ? activeTimerDoneModeClass : inactiveModeClass}`}
+              >
+                done
+              </span>
+            </div>
           </div>
         ) : (
           <div
@@ -287,16 +302,6 @@ export function Timer({
               max={59}
             />
           </div>
-        )
-      }
-      subMiddle={
-        !isEditing && (
-          <span
-            className={`uppercase
-            ${mode === "done" ? activeTimerDoneModeClass : inactiveModeClass}`}
-          >
-            done
-          </span>
         )
       }
       bottom={
