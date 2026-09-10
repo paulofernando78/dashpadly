@@ -17,7 +17,7 @@ function getWeatherIconName(code, isDay = true) {
 
   // Parcialmente nublado
   if ([1, 2].includes(code)) {
-    return isDay ? "cloudSun" : "cloud";
+    return isDay ? "cloudSun" : "cloudMoon";
   }
 
   // Nublado

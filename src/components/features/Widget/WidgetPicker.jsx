@@ -126,7 +126,7 @@ export function WidgetPicker({ onAdd, ref }) {
                       type="button"
                       onClick={() => handleAdd(widgetId)}
                       style={widget.widgetStyle}
-                      className={`clickable ${widgetPickerBorder} ${widget.widgetClassName}`}
+                      className={`clickable ${widgetPickerBorder} bg-slate-500`}
                     >
                       <span>{widget.title}</span>
                     </button>
