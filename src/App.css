@@ -28,15 +28,15 @@ input[type="number"].show-spinner::-webkit-outer-spin-button {
 }
 
 .header {
-  @apply flex
-  items-center
-  justify-between
-  gap-2
-  h-[36px]
-  p-2
-  bg-black
-  rounded-tl-lg
-  rounded-tr-lg;
+  @apply
+    grid
+    grid-cols-[1fr_auto_1fr]
+    gap-2
+    h-[36px]
+    p-2
+    bg-black
+    rounded-tl-lg
+    rounded-tr-lg;
 }
 
 .clickable {

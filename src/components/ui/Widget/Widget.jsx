@@ -92,7 +92,7 @@ function WidgetHeader({ iconName, onClose, dragHandleRef }) {
         <Icon name="gripHorizontal" />
       </button>
 
-      <WidgetIcons iconName={iconName} />
+      <WidgetIcons iconName={iconName} className="justify-self-end"/>
     </div>
   );
 }
@@ -134,15 +134,9 @@ function WindowControls({ onClose }) {
   );
 }
 
-function WidgetIcons({ iconName }) {
+function WidgetIcons({ iconName, className }) {
   return (
-    <div
-      className="
-        flex
-        min-w-0
-        items-center
-      "
-    >
+    <div className={className}>
       <Icon name={iconName} cursorNone />
     </div>
   );
