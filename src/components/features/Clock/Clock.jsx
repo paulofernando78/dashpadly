@@ -400,8 +400,8 @@ export function Clock({
                     submitOnEnter(event, handleConfirmWeather)
                   }
                   placeholder="Type location"
-                  className="  
-                    w-full  
+                  className="
+                    w-full
                     px-2
                     pt-1
                     pb-1

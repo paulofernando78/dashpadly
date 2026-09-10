@@ -24,7 +24,7 @@ export const widgetCatalog = {
     Component: Clock,
     title: "Clock",
     iconName: "clock",
-    widgetClassName: bg,
+    widgetClassName: `w-[318.03px] ${bg}`,
     defaultConfig: {
       location: "São Paulo, São Paulo, Brasil",
       latitude: -23.55052,
@@ -86,8 +86,7 @@ export const widgetCatalog = {
     Component: Markets,
     title: "Markets",
     iconName: "markets",
-    widgetWidthClassName: "w-75",
-    widgetClassName: bg,
+    widgetClassName: `w-[339px] ${bg}`,
     defaultConfig: {},
   },
   purchases: {

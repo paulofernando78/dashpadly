@@ -231,41 +231,46 @@ export function Markets({ onClose }) {
   const currencies = markets.filter((market) => market.category === "currency");
 
   const renderMarket = (market) => (
-    <div
-      key={market.id}
-      className={`
-        flex
-        
-        items-center
-        justify-between
-        gap-2
-        p-2
-        ${widgetInnerBorder}
-      `}
-    >
-      <span>{market.name}</span>
-
-      <div className="grid gap-1">
-        {market.id === "bitcoin" && (
-          <span className="justify-self-end">
-            {formatUsdValue(market.usdValue)}
-          </span>
-        )}
-
-        <span className="justify-self-end">{formatValue(market)}</span>
-
-        <span
-          className={`
-          justify-self-end
-          ${market.change >= 0 ? "text-green-400" : "text-red-400"}
+    <div>
+      <div
+        key={market.id}
+        className={`
+          grid
+          grid-cols-[1fr_auto]
+          justify-between
+          gap-2
+          p-2
+          ${widgetInnerBorder}
         `}
-        >
-          {formatChange(market.change)}
-        </span>
+      >
+        <span>{market.name}</span>
+
+        <div className="grid gap-2">
+          {market.id === "bitcoin" && (
+            <span className="justify-self-end">
+              {formatUsdValue(market.usdValue)}
+            </span>
+          )}
+
+          <span className="justify-self-end">{formatValue(market)}</span>
+
+          <span
+            className={`
+            justify-self-end
+            ${market.change >= 0 ? "text-green-400" : "text-red-400"}
+          `}
+          >
+            {formatChange(market.change)}
+          </span>
+        </div>
+
+        {market.id === "ibovespa" && (
+          <MarketLineChart
+            data={testIbovespaHistory}
+            className="col-span-2"
+          />
+        )}
       </div>
-      {market.id === "ibovespa" && (
-      <MarketLineChart data={testIbovespaHistory} />
-    )}
     </div>
   );
 
@@ -283,10 +288,8 @@ export function Markets({ onClose }) {
             className="
               grid
               gap-4
-              w-full
               text-sm
               overflow-y-scroll
-              
             "
           >
             {indexes.length > 0 && (

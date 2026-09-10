@@ -17,10 +17,10 @@ export const widgetBorder = `
 
 export const widgetInnerBorder = `
   p-2
-  rounded-md
   bg-linear-to-tl
   from-[#111417]
   to-[#222531]
+  rounded-md
 `;
 
 export function WidgetCard({
@@ -37,7 +37,7 @@ export function WidgetCard({
     <article
       ref={ref}
       className={`
-        shrink-0
+        flex-none
         font-['Oswald_Variable']
         scroll-mr-2
         ${widgetBorder}

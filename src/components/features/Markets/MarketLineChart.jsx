@@ -16,7 +16,7 @@ import {
 // ↓
 // fitContent() enquadra todos os pontos
 
-export function MarketLineChart({ data }) {
+export function MarketLineChart({ data, className }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -38,24 +38,24 @@ export function MarketLineChart({ data }) {
 
       grid: {
         vertLines: {
-          visible: false,
+          visible: true,
         },
         horzLines: {
-          visible: false,
+          visible: true,
         },
       },
 
       rightPriceScale: {
-        visible: false,
+        visible: true,
       },
 
       timeScale: {
-        visible: false,
-        borderVisible: false,
+        visible: true,
+        borderVisible: true,
       },
 
-      handleScroll: false,
-      handleScale: false,
+      handleScroll: true,
+      handleScale: true,
     });
 
     const lineSeries = chart.addSeries(LineSeries, {
@@ -86,7 +86,16 @@ export function MarketLineChart({ data }) {
   return (
     <div
       ref={containerRef}
-      className="h-20"
+      className={`
+        p-2
+        w-70
+        h-full
+        bg-linear-to-tl
+        from-[#111417]
+        to-[#34384a]
+        rounded-md
+        ${className}
+        `}
     />
   );
 }
