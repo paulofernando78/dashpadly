@@ -3,7 +3,7 @@ import { Icon } from "@/components/ui/Icon";
 export function WidgetContainer({ children }) {
   return <div className="flex gap-2">{children}</div>;
 }
-const widgetWidth = `w-[194px]`;
+const widgetWidth = `w-[210px]`;
 export const widgetHeight = `h-[388px]`;
 const clockWidth = `min-w-[295px] w-[295px]`;
 

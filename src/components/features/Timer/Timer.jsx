@@ -251,7 +251,6 @@ export function Timer({
                 <input
                   type="text"
                   className="
-                      mt-2
                       w-full
                       px-[0.6rem] py-[0.4rem]
                       text-gray-500
@@ -266,7 +265,7 @@ export function Timer({
                 />
               </label>
               <span
-                className={`uppercase border
+                className={`uppercase justify-self-center
               ${mode === "done" ? activeTimerDoneModeClass : inactiveModeClass}`}
               >
                 done
