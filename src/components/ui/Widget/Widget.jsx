@@ -9,14 +9,19 @@ const clockWidth = `min-w-[295px] w-[295px]`;
 
 const widgetBorder = `
   border
-  border-gray-500/70
+  border-gray-500/80
+  bg-linear-to-tl
+  from-[#111417]
+  to-[#222531]
   rounded-lg
 `;
 
 export const widgetInnerBorder = `
   p-2
   rounded-md
-  bg-[#222531]
+  bg-linear-to-tl
+  from-[#111417]
+  to-[#222531]
 `;
 
 export function WidgetCard({
