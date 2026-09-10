@@ -7,7 +7,7 @@ const widgetWidth = `w-[210px]`;
 export const widgetHeight = `h-[388px]`;
 const clockWidth = `min-w-[295px] w-[295px]`;
 
-const widgetBorder = `
+export const widgetBorder = `
   border
   border-gray-500/80
   bg-linear-to-tl
@@ -79,7 +79,12 @@ const windowControl = `
 
 function WidgetHeader({ iconName, onClose, dragHandleRef }) {
   return (
-    <div className="header">
+    <div
+      className="
+        grid
+        grid-cols-[1fr_auto_1fr]
+        header"
+    >
       <WindowControls onClose={onClose} />
 
       <button
@@ -92,7 +97,7 @@ function WidgetHeader({ iconName, onClose, dragHandleRef }) {
         <Icon name="gripHorizontal" />
       </button>
 
-      <WidgetIcons iconName={iconName} className="justify-self-end"/>
+      <WidgetIcons iconName={iconName} className="justify-self-end" />
     </div>
   );
 }

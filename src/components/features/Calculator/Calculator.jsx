@@ -568,7 +568,7 @@ export function Calculator({
             <div
               key={calculation.id}
               className="
-                flex
+                flex text-xl font-['Indie_Flower',cursive]
               "
             >
               <span className="flex text-gray-800">

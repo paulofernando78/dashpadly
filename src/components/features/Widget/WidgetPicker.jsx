@@ -3,7 +3,7 @@ import { Icon } from "@/components/ui/Icon";
 
 import { widgetCatalog } from "./WidgetCatalog";
 
-import { widgetHeight } from "@/components/ui/Widget";
+import { widgetHeight, widgetBorder } from "@/components/ui/Widget";
 
 export function WidgetPicker({ onAdd, ref }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -80,25 +80,26 @@ export function WidgetPicker({ onAdd, ref }) {
       {isOpen && (
         <div
           ref={pickerRef}
-          className="
+          className={`
             font-['Oswald_Variable']
             scroll-mr-2
-          "
+            ${widgetBorder}
+          `}
         >
-          <header className="header">
-            <span className="w-full text-center">Select</span>
+          <header className="header grid text-center">
+            <span>Select</span>
           </header>
           <div
             className={`
               flex
               flex-col
               gap-4
-              p-2
-              bg-gray-500/30
-              rounded-bl-md
-              rounded-br-md
-              overflow-y-auto
               ${widgetHeight}
+              pt-2
+              pr-1
+              pb-2
+              pl-2              
+              overflow-y-auto
               `}
           >
             {Object.entries(widgetsByCategory).map(([category, widgets]) => (
