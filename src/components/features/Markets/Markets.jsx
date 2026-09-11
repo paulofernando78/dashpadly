@@ -293,7 +293,7 @@ export function Markets({
                   touch-manipulation
                 "
               >
-                <option value="ibovespa">Ibovespa</option>
+                <option value="ibovespa">Ibovespax</option>
                 <option value="sp500">S&P 500</option>
                 <option value="dollar">Dólar</option>
                 <option value="bitcoin">Bitcoin</option>
