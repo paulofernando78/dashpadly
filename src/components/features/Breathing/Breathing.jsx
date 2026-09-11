@@ -84,10 +84,7 @@ export function Breathing({ onConfigChange }) {
                     duration-4000
                     ease-in-out
                     z-3
-                    ${isRunning ?
-                      "scale-115"
-                      :
-                      "scale-100"}
+                    ${isRunning ? "scale-115" : "scale-100"}
                   `}
                 ></div>
                 <div
@@ -98,10 +95,7 @@ export function Breathing({ onConfigChange }) {
                     duration-4000
                     ease-in-out
                     z-2
-                    ${isRunning ?
-                      "scale-130"
-                      :
-                      "scale-100"}
+                    ${isRunning ? "scale-130" : "scale-100"}
                   `}
                 ></div>
                 <div
@@ -121,7 +115,9 @@ export function Breathing({ onConfigChange }) {
                 ></div>
               </div>
             </div>
-            <div className={`flex flex-col items-center gap-2 uppercase ${widgetInnerBorder}`}>
+            <div
+              className={`flex flex-col items-center gap-2 uppercase ${widgetInnerBorder}`}
+            >
               <div className="flex flex-col gap-2 justify-evenly">
                 <span>minutes left</span>
                 <span>cycle 1 of 4</span>
@@ -131,7 +127,14 @@ export function Breathing({ onConfigChange }) {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-2 gap-2 uppercase">
+            <div
+              className="
+                grid
+                grid-cols-[1fr_auto]
+                gap-4
+                mx-auto
+              "
+            >
               <span className="place-self-center">breath in</span>
               <NumberInput
                 hideLabel

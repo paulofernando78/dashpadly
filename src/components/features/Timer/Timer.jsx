@@ -276,8 +276,8 @@ export function Timer({
           <div
             className="
               grid
-              grid-cols-2
-              gap-2
+              grid-cols-[1fr_auto]
+              gap-4
               mx-auto
               uppercase
             "
