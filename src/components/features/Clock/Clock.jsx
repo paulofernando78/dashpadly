@@ -358,8 +358,8 @@ export function Clock({
                       text-sm
                     "
                 >
-                  <span className="row-start-2">min</span>
-                  <span className="row-start-3">max</span>
+                  <span className="row-start-2">max</span>
+                  <span className="row-start-3">min</span>
                 </div>
                 {weather.nextDays.map((day) => (
                   <div
@@ -371,8 +371,8 @@ export function Clock({
                       "
                   >
                     <span className="text-sm">{formatWeekday(day.date)}</span>
-                    <span>{day.min}°</span>
                     <span>{day.max}°</span>
+                    <span>{day.min}°</span>
                     <Icon
                       name={getWeatherIconName(day.weatherCode)}
                       size={WEATHER_ICON_SIZE}
