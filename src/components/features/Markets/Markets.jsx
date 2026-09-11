@@ -283,7 +283,6 @@ export function Markets({
                   w-full
                   min-h-10
                   px-3
-                  py-2
                   pr-10
                   border
                   rounded
