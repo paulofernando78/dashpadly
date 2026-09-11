@@ -108,9 +108,9 @@ export const widgetCatalog = {
     widgetClassName: bg,
     defaultConfig: {},
   },
-  breating: {
+  breathing: {
     category: "health",
-    title: "Breating",
+    title: "Breathing",
     Component: Breathing,
     iconName: "breathing",
     widgetClassName: `w-[232px] ${bg}`,
@@ -118,7 +118,6 @@ export const widgetCatalog = {
       inhaleSeconds: 4,
       holdInSeconds: 4,
       exhaleSeconds: 4,
-      holdOutSeconds: 4,
     },
   },
 };

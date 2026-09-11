@@ -1,10 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
+import {
+  WidgetBody,
+  widgetInnerBorder,
+  WidgetControls,
+} from "@/components/ui/Widget";
 import { NumberInput } from "@/components/ui/NumberInput";
 
 export function Breathing({ onConfigChange }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
+
+  function handleToggle() {
+    setIsRunning((value) => !value);
+  }
+
+  useEffect(() => {
+    if (!isRunning) return;
+
+    const timer = setTimeout(() => {
+      setIsRunning(false);
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [isRunning]);
 
   function handleEdit() {
     setIsEditing(true);
@@ -17,18 +36,98 @@ export function Breathing({ onConfigChange }) {
 
   function handleReset() {
     setIsEditing(false);
+    setIsRunning(false);
   }
+
+  const circle = `
+    absolute
+    w-30
+    h-30
+    rounded-full
+  `;
 
   return (
     <WidgetBody
-      top={<span>...</span>}
       middle={
         !isEditing ? (
-          <div className="relative grid place-items-center border w-50 h-50">
-            <div className="absolute w-50 h-50 bg-gray-400 rounded-full"></div>
-            <div className="absolute w-45 h-45 bg-gray-300 rounded-full"></div>
-            <div className="absolute w-40 h-40 bg-gray-200 rounded-full"></div>
-            <div className="absolute w-35 h-35 bg-gray-100 rounded-full"></div>
+          <div
+            className="
+            flex
+            flex-col
+            gap-3
+            h-full
+            "
+          >
+            <div className="mx-auto">
+              <div
+                className="
+                  relative
+                  grid
+                  place-items-center
+                  w-50
+                  h-50
+                "
+              >
+                <div
+                  className={`
+                  ${circle}
+                    bg-gray-200
+                    shadow-[0_0_5px_1px_rgba(255,255,255,0.7)]
+                    z-4
+                  `}
+                ></div>
+                <div
+                  className={`
+                  ${circle}
+                    bg-gray-400
+                    transition-all
+                    duration-4000
+                    ease-in-out
+                    z-3
+                    ${isRunning ?
+                      "scale-115"
+                      :
+                      "scale-100"}
+                  `}
+                ></div>
+                <div
+                  className={`
+                  ${circle}
+                    bg-gray-600
+                    transition-all
+                    duration-4000
+                    ease-in-out
+                    z-2
+                    ${isRunning ?
+                      "scale-130"
+                      :
+                      "scale-100"}
+                  `}
+                ></div>
+                <div
+                  className={`
+                  ${circle}
+                    bg-gray-800
+                    transition-all
+                    duration-4000
+                    ease-in-out
+                    z-1
+                    ${
+                      isRunning
+                        ? "scale-145 shadow-white shadow-[0_0_5px_1px_rgba(255,255,255,0.7)]"
+                        : "scale-100 shadow-none"
+                    }
+                  `}
+                ></div>
+              </div>
+            </div>
+            <div className={`flex flex-col items-center gap-2 uppercase ${widgetInnerBorder}`}>
+              <div className="flex flex-col gap-2 justify-evenly">
+                <span>minutes left</span>
+                <span>cycle 1 of 4</span>
+              </div>
+              <span>done</span>
+            </div>
           </div>
         ) : (
           <>
@@ -64,9 +163,9 @@ export function Breathing({ onConfigChange }) {
       bottom={
         <WidgetControls>
           <WidgetControls.Play
-          // isRunning={}
-          // onClick={}
-          // disabled={mode === "done" && !isEditing}
+            isRunning={isRunning}
+            onClick={handleToggle}
+            // disabled={mode === "done" && !isEditing}
           />
           <WidgetControls.Edit
             isEditing={isEditing}

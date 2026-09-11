@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
 
-export function Template({ onConfigChange, onClose }) {
+export function Template({ onConfigChange }) {
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEdit() {
@@ -28,13 +28,17 @@ export function Template({ onConfigChange, onClose }) {
         )}
       bottom={
         <WidgetControls>
-          <WidgetControls.Reset onClick={handleReset} />
+          <WidgetControls.Play
+              // isRunning={isRunning}
+              // onClick={handleToggle}
+              // disabled={mode === "done" && !isEditing}
+            />
           <WidgetControls.Edit
             isEditing={isEditing}
             onEdit={handleEdit}
             onConfirm={handleConfirm}
           />
-          <WidgetControls.Erase onClick={onClose} />
+        <WidgetControls.Reset onClick={handleReset} />
         </WidgetControls>
       }
     />
