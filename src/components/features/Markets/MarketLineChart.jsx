@@ -84,7 +84,6 @@ export function MarketLineChart({ data, className }) {
     <div
       ref={containerRef}
       className={`
-        flex-1
         p-2
         h-full
         bg-linear-to-tl
