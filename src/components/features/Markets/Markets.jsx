@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 import { WidgetBody } from "@/components/ui/Widget";
-
 import { MarketCard } from "./MarketCard";
+import { Icon } from "@/components/ui/Icon";
 
 async function fetchJson(url, options, marketName) {
   const response = await fetch(url, options);
@@ -266,20 +266,51 @@ export function Markets({
               h-full
             "
           >
-            <select
-              value={selectedMarketId}
-              onChange={(event) =>
-                onConfigChange?.({
-                  selectedMarketId: event.target.value,
-                })
-              }
-              className="p-1 border border-gray-500/80 rounded"
+            <div className="
+              relative
+              "
             >
-              <option value="ibovespa">Ibovespa</option>
-              <option value="sp500">S&P 500</option>
-              <option value="dollar">Dólar</option>
-              <option value="bitcoin">Bitcoin</option>
-            </select>
+              <select
+                value={selectedMarketId}
+                onChange={(event) =>
+                  onConfigChange?.({
+                    selectedMarketId: event.target.value,
+                  })
+                }
+                className="
+                  appearance-none
+                  block
+                  w-full
+                  min-h-10
+                  px-3
+                  py-2
+                  pr-10
+                  border
+                  rounded
+                  border-gray-500/80
+                  bg-transparent
+                  cursor-pointer
+                  outline-none
+                  touch-manipulation
+                "
+              >
+                <option value="ibovespa">Ibovespa</option>
+                <option value="sp500">S&P 500</option>
+                <option value="dollar">Dólar</option>
+                <option value="bitcoin">Bitcoin</option>
+              </select>
+              <Icon
+                name="chevronDown"
+                size={16}
+                className="
+                  pointer-events-none
+                  absolute
+                  right-2
+                  top-1/2
+                  -translate-y-1/2
+                "
+              />
+            </div>
 
             {selectedMarket && (
               <MarketCard
