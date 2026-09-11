@@ -3,7 +3,7 @@ import { Icon } from "@/components/ui/Icon";
 export function WidgetContainer({ children }) {
   return <div className="flex gap-2">{children}</div>;
 }
-export const widgetHeight = `h-[402px]`;
+export const widgetHeight = `h-[440px]`;
 
 // + WidgetPicker
 export const widgetBorder = `
@@ -25,7 +25,6 @@ export const widgetInnerBorder = `
 
 export function WidgetCard({
   widgetClassName,
-  widgetStyle,
   iconName,
   onClose,
   children,
@@ -38,11 +37,13 @@ export function WidgetCard({
       ref={ref}
       className={`
         flex-none
+        flex
+        ${widgetHeight}
+        flex-col
         font-['Oswald_Variable']
         scroll-mr-2
         ${widgetBorder}
         ${isDragging ? "z-10 opacity-60" : ""}
-        
       `}
     >
       <WidgetHeader
@@ -51,9 +52,9 @@ export function WidgetCard({
         dragHandleRef={dragHandleRef}
       />
       <div
-        style={widgetStyle}
         className={`
-            ${widgetHeight}
+            min-h-0
+            flex-1
             rounded-t-0
             rounded-bl-[7px]
             rounded-br-[7px]
@@ -61,7 +62,7 @@ export function WidgetCard({
             ${widgetClassName}
             `}
       >
-        <div className="flex h-full flex-col">
+        <div className="flex h-full min-h-0 flex-col">
           <div className="min-h-0 flex-1">{children}</div>
         </div>
       </div>
@@ -164,7 +165,7 @@ export function WidgetBody({
         gap-4
         h-full
         p-4
-        ${className}
+        ${className ?? ""}
       `}
     >
       {top && (
@@ -186,9 +187,9 @@ export function WidgetBody({
           className={`
             flex
             flex-col
+            ${bottom ? "flex-1" : "h-full"}
             ${middlePosition === "top" ? "justify-start" : "justify-center"}
             w-full
-            ${bottomPosition ? "" : "h-full"}
             min-h-0
           `}
         >

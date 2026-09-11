@@ -16,7 +16,7 @@ import { Breathing } from "@/components/features/Breathing";
 
 const bg = `
   bg-gray-100/10
-`
+`;
 
 export const widgetCatalog = {
   clock: {
@@ -62,7 +62,7 @@ export const widgetCatalog = {
     Component: Timer,
     title: "Timer",
     iconName: "timer",
-    widgetClassName: bg,
+    widgetClassName: `w-[235.19px] ${bg}`,
     defaultConfig: {
       hours: 0,
       minutes: 0,
@@ -113,7 +113,12 @@ export const widgetCatalog = {
     title: "Breating",
     Component: Breathing,
     iconName: "breathing",
-    widgetClassName: bg,
-    defaultConfig: {},
+    widgetClassName: `w-[] ${bg}`,
+    defaultConfig: {
+      inhaleSeconds: 4,
+      holdInSeconds: 4,
+      exhaleSeconds: 4,
+      holdOutSeconds: 4,
+    },
   },
 };

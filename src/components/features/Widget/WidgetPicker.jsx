@@ -60,6 +60,7 @@ export function WidgetPicker({ onAdd, ref }) {
       className={`
         flex
         gap-2
+        ${widgetHeight}
         uppercase
         scroll-mr-2
         overflow-hidden
@@ -81,6 +82,10 @@ export function WidgetPicker({ onAdd, ref }) {
         <div
           ref={pickerRef}
           className={`
+            flex
+            h-full
+            min-h-0
+            flex-col
             font-['Oswald_Variable']
             scroll-mr-2
             ${widgetBorder}
@@ -91,14 +96,15 @@ export function WidgetPicker({ onAdd, ref }) {
           </header>
           <div
             className={`
+              min-h-0
+              flex-1
               flex
               flex-col
               gap-4
-              ${widgetHeight}
               pt-2
               pr-1
               pb-2
-              pl-2              
+              pl-2
               overflow-y-auto
               `}
           >

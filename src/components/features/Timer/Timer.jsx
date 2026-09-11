@@ -279,7 +279,6 @@ export function Timer({
               grid-cols-2
               gap-2
               mx-auto
-              w-max
               uppercase
             "
           >

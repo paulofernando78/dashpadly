@@ -76,7 +76,8 @@ export function WaterIntake({ onConfigChange, onClose }) {
   ];
 
   return (
-    <WidgetBody onClose={onClose}
+    <WidgetBody
+      onClose={onClose}
       top={
         <span className="text-2xl">
           {completedMl} of {totalMl}ml
@@ -116,7 +117,7 @@ export function WaterIntake({ onConfigChange, onClose }) {
             })}
           </div>
         ) : (
-          <div className="flex gap-2">
+          <div className="flex gap-2 justify-center">
             <NumberInput
               label="ml"
               name="glass-ml"
@@ -138,12 +139,12 @@ export function WaterIntake({ onConfigChange, onClose }) {
       }
       bottom={
         <WidgetControls>
-          <WidgetControls.Reset onClick={handleReset} />
           <WidgetControls.Edit
             isEditing={isEditing}
             onEdit={handleEdit}
             onConfirm={handleConfirm}
           />
+          <WidgetControls.Reset onClick={handleReset} />
         </WidgetControls>
       }
     />

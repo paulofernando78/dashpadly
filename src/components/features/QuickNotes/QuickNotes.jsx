@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
+import {
+  WidgetBody,
+  WidgetControls,
+} from "@/components/ui/Widget";
 
 export function QuickNotes({ note = "", onConfigChange, onClose }) {
   const [currentNote, setCurrentNote] = useState(note);
@@ -47,22 +50,24 @@ export function QuickNotes({ note = "", onConfigChange, onClose }) {
     <WidgetBody
       onClose={onClose}
       middle={
-        <div className="h-full">
-          <textarea
-            value={currentNote}
-            onChange={handleNoteChange}
-            placeholder="Quick notes..."
-            className="
-                  text-xl
-                  text-black
-                  font-['Indie_Flower',cursive]
-                  rounded
-                  leading-6
-                  resize-none
-                  outline-0
-                "
-          />
-        </div>
+        <textarea
+          value={currentNote}
+          onChange={handleNoteChange}
+          placeholder="Quick notes..."
+          className={`
+            flex-1
+            min-h-0
+            w-full
+            h-full
+            text-xl
+            text-black
+            font-['Indie_Flower',cursive]
+            rounded
+            leading-6
+            resize-none
+            outline-0
+          `}
+        />
       }
       bottom={
         <WidgetControls>
