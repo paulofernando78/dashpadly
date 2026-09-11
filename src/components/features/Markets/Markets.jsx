@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 
-import { WidgetBody, widgetInnerBorder } from "@/components/ui/Widget";
-import { MarketLineChart } from "./MarketLineChart";
+import { WidgetBody } from "@/components/ui/Widget";
+
+import { MarketCard } from "./MarketCard";
 
 async function fetchJson(url, options, marketName) {
   const response = await fetch(url, options);
@@ -128,11 +129,11 @@ async function fetchBitcoin(signal) {
   };
 }
 
-const marketTitles = `
-  font-bold uppercase
-`;
-
-export function Markets({ onClose }) {
+export function Markets({
+  selectedMarketId = "ibovespa",
+  onConfigChange,
+  onClose,
+}) {
   const [markets, setMarkets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
@@ -242,51 +243,8 @@ export function Markets({ onClose }) {
     return `${change >= 0 ? "+" : ""}${change.toFixed(2)}%`;
   }
 
-  const crypto = markets.filter((market) => market.category === "crypto");
-
-  const indexes = markets.filter((market) => market.category === "indexes");
-
-  const currencies = markets.filter((market) => market.category === "currency");
-
-  const renderMarket = (market) => (
-    <div>
-      <div
-        key={market.id}
-        className={`
-          grid
-          grid-cols-[1fr_auto]
-          justify-between
-          gap-2
-          p-2
-          ${widgetInnerBorder}
-        `}
-      >
-        <span>{market.name}</span>
-
-        <div className="grid gap-2">
-          {market.id === "bitcoin" && (
-            <span className="justify-self-end">
-              {formatUsdValue(market.usdValue)}
-            </span>
-          )}
-
-          <span className="justify-self-end">{formatValue(market)}</span>
-
-          <span
-            className={`
-            justify-self-end
-            ${market.change >= 0 ? "text-green-400" : "text-red-400"}
-          `}
-          >
-            {formatChange(market.change)}
-          </span>
-        </div>
-
-        {market.history?.length > 0 && (
-          <MarketLineChart data={market.history} className="col-span-2" />
-        )}
-      </div>
-    </div>
+  const selectedMarket = markets.find(
+    (market) => market.id === selectedMarketId,
   );
 
   return (
@@ -301,31 +259,35 @@ export function Markets({ onClose }) {
         ) : (
           <div
             className="
-              grid
+              flex
+              flex-col
               gap-4
-              text-sm
-              overflow-y-scroll
+              min-h-0
+              h-full
             "
           >
-            {indexes.length > 0 && (
-              <section className="grid gap-1">
-                <h3 className={marketTitles}>Indexes</h3>
-                {indexes.map(renderMarket)}
-              </section>
-            )}
+            <select
+              value={selectedMarketId}
+              onChange={(event) =>
+                onConfigChange?.({
+                  selectedMarketId: event.target.value,
+                })
+              }
+              className="p-1 border border-gray-500/80 rounded"
+            >
+              <option value="ibovespa">Ibovespa</option>
+              <option value="sp500">S&P 500</option>
+              <option value="dollar">Dólar</option>
+              <option value="bitcoin">Bitcoin</option>
+            </select>
 
-            {currencies.length > 0 && (
-              <section className="grid gap-1">
-                <h3 className={marketTitles}>Currency</h3>
-                {currencies.map(renderMarket)}
-              </section>
-            )}
-
-            {crypto.length > 0 && (
-              <section className="grid gap-1">
-                <h3 className={marketTitles}>Crypto</h3>
-                {crypto.map(renderMarket)}
-              </section>
+            {selectedMarket && (
+              <MarketCard
+                market={selectedMarket}
+                formatValue={formatValue}
+                formatUsdValue={formatUsdValue}
+                formatChange={formatChange}
+              />
             )}
 
             {error && <span className="text-xs text-red-400">{error}</span>}

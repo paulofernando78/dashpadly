@@ -1,9 +1,5 @@
 import { useEffect, useRef } from "react";
-import {
-  ColorType,
-  createChart,
-  LineSeries,
-} from "lightweight-charts";
+import { ColorType, createChart, LineSeries } from "lightweight-charts";
 
 // React renderiza <div ref={containerRef}>              ↓
 // useEffect executa
@@ -26,7 +22,7 @@ export function MarketLineChart({ data, className }) {
 
     const chart = createChart(container, {
       width: container.clientWidth,
-      height: 80,
+      height: container.clientHeight,
 
       layout: {
         background: {
@@ -72,6 +68,7 @@ export function MarketLineChart({ data, className }) {
     const resizeObserver = new ResizeObserver(([entry]) => {
       chart.applyOptions({
         width: entry.contentRect.width,
+        height: entry.contentRect.height,
       });
     });
 
@@ -87,8 +84,8 @@ export function MarketLineChart({ data, className }) {
     <div
       ref={containerRef}
       className={`
+        flex-1
         p-2
-        w-70
         h-full
         bg-linear-to-tl
         from-[#111417]
