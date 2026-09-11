@@ -35,18 +35,27 @@ async function fetchBrapiIndex({ symbol, id, name, token, signal }) {
   }
 
   const data = await fetchJson(
-    `https://brapi.dev/api/quote/${encodeURIComponent(symbol)}`,
+    `https://brapi.dev/api/quote/${encodeURIComponent(symbol)}?range=1mo&interval=1d`,
     {
       headers: { Authorization: `Bearer ${token}` },
       signal,
     },
     name,
   );
+
   const quote = data?.results?.[0];
 
   if (!quote) {
     throw new Error(`${name}: cotação não encontrada`);
   }
+
+  const history = (quote.historicalDataPrice ?? [])
+    .map(({ date, close }) => ({
+      time: new Date(date * 1000).toISOString().slice(0, 10),
+      value: Number(close),
+    }))
+    .filter(({ value }) => Number.isFinite(value))
+    .sort((a, b) => a.time.localeCompare(b.time));
 
   return {
     category: "indexes",
@@ -54,20 +63,29 @@ async function fetchBrapiIndex({ symbol, id, name, token, signal }) {
     name,
     value: requireFiniteNumber(quote.regularMarketPrice, name),
     change: requireFiniteNumber(quote.regularMarketChangePercent, name),
+    history,
   };
 }
 
 async function fetchDollar(signal) {
   const data = await fetchJson(
-    "https://economia.awesomeapi.com.br/last/USD-BRL",
+    "https://economia.awesomeapi.com.br/json/daily/USD-BRL/30",
     { signal },
     "Dólar",
   );
-  const quote = data?.USDBRL;
+  const quote = data?.[0];
 
   if (!quote) {
     throw new Error("Dólar: cotação não encontrada");
   }
+
+  const history = data
+    .map(({ timestamp, bid }) => ({
+      time: new Date(Number(timestamp) * 1000).toISOString().slice(0, 10),
+      value: Number(bid),
+    }))
+    .filter(({ value }) => Number.isFinite(value))
+    .sort((a, b) => a.time.localeCompare(b.time));
 
   return {
     category: "currency",
@@ -75,21 +93,30 @@ async function fetchDollar(signal) {
     name: "Dólar",
     value: requireFiniteNumber(quote.bid, "Dólar"),
     change: requireFiniteNumber(quote.pctChange, "Dólar"),
+    history,
   };
 }
 
 async function fetchBitcoin(signal) {
   const data = await fetchJson(
-    "https://economia.awesomeapi.com.br/last/BTC-BRL",
+    "https://economia.awesomeapi.com.br/json/daily/BTC-BRL/30",
     { signal },
     "Bitcoin",
   );
 
-  const quote = data?.BTCBRL;
+  const quote = data?.[0];
 
   if (!quote) {
     throw new Error("Bitcoin: cotação não encontrada");
   }
+
+  const history = data
+    .map(({ timestamp, bid }) => ({
+      time: new Date(Number(timestamp) * 1000).toISOString().slice(0, 10),
+      value: Number(bid),
+    }))
+    .filter(({ value }) => Number.isFinite(value))
+    .sort((a, b) => a.time.localeCompare(b.time));
 
   return {
     category: "crypto",
@@ -97,22 +124,13 @@ async function fetchBitcoin(signal) {
     name: "Bitcoin",
     value: requireFiniteNumber(quote.bid, "Bitcoin"),
     change: requireFiniteNumber(quote.pctChange, "Bitcoin"),
+    history,
   };
 }
 
 const marketTitles = `
   font-bold uppercase
 `;
-
-const testIbovespaHistory = [
-  { time: "2026-09-01", value: 181000 },
-  { time: "2026-09-02", value: 182500 },
-  { time: "2026-09-03", value: 181800 },
-  { time: "2026-09-04", value: 184000 },
-  { time: "2026-09-05", value: 183200 },
-  { time: "2026-09-06", value: 186000 },
-  { time: "2026-09-07", value: 188500 },
-];
 
 export function Markets({ onClose }) {
   const [markets, setMarkets] = useState([]);
@@ -264,11 +282,8 @@ export function Markets({ onClose }) {
           </span>
         </div>
 
-        {market.id === "ibovespa" && (
-          <MarketLineChart
-            data={testIbovespaHistory}
-            className="col-span-2"
-          />
+        {market.history?.length > 0 && (
+          <MarketLineChart data={market.history} className="col-span-2" />
         )}
       </div>
     </div>
