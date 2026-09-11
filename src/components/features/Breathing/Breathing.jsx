@@ -48,6 +48,7 @@ export function Breathing({ onConfigChange }) {
 
   return (
     <WidgetBody
+      top={<span>1min</span>}
       middle={
         !isEditing ? (
           <div
@@ -119,48 +120,19 @@ export function Breathing({ onConfigChange }) {
               className={`flex flex-col items-center gap-2 uppercase ${widgetInnerBorder}`}
             >
               <div className="flex flex-col gap-2 justify-evenly">
-                <span>minutes left</span>
-                <span>cycle 1 of 4</span>
+                <span>...</span>
               </div>
-              <span>done</span>
+              <span>remaining</span>
             </div>
           </div>
         ) : (
-          <>
-            <div
-              className="
-                grid
-                grid-cols-[1fr_auto]
-                gap-4
-                mx-auto
-              "
-            >
-              <span className="place-self-center">breath in</span>
-              <NumberInput
-                hideLabel
-                label="focus"
-                name="focus"
-                // value={}
-                // onChange={}
-              />
-              <span className="place-self-center">hold</span>
-              <NumberInput
-                hideLabel
-                label="focus"
-                name="focus"
-                // value={}
-                // onChange={}
-              />
-              <span className="place-self-center">breath out</span>
-              <NumberInput
-                hideLabel
-                label="focus"
-                name="focus"
-                // value={}
-                // onChange={}
-              />
-            </div>
-          </>
+          <div className="flex flex-col gap-2">
+            <button className="clickable">1min</button>
+            <button className="clickable">2min</button>
+            <button className="clickable">3min</button>
+            <button className="clickable">4min</button>
+            <button className="clickable">5min</button>
+          </div>
         )
       }
       bottom={
