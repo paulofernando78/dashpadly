@@ -113,7 +113,7 @@ export const widgetCatalog = {
     title: "Breating",
     Component: Breathing,
     iconName: "breathing",
-    widgetClassName: `w-[] ${bg}`,
+    widgetClassName: `w-[232px] ${bg}`,
     defaultConfig: {
       inhaleSeconds: 4,
       holdInSeconds: 4,

@@ -33,14 +33,13 @@ export function Breathing({ onConfigChange }) {
         ) : (
           <>
             <div className="grid grid-cols-2 gap-2 uppercase">
-              <span className="place-self-center">inhale</span>
+              <span className="place-self-center">breath in</span>
               <NumberInput
                 hideLabel
                 label="focus"
                 name="focus"
                 // value={}
                 // onChange={}
-                min={1}
               />
               <span className="place-self-center">hold</span>
               <NumberInput
@@ -49,16 +48,14 @@ export function Breathing({ onConfigChange }) {
                 name="focus"
                 // value={}
                 // onChange={}
-                min={1}
               />
-              <span className="place-self-center">exhale</span>
+              <span className="place-self-center">breath out</span>
               <NumberInput
                 hideLabel
                 label="focus"
                 name="focus"
                 // value={}
                 // onChange={}
-                min={1}
               />
             </div>
           </>
@@ -67,10 +64,10 @@ export function Breathing({ onConfigChange }) {
       bottom={
         <WidgetControls>
           <WidgetControls.Play
-              // isRunning={}
-              // onClick={}
-              // disabled={mode === "done" && !isEditing}
-            />
+          // isRunning={}
+          // onClick={}
+          // disabled={mode === "done" && !isEditing}
+          />
           <WidgetControls.Edit
             isEditing={isEditing}
             onEdit={handleEdit}
