@@ -78,9 +78,7 @@ export function Breathing({ onConfigChange }) {
     if (!isRunning) return;
 
     const timer = setTimeout(() => {
-      setPhaseIndex(
-        (index) => (index + 1) % currentPreset.phases.length,
-      );
+      setPhaseIndex((index) => (index + 1) % currentPreset.phases.length);
     }, currentPhase.duration);
 
     return () => clearTimeout(timer);
@@ -288,9 +286,17 @@ export function Breathing({ onConfigChange }) {
             </div>
           </>
         ) : (
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex flex-col items-center gap-2">
-              <span>Breathing pattern</span>
+          <div className="grid grid-cols-2 gap-4">
+            <div
+              className="
+              
+                flex 
+                flex-col 
+                items-center
+                gap-2
+              "
+            >
+              <span className="text-center">Breathing pattern</span>
 
               {Object.entries(presets).map(([id, preset]) => (
                 <button
@@ -307,8 +313,15 @@ export function Breathing({ onConfigChange }) {
               ))}
             </div>
 
-            <div className="flex flex-col items-center gap-2">
-              <span>Session duration</span>
+            <div
+              className="
+                flex
+                flex-col
+                items-center
+                gap-2
+              "
+            >
+              <span className="text-center">Session duration</span>
 
               {[1, 2, 3, 4, 5].map((minutes) => (
                 <button
