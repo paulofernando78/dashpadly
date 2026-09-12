@@ -6,51 +6,113 @@ import {
   WidgetControls,
 } from "@/components/ui/Widget";
 
-const phases = {
-  breatheIn: {
-    label: "breathe in",
-    duration: 4000,
-    scale: "scale-145",
+const presets = {
+  relaxed: {
+    label: "4-2-4",
+    phases: [
+      {
+        id: "breatheIn",
+        label: "breathe in",
+        duration: 4000,
+        scale: "scale-145",
+      },
+      {
+        id: "hold",
+        label: "hold",
+        duration: 2000,
+        scale: "scale-145",
+      },
+      {
+        id: "breatheOut",
+        label: "breathe out",
+        duration: 4000,
+        scale: "scale-100",
+      },
+    ],
   },
-  hold: {
-    label: "hold",
-    duration: 2000,
-    scale: "scale-145",
-  },
-  breatheOut: {
-    label: "breathe out",
-    duration: 4000,
-    scale: "scale-100",
+  box: {
+    label: "4-4-4-4",
+    phases: [
+      {
+        id: "breatheIn",
+        label: "breathe in",
+        duration: 4000,
+        scale: "scale-145",
+      },
+      {
+        id: "holdIn",
+        label: "hold",
+        duration: 4000,
+        scale: "scale-145",
+      },
+      {
+        id: "breatheOut",
+        label: "breathe out",
+        duration: 4000,
+        scale: "scale-100",
+      },
+      {
+        id: "holdOut",
+        label: "hold",
+        duration: 4000,
+        scale: "scale-100",
+      },
+    ],
   },
 };
 
 export function Breathing({ onConfigChange }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [presetId, setPresetId] = useState("relaxed");
+  const [phaseIndex, setPhaseIndex] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [phase, setPhase] = useState("breatheIn");
+  const [sessionMinutes, setSessionMinutes] = useState(1);
+  const [remainingSeconds, setRemainingSeconds] = useState(60);
   const audioRef = useRef(null);
   const [isSoundEnabled, setIsSoundEnabled] = useState(true);
+
+  const currentPreset = presets[presetId];
+  const currentPhase = currentPreset.phases[phaseIndex];
 
   useEffect(() => {
     if (!isRunning) return;
 
     const timer = setTimeout(() => {
-      if (phase === "breatheIn") {
-        setPhase("hold");
-      } else if (phase === "hold") {
-        setPhase("breatheOut");
-      } else {
-        setPhase("breatheIn");
-        setIsRunning(false);
-      }
-    }, phases[phase].duration);
+      setPhaseIndex(
+        (index) => (index + 1) % currentPreset.phases.length,
+      );
+    }, currentPhase.duration);
 
     return () => clearTimeout(timer);
-  }, [isRunning, phase]);
+  }, [
+    isRunning,
+    phaseIndex,
+    currentPhase.duration,
+    currentPreset.phases.length,
+  ]);
 
-  const currentPhase = phases[phase];
+  useEffect(() => {
+    if (!isRunning || remainingSeconds <= 0) return;
 
-  const isExpanded = isRunning && phase !== "breatheOut";
+    const timer = setTimeout(() => {
+      setRemainingSeconds((seconds) => seconds - 1);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [isRunning, remainingSeconds]);
+
+  useEffect(() => {
+    if (!isRunning || remainingSeconds !== 0) return;
+
+    setIsRunning(false);
+    setPhaseIndex(0);
+    audioRef.current?.pause();
+  }, [isRunning, remainingSeconds]);
+
+  const isExpanded = isRunning && currentPhase.scale === "scale-145";
+
+  const displayMinutes = Math.floor(remainingSeconds / 60);
+  const displaySeconds = String(remainingSeconds % 60).padStart(2, "0");
 
   function handleToggleSound() {
     const nextEnabled = !isSoundEnabled;
@@ -68,7 +130,12 @@ export function Breathing({ onConfigChange }) {
     setIsRunning(nextRunning);
 
     if (nextRunning) {
-      audioRef.current.play();
+      if (remainingSeconds === 0) {
+        setRemainingSeconds(sessionMinutes * 60);
+        setPhaseIndex(0);
+      }
+
+      audioRef.current?.play();
     } else {
       audioRef.current?.pause();
     }
@@ -76,6 +143,19 @@ export function Breathing({ onConfigChange }) {
 
   function handleEdit() {
     setIsEditing(true);
+  }
+
+  function handleSelectPreset(id) {
+    setPresetId(id);
+    setPhaseIndex(0);
+  }
+
+  function handleSelectDuration(minutes) {
+    setSessionMinutes(minutes);
+
+    if (!isRunning) {
+      setRemainingSeconds(minutes * 60);
+    }
   }
 
   function handleConfirm() {
@@ -86,6 +166,9 @@ export function Breathing({ onConfigChange }) {
   function handleReset() {
     setIsEditing(false);
     setIsRunning(false);
+    setPhaseIndex(0);
+    setRemainingSeconds(sessionMinutes * 60);
+    audioRef.current?.pause();
   }
 
   const circle = `
@@ -99,20 +182,23 @@ export function Breathing({ onConfigChange }) {
     <WidgetBody
       top={
         <div className="flex flex-col items-center gap-4">
-          <span>1:00</span>
+          <span>
+            {displayMinutes}:{displaySeconds}
+          </span>
           <audio
             ref={audioRef}
             src="/assets/poly-ambient-boy.mp3"
             loop
             preload="auto"
           />
-          <WidgetControls.Sound
-            isSoundEnabled={isSoundEnabled}
-            onClick={handleToggleSound}
-          />
+          {!isEditing && (
+            <WidgetControls.Sound
+              isSoundEnabled={isSoundEnabled}
+              onClick={handleToggleSound}
+            />
+          )}
         </div>
       }
-      middlePosition={isEditing ? "top" : "center"}
       middle={
         !isEditing ? (
           <>
@@ -134,7 +220,16 @@ export function Breathing({ onConfigChange }) {
                     h-50
                   "
                 >
-                  <div className="grid gap-2 text-lg text-gray-800 shadow shadow-black uppercase z-5">
+                  <div
+                    className="
+                      grid
+                      gap-2
+                      text-lg
+                      text-gray-800
+                      [text-shadow:0_0_4px_rgba(0,0,0,0.35)] uppercase
+                      z-5
+                    "
+                  >
                     <span>{currentPhase.label}</span>
                   </div>
                   <div
@@ -193,8 +288,42 @@ export function Breathing({ onConfigChange }) {
             </div>
           </>
         ) : (
-          <div className="flex flex-col items-center gap-2">
-            <button className="clickable">4 - 2 - 4</button>
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-2">
+              <span>Breathing pattern</span>
+
+              {Object.entries(presets).map(([id, preset]) => (
+                <button
+                  key={id}
+                  onClick={() => handleSelectPreset(id)}
+                  aria-pressed={presetId === id}
+                  className={`
+          clickable
+          ${presetId === id ? "font-bold" : "opacity-50"}
+        `}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex flex-col items-center gap-2">
+              <span>Session duration</span>
+
+              {[1, 2, 3, 4, 5].map((minutes) => (
+                <button
+                  key={minutes}
+                  onClick={() => handleSelectDuration(minutes)}
+                  aria-pressed={sessionMinutes === minutes}
+                  className={`
+          clickable
+          ${sessionMinutes === minutes ? "font-bold" : "opacity-50"}
+        `}
+                >
+                  {minutes} minute{minutes > 1 ? "s" : ""}
+                </button>
+              ))}
+            </div>
           </div>
         )
       }
