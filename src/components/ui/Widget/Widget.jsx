@@ -251,6 +251,20 @@ WidgetControls.Play = ({ isRunning, onClick, disabled = false }) => {
   );
 };
 
+WidgetControls.Sound = ({ isSoundEnabled, onClick }) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={isSoundEnabled ? "Mute sound" : "Enable sound"}
+      title={isSoundEnabled ? "Mute sound" : "Enable sound"}
+      className="w-max clickable"
+    >
+      <Icon name={isSoundEnabled ? "volume2" : "volumeOff"} />
+    </button>
+  );
+};
+
 WidgetControls.Reset = ({ onClick }) => {
   return (
     <button onClick={onClick} className="clickable">
@@ -294,11 +308,3 @@ WidgetControls.Info = ({ onClick, ...props }) => {
     </button>
   );
 };
-
-// WidgetControls.Erase = ({ onClick }) => {
-//   return (
-//     <button onClick={onClick} className="clickable">
-//       <Icon name="trash" />
-//     </button>
-//   );
-// };

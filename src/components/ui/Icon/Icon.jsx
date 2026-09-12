@@ -72,8 +72,8 @@ import {
   // W
   GlassWater,
   // V
-  Volume,
-  VolumeX,
+  Volume2,
+  VolumeOff,
   // X
   X,
 } from "lucide-react";
@@ -294,8 +294,8 @@ const icons = {
   // W
   glassWater: GlassWater,
   // V
-  volume: Volume,
-  volumeX: VolumeX,
+  volume2: Volume2,
+  volumeOff: VolumeOff,
   // X
   x: X,
 };

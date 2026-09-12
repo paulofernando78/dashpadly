@@ -28,8 +28,7 @@ input[type="number"].show-spinner::-webkit-outer-spin-button {
 }
 
 .header {
-  @apply
-    items-center
+  @apply items-center
     gap-2
     h-[36px]
     p-2
@@ -42,12 +41,12 @@ input[type="number"].show-spinner::-webkit-outer-spin-button {
   @apply p-2
     border
     border-gray-700
-    bg-gray-700
+    bg-gray-600
+    hover:bg-gray-500
     rounded-full
     shadow-sm
     shadow-black/40
-    cursor-pointer
-    hover:bg-gray-600;
+    cursor-pointer;
 }
 
 .clickable-label {

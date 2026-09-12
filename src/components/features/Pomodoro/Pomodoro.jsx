@@ -6,7 +6,6 @@ import {
   widgetInnerBorder,
 } from "@/components/ui/Widget";
 import { NumberInput } from "@/components/ui/NumberInput";
-import { Icon } from "@/components/ui/Icon";
 
 import { PomodoroGuideDialog } from "@/components/features/PomodoroGuideDialog";
 
@@ -308,18 +307,10 @@ export function Pomodoro({
           >
             <span>{totalTime}</span>
             {!isEditing && (
-              <button
+              <WidgetControls.Sound
+                isSoundEnabled={isSoundEnabled}
                 onClick={handleToggleSound}
-                aria-label={isSoundEnabled ? "Mute tick" : "Enable tick"}
-                title={isSoundEnabled ? "Mute tick" : "Enable tick"}
-                className="w-max clickable"
-              >
-                {isSoundEnabled ? (
-                  <Icon name="volumeX" />
-                ) : (
-                  <Icon name="volume" />
-                )}
-              </button>
+              />
             )}
           </div>
         }
