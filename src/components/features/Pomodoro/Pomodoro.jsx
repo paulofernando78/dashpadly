@@ -7,6 +7,8 @@ import {
 } from "@/components/ui/Widget";
 import { NumberInput } from "@/components/ui/NumberInput";
 
+import { playTick } from "@/utils/audio";
+
 import { PomodoroGuideDialog } from "@/components/features/PomodoroGuideDialog";
 
 const DEFAULT_FOCUS_MINUTES = 25;
@@ -33,30 +35,6 @@ function calculateSessionDuration({
   const totalLongBreakTime = totalLongBreaks * longBreakDuration;
 
   return totalFocusTime + totalShortBreakTime + totalLongBreakTime;
-}
-
-function playTick() {
-  const audioContext = new AudioContext();
-  const oscillator = audioContext.createOscillator();
-  const gain = audioContext.createGain();
-
-  oscillator.connect(gain);
-  gain.connect(audioContext.destination);
-
-  oscillator.frequency.value = 800;
-
-  gain.gain.setValueAtTime(0.9, audioContext.currentTime);
-  gain.gain.exponentialRampToValueAtTime(
-    0.001,
-    audioContext.currentTime + 0.03,
-  );
-
-  oscillator.start();
-  oscillator.stop(audioContext.currentTime + 0.03);
-
-  oscillator.addEventListener("ended", () => {
-    audioContext.close();
-  });
 }
 
 const durationTitle = `
@@ -110,6 +88,7 @@ export function Pomodoro({
       ? Math.min(completedPomodoros + 1, pomodoroGoal)
       : completedPomodoros;
 
+  // Play Tick
   useEffect(() => {
     if (!isRunning) return;
 

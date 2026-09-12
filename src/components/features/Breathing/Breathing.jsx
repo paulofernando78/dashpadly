@@ -72,59 +72,48 @@ export function Breathing({ onConfigChange }) {
   const currentPreset = presets[presetId];
 
   const [phaseIndex, setPhaseIndex] = useState(0);
-  const [phaseSeconds, setPhaseSeconds] = useState(0);
+  const [phaseSeconds, setPhaseSeconds] = useState(
+    Math.ceil(presets.relaxed.phases[0].duration / 1000),
+  );
   const currentPhase = currentPreset.phases[phaseIndex];
 
   const audioRef = useRef(null);
   const [isSoundEnabled, setIsSoundEnabled] = useState(true);
 
-  // Reinicia o contador visual sempre que o preset ou a fase atual muda.
-  // A duração está em milissegundos; por isso dividimos por 1000 para obter segundos.
-  useEffect(() => {
-    setPhaseSeconds(Math.ceil(currentPhase.duration / 1000));
-  }, [presetId, phaseIndex, currentPhase.duration]);
-
-  // Aguarda a duração da fase atual e avança para a próxima fase.
-  // O operador % faz a sequência voltar para a primeira fase ao chegar ao fim.
   useEffect(() => {
     if (!isRunning) return;
 
     const timer = setTimeout(() => {
-      setPhaseIndex((index) => (index + 1) % currentPreset.phases.length);
+      const nextIndex = (phaseIndex + 1) % currentPreset.phases.length;
+
+      setPhaseIndex(nextIndex);
+
+      setPhaseSeconds(
+        Math.ceil(currentPreset.phases[nextIndex].duration / 1000),
+      );
     }, currentPhase.duration);
 
     return () => clearTimeout(timer);
-  }, [
-    isRunning,
-    phaseIndex,
-    currentPhase.duration,
-    currentPreset.phases.length,
-  ]);
+  }, [isRunning, phaseIndex, currentPhase.duration, currentPreset]);
 
-  // Encerra a sessão quando o contador geral chega a zero.
-  // Também volta para a primeira fase e pausa o áudio.
-  useEffect(() => {
-    if (!isRunning || remainingSeconds !== 0) return;
-
-    setIsRunning(false);
-    setPhaseIndex(0);
-    audioRef.current?.pause();
-  }, [isRunning, remainingSeconds]);
-
-  // Diminui o contador geral da sessão uma vez por segundo.
-  // Esse é o tempo mostrado no topo do widget.
   useEffect(() => {
     if (!isRunning || remainingSeconds <= 0) return;
 
     const timer = setTimeout(() => {
+      if (remainingSeconds === 1) {
+        setRemainingSeconds(0);
+        setIsRunning(false);
+        setPhaseIndex(0);
+        audioRef.current?.pause();
+        return;
+      }
+
       setRemainingSeconds((seconds) => seconds - 1);
     }, 1000);
 
     return () => clearTimeout(timer);
   }, [isRunning, remainingSeconds]);
 
-  // Diminui o contador da fase atual uma vez por segundo.
-  // Quando a fase muda, o efeito acima reinicia esse valor.
   useEffect(() => {
     if (!isRunning || phaseSeconds <= 0) return;
 
@@ -139,6 +128,19 @@ export function Breathing({ onConfigChange }) {
 
   const displayMinutes = Math.floor(remainingSeconds / 60);
   const displaySeconds = String(remainingSeconds % 60).padStart(2, "0");
+
+  const isDone = !isRunning && remainingSeconds === 0;
+
+  const activeDoneClass =
+    "text-red-400 [text-shadow:0_0_8px_rgba(248,113,113,0.8)] animate-pulse";
+  const inactiveDoneClass = "text-gray-400";
+
+  const circle = `
+    absolute
+    w-30
+    h-30
+    rounded-full
+  `;
 
   function handleToggleSound() {
     const nextEnabled = !isSoundEnabled;
@@ -174,6 +176,8 @@ export function Breathing({ onConfigChange }) {
   function handleSelectPreset(id) {
     setPresetId(id);
     setPhaseIndex(0);
+
+    setPhaseSeconds(Math.ceil(presets[id].phases[0].duration / 1000));
   }
 
   function handleSelectDuration(minutes) {
@@ -196,13 +200,6 @@ export function Breathing({ onConfigChange }) {
     setRemainingSeconds(sessionMinutes * 60);
     audioRef.current?.pause();
   }
-
-  const circle = `
-    absolute
-    w-30
-    h-30
-    rounded-full
-  `;
 
   return (
     <WidgetBody
@@ -374,7 +371,9 @@ export function Breathing({ onConfigChange }) {
       subMiddle={
         !isEditing && (
           <div className={`w-full text-center uppercase ${widgetInnerBorder}`}>
-            <span>done</span>
+            <span className={isDone ? activeDoneClass : inactiveDoneClass}>
+              done
+            </span>
           </div>
         )
       }
