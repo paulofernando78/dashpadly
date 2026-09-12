@@ -1,0 +1,4 @@
+id,date,merchant,paymentMethod,currency,amount
+1,2026-09-12,iFood,Google Pay,BRL,129.90
+2,2026-09-11,Amazon,Itaú,BRL,89.90
+3,2026-09-10,Mercado Livre,Bradesco,BRL,25.90
