@@ -94,8 +94,7 @@ export const widgetCatalog = {
     Component: Purchases,
     title: "Purchases",
     iconName: "purchases",
-    // widgetStyle: getWidgetGradientStyle("slate"),
-    widgetClassName: bg,
+    widgetClassName: `w-[200px] ${bg}`,
     defaultConfig: {},
   },
 
