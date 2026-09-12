@@ -63,16 +63,24 @@ const presets = {
 
 export function Breathing({ onConfigChange }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [presetId, setPresetId] = useState("relaxed");
-  const [phaseIndex, setPhaseIndex] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+
   const [sessionMinutes, setSessionMinutes] = useState(1);
   const [remainingSeconds, setRemainingSeconds] = useState(60);
+
+  const [presetId, setPresetId] = useState("relaxed");
+  const currentPreset = presets[presetId];
+
+  const [phaseIndex, setPhaseIndex] = useState(0);
+  const [phaseSeconds, setPhaseSeconds] = useState(0);
+  const currentPhase = currentPreset.phases[phaseIndex];
+
   const audioRef = useRef(null);
   const [isSoundEnabled, setIsSoundEnabled] = useState(true);
 
-  const currentPreset = presets[presetId];
-  const currentPhase = currentPreset.phases[phaseIndex];
+  useEffect(() => {
+    setPhaseSeconds(Math.ceil(currentPhase.duration / 1000));
+  }, [presetId, phaseIndex, currentPhase.duration]);
 
   useEffect(() => {
     if (!isRunning) return;
@@ -89,6 +97,16 @@ export function Breathing({ onConfigChange }) {
     currentPreset.phases.length,
   ]);
 
+  // ... What it does?
+  useEffect(() => {
+    if (!isRunning || remainingSeconds !== 0) return;
+
+    setIsRunning(false);
+    setPhaseIndex(0);
+    audioRef.current?.pause();
+  }, [isRunning, remainingSeconds]);
+
+  // ... What it does?
   useEffect(() => {
     if (!isRunning || remainingSeconds <= 0) return;
 
@@ -99,13 +117,16 @@ export function Breathing({ onConfigChange }) {
     return () => clearTimeout(timer);
   }, [isRunning, remainingSeconds]);
 
+  // ... What it does?
   useEffect(() => {
-    if (!isRunning || remainingSeconds !== 0) return;
+    if (!isRunning || phaseSeconds <= 0) return;
 
-    setIsRunning(false);
-    setPhaseIndex(0);
-    audioRef.current?.pause();
-  }, [isRunning, remainingSeconds]);
+    const timer = setTimeout(() => {
+      setPhaseSeconds((seconds) => seconds - 1);
+    }, 1000);
+
+    return () => clearTimeout(timer)
+  }, [isRunning, phaseSeconds]);
 
   const isExpanded = isRunning && currentPhase.scale === "scale-145";
 
@@ -221,6 +242,7 @@ export function Breathing({ onConfigChange }) {
                   <div
                     className="
                       grid
+                      place-items-center
                       gap-2
                       text-lg
                       text-gray-800
@@ -228,7 +250,9 @@ export function Breathing({ onConfigChange }) {
                       z-5
                     "
                   >
+                    <span className="text-sm">{currentPreset.label}</span>
                     <span>{currentPhase.label}</span>
+                    <span>{phaseSeconds}s</span>
                   </div>
                   <div
                     className={`
