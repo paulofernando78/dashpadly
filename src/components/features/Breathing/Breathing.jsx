@@ -78,10 +78,14 @@ export function Breathing({ onConfigChange }) {
   const audioRef = useRef(null);
   const [isSoundEnabled, setIsSoundEnabled] = useState(true);
 
+  // Reinicia o contador visual sempre que o preset ou a fase atual muda.
+  // A duração está em milissegundos; por isso dividimos por 1000 para obter segundos.
   useEffect(() => {
     setPhaseSeconds(Math.ceil(currentPhase.duration / 1000));
   }, [presetId, phaseIndex, currentPhase.duration]);
 
+  // Aguarda a duração da fase atual e avança para a próxima fase.
+  // O operador % faz a sequência voltar para a primeira fase ao chegar ao fim.
   useEffect(() => {
     if (!isRunning) return;
 
@@ -97,7 +101,8 @@ export function Breathing({ onConfigChange }) {
     currentPreset.phases.length,
   ]);
 
-  // ... What it does?
+  // Encerra a sessão quando o contador geral chega a zero.
+  // Também volta para a primeira fase e pausa o áudio.
   useEffect(() => {
     if (!isRunning || remainingSeconds !== 0) return;
 
@@ -106,7 +111,8 @@ export function Breathing({ onConfigChange }) {
     audioRef.current?.pause();
   }, [isRunning, remainingSeconds]);
 
-  // ... What it does?
+  // Diminui o contador geral da sessão uma vez por segundo.
+  // Esse é o tempo mostrado no topo do widget.
   useEffect(() => {
     if (!isRunning || remainingSeconds <= 0) return;
 
@@ -117,7 +123,8 @@ export function Breathing({ onConfigChange }) {
     return () => clearTimeout(timer);
   }, [isRunning, remainingSeconds]);
 
-  // ... What it does?
+  // Diminui o contador da fase atual uma vez por segundo.
+  // Quando a fase muda, o efeito acima reinicia esse valor.
   useEffect(() => {
     if (!isRunning || phaseSeconds <= 0) return;
 
@@ -125,7 +132,7 @@ export function Breathing({ onConfigChange }) {
       setPhaseSeconds((seconds) => seconds - 1);
     }, 1000);
 
-    return () => clearTimeout(timer)
+    return () => clearTimeout(timer);
   }, [isRunning, phaseSeconds]);
 
   const isExpanded = isRunning && currentPhase.scale === "scale-145";

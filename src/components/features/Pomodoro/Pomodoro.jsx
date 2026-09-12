@@ -373,7 +373,6 @@ export function Pomodoro({
                 className="
                   flex
                   flex-col
-                  justify-evenly
                   gap-4
                   h-full
                 "
@@ -383,96 +382,100 @@ export function Pomodoro({
                   <p>No social media</p>
                   <p>You can do it!</p>
                 </div>
-                <div
-                  className={`
-                    flex
-                    flex-col
-                    gap-2
-                    ${widgetInnerBorder}
-                  `}
-                >
-                  {/* Focus • Break • Long  */}
-                  <div
-                    className="
-                      grid
-                      gap-2
-                  "
-                  >
-                    {/* 1 OF 4 */}
-                    <span>
-                      focus {displayedPomodoro} of {pomodoroGoal}
-                    </span>
-                    <div
-                      className="
-                        flex
-                        justify-evenly
-                      "
-                    >
-                      {/* FOCUS */}
-                      <div className={`space-y-2 ${durationTitle}`}>
-                        <span
-                          className={`${
-                            mode === "focus" && isRunning
-                              ? activeFocusModeClass
-                              : inactiveModeClass
-                          } text-[1rem]`}
-                        >
-                          Focus
-                        </span>
-
-                        <span className={durationDisplay}>
-                          {formatTime(mode === "focus" ? time : focusDuration)}
-                        </span>
-                      </div>
-
-                      {/* BREAK */}
-                      <div className={`space-y-2 ${durationTitle}`}>
-                        <span
-                          className={`${
-                            mode === "break" && isRunning
-                              ? activeBreakModeClass
-                              : inactiveModeClass
-                          } text-[1rem]`}
-                        >
-                          Break
-                        </span>
-                        <span className={durationDisplay}>
-                          {formatTime(mode === "break" ? time : breakDuration)}
-                        </span>
-                      </div>
-
-                      {/* LONG */}
-                      <div className={`space-y-2 ${durationTitle}`}>
-                        <span
-                          className={`${
-                            mode === "long" && isRunning
-                              ? activeLongModeClass
-                              : inactiveModeClass
-                          } text-[1rem]`}
-                        >
-                          Long
-                        </span>
-                        <span className={durationDisplay}>
-                          {formatTime(
-                            mode === "long" ? time : longBreakDuration,
-                          )}
-                        </span>
-                      </div>
-                    </div>
-                    <span
-                      className={`block uppercase ${
-                        mode === "done"
-                          ? activePomodoroDoneModeClass
-                          : inactiveModeClass
-                      }`}
-                    >
-                      done
-                    </span>
-                  </div>
-                </div>
               </div>
             )}
           </div>
+        }
+        subMiddle={
+          <>
+            {/* Focus • Break • Long  */}
+            <div
+              className={`grid place-items-center gap-2 uppercase ${widgetInnerBorder}`}
+            >
+              {/* 1 OF 4 */}
+              <span>
+                focus {displayedPomodoro} of {pomodoroGoal}
+              </span>
+              <div className="flex gap-4">
+                {/* FOCUS */}
+                <div
+                  className={`
+                    grid
+                    place-items-center
+                    gap-2
+                    ${durationTitle}
+                  `}
+                >
+                  <span
+                    className={`${
+                      mode === "focus" && isRunning
+                        ? activeFocusModeClass
+                        : inactiveModeClass
+                    } text-[1rem]`}
+                  >
+                    Focus
+                  </span>
+
+                  <span className={durationDisplay}>
+                    {formatTime(mode === "focus" ? time : focusDuration)}
+                  </span>
+                </div>
+                {/* BREAK */}
+                <div
+                  className={`
+                    grid
+                    place-items-center
+                    gap-2
+                    ${durationTitle}
+                  `}
+                >
+                  <span
+                    className={`${
+                      mode === "break" && isRunning
+                        ? activeBreakModeClass
+                        : inactiveModeClass
+                    } text-[1rem]`}
+                  >
+                    Break
+                  </span>
+                  <span className={durationDisplay}>
+                    {formatTime(mode === "break" ? time : breakDuration)}
+                  </span>
+                </div>
+                {/* LONG */}
+                <div
+                  className={`
+                    grid
+                    place-items-center
+                    gap-2
+                    ${durationTitle}
+                  `}
+                >
+                  <span
+                    className={`${
+                      mode === "long" && isRunning
+                        ? activeLongModeClass
+                        : inactiveModeClass
+                    } text-[1rem]`}
+                  >
+                    Long
+                  </span>
+                  <span className={durationDisplay}>
+                    {formatTime(mode === "long" ? time : longBreakDuration)}
+                  </span>
+                </div>
+              </div>
+              <span
+                className={`block uppercase ${
+                  mode === "done"
+                    ? activePomodoroDoneModeClass
+                    : inactiveModeClass
+                }`}
+              >
+                done
+              </span>
+            </div>
+          </>
         }
         bottom={
           <WidgetControls>

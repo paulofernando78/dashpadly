@@ -246,31 +246,6 @@ export function Timer({
                 </div>
               ))}
             </div>
-            <div className={`grid gap-2 w-full ${widgetInnerBorder}`}>
-              <label>
-                <input
-                  type="text"
-                  className="
-                      w-full
-                      px-[0.6rem] py-[0.4rem]
-                      text-gray-500
-                      font-[Arial]
-                      border
-                      border-gray-500
-                      rounded-sm
-                      placeholder:italic
-                      paper-texture
-                    "
-                  placeholder="ex: boiling water..."
-                />
-              </label>
-              <span
-                className={`uppercase justify-self-center
-              ${mode === "done" ? activeTimerDoneModeClass : inactiveModeClass}`}
-              >
-                done
-              </span>
-            </div>
           </div>
         ) : (
           <div
@@ -308,6 +283,33 @@ export function Timer({
             />
           </div>
         )
+      }
+      subMiddle={
+        <div className={`grid gap-2 w-full ${widgetInnerBorder}`}>
+          <label>
+            <input
+              type="text"
+              className="
+                      w-full
+                      px-[0.6rem] py-[0.4rem]
+                      text-gray-500
+                      font-[Arial]
+                      border
+                      border-gray-500
+                      rounded-sm
+                      placeholder:italic
+                      paper-texture
+                    "
+              placeholder="ex: boiling water..."
+            />
+          </label>
+          <span
+            className={`uppercase justify-self-center
+              ${mode === "done" ? activeTimerDoneModeClass : inactiveModeClass}`}
+          >
+            done
+          </span>
+        </div>
       }
       bottom={
         <WidgetControls>
