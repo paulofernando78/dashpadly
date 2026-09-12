@@ -62,6 +62,8 @@ import {
   RotateCcw,
   // S
   Search,
+  Square,
+  SquareCheck,
   SquarePen,
   SquareText,
   Store,
@@ -287,6 +289,8 @@ const icons = {
   rotateCcw: RotateCcw,
   // S
   search: Search,
+  square: Square,
+  squareCheck: SquareCheck,
   squarePen: SquarePen,
   squareText: SquareText,
   store: Store,

@@ -40,6 +40,7 @@ import { Icon } from "@/components/ui/Icon";
 export function Purchases() {
   // const [isEditing, setIsEditing] = useState(false);
   const [purchases, setPurchases] = useState([]);
+  const [selectedIds, setSelectedIds] = useState(new Set());
 
   useEffect(() => {
     async function loadPurchases() {
@@ -50,12 +51,13 @@ export function Purchases() {
       const [, ...rows] = lines;
 
       const parsedPurchases = rows.map((row) => {
-        const [id, date, merchant, paymentMethod, currency, amount] =
+        const [id, date, time, merchant, paymentMethod, currency, amount] =
           row.split(",");
 
         return {
           id: Number(id),
           date,
+          time,
           merchant,
           paymentMethod,
           currency,
@@ -68,6 +70,20 @@ export function Purchases() {
     loadPurchases();
   }, []);
 
+  function handleToggle(id) {
+    setSelectedIds((currentIds) => {
+      const nextIds = new Set(currentIds);
+
+      if (nextIds.has(id)) {
+        nextIds.delete(id);
+      } else {
+        nextIds.add(id);
+      }
+
+      return nextIds;
+    });
+  }
+
   // function handleReset() {
   //   // setIsEditing(false);
   // }
@@ -76,32 +92,77 @@ export function Purchases() {
     <WidgetBody
       middlePosition="top"
       middle={
-        <div className="grid gap-2 overflow-scroll">
+        <div className="grid gap-2 overflow-y-auto">
           {purchases.map((purchase) => {
             const formattedAmount = new Intl.NumberFormat("pt-BR", {
               style: "currency",
               currency: purchase.currency,
             }).format(purchase.amount);
 
+            const isSelected = selectedIds.has(purchase.id)
+            const itemColor = isSelected ? "text-gray-500" : "text-gray-300"
+
             return (
               <div
                 key={purchase.id}
-                className={`${widgetInnerBorder} relative grid gap-1 text-sm`}>
-                  <input type="checkbox" name="" id="" className="absolute top-2 right-2"/>
+                className={`
+                  ${widgetInnerBorder}
+                  relative
+                  grid
+                  gap-1
+                  text-sm
+                  ${isSelected ? "text-gray-500" : "text-white"}
+                `}
+              >
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => handleToggle(purchase.id)}
+                    aria-label={`Select purchase from ${purchase.merchant}`}
+                  />
+                  <Icon name={isSelected ?
+                      "squareCheck" : "square"}
+                  />
+                </label>
                 <div className="flex gap-2 items-center">
-                  <Icon name="calendar" size={17}/>
+                  <Icon
+                    name="calendar"
+                    size={18}
+                    className={itemColor}
+                  />
                   <span>{purchase.date}</span>
                 </div>
                 <div className="flex gap-2 items-center">
-                  <Icon name="store" size={17}/>
+                  <Icon
+                    name="clock"
+                    size={18}
+                    className={itemColor}
+                  />
+                  <span>{purchase.time}</span>
+                </div>
+                <div className="flex gap-2 items-center">
+                  <Icon
+                    name="store"
+                    size={18}
+                    className={itemColor}
+                  />
                   <span>{purchase.merchant}</span>
                 </div>
                 <div className="flex gap-2 items-center">
-                  <Icon name="walletCards" size={17}/>
+                  <Icon
+                    name="walletCards"
+                    size={18}
+                    className={itemColor}
+                  />
                   <span>{purchase.paymentMethod}</span>
                 </div>
                 <div className="flex gap-2 items-center">
-                  <Icon name="receipt" size={17}/>
+                  <Icon
+                    name="receipt"
+                    size={18}
+                    className={itemColor}
+                  />
                   <span>{formattedAmount}</span>
                 </div>
               </div>
