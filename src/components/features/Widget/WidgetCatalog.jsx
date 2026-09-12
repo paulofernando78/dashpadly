@@ -94,7 +94,7 @@ export const widgetCatalog = {
     Component: Purchases,
     title: "Purchases",
     iconName: "purchases",
-    widgetClassName: `w-[200px] ${bg}`,
+    widgetClassName: `w-[220px] ${bg}`,
     defaultConfig: {},
   },
 

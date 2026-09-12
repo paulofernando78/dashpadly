@@ -86,21 +86,22 @@ export function Purchases() {
             return (
               <div
                 key={purchase.id}
-                className={`${widgetInnerBorder} grid gap-2`}>
+                className={`${widgetInnerBorder} relative grid gap-1 text-sm`}>
+                  <input type="checkbox" name="" id="" className="absolute top-2 right-2"/>
                 <div className="flex gap-2 items-center">
-                  <Icon name="calendar" />
+                  <Icon name="calendar" size={17}/>
                   <span>{purchase.date}</span>
                 </div>
                 <div className="flex gap-2 items-center">
-                  <Icon name="store" />
+                  <Icon name="store" size={17}/>
                   <span>{purchase.merchant}</span>
                 </div>
                 <div className="flex gap-2 items-center">
-                  <Icon name="walletCards" />
+                  <Icon name="walletCards" size={17}/>
                   <span>{purchase.paymentMethod}</span>
                 </div>
                 <div className="flex gap-2 items-center">
-                  <Icon name="receipt" />
+                  <Icon name="receipt" size={17}/>
                   <span>{formattedAmount}</span>
                 </div>
               </div>
