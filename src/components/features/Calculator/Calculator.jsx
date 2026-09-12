@@ -380,6 +380,7 @@ export function Calculator({
 
   return (
     <WidgetBody
+      hFull={false}
       onClose={onClose}
       top={
         <div
@@ -548,7 +549,8 @@ export function Calculator({
         <div
           className="
             relative
-            h-full
+            h-25.25
+            mb-4
             p-1.75
             text-sm
             border
@@ -568,7 +570,7 @@ export function Calculator({
             <div
               key={calculation.id}
               className="
-                flex text-xl font-['Indie_Flower',cursive]
+                flex text-[1.43rem] font-['Indie_Flower',cursive]
               "
             >
               <span className="flex text-gray-800">

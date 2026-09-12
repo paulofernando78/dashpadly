@@ -37,6 +37,7 @@ import {
   FolderPlus,
   // G
   GalleryHorizontalEnd,
+  GlassWater,
   GripHorizontal,
   // I
   Info,
@@ -56,12 +57,14 @@ import {
   PaintBucket,
   Plus,
   // R
+  Receipt,
   Redo2,
   RotateCcw,
   // S
   Search,
   SquarePen,
   SquareText,
+  Store,
   Sun,
   // T
   Thermometer,
@@ -70,7 +73,7 @@ import {
   // U
   Undo2,
   // W
-  GlassWater,
+  WalletCards,
   // V
   Volume2,
   VolumeOff,
@@ -258,6 +261,7 @@ const icons = {
   folderPlus: FolderPlus,
   // G
   galleryHorizontalEnd: GalleryHorizontalEnd,
+  glassWater: GlassWater,
   gripHorizontal: GripHorizontal,
   // I
   info: Info,
@@ -278,12 +282,14 @@ const icons = {
   plus: Plus,
   pomodoro: Pomodoro,
   // R
+  receipt: Receipt,
   redo: Redo2,
   rotateCcw: RotateCcw,
   // S
   search: Search,
   squarePen: SquarePen,
   squareText: SquareText,
+  store: Store,
   sun: WeatherSun,
   // T
   thermometer: Thermometer,
@@ -292,7 +298,7 @@ const icons = {
   // U
   undo: Undo2,
   // W
-  glassWater: GlassWater,
+  walletCards: WalletCards,
   // V
   volume2: Volume2,
   volumeOff: VolumeOff,

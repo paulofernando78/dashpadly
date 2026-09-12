@@ -149,6 +149,7 @@ function WidgetIcons({ iconName, className }) {
 }
 
 export function WidgetBody({
+  hFull = true,
   top,
   middlePosition,
   middle,
@@ -163,7 +164,7 @@ export function WidgetBody({
         flex
         flex-col
         gap-4
-        h-full
+        ${hFull ? "h-full" : ""}
         p-4
         ${className ?? ""}
       `}

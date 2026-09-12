@@ -5,6 +5,7 @@ import {
   WidgetControls,
   widgetInnerBorder,
 } from "@/components/ui/Widget";
+
 import { NumberInput } from "@/components/ui/NumberInput";
 
 import { playTick } from "@/utils/audio";
