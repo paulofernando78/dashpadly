@@ -150,7 +150,7 @@ export function QuickNotes({
       onClose={onClose}
       middlePosition="top"
       middle={
-        <div className="flex flex-col gap-2 p-">
+        <div className="flex flex-col gap-1">
           {blocks.map((block, blockIndex) => (
             <div
               key={block.id}
