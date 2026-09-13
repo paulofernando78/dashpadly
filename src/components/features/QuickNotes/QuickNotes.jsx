@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
 
@@ -21,6 +21,7 @@ export function QuickNotes({
   onConfigChange,
   onClose,
 }) {
+  const inputRefs = useRef(new Map());
   const [openMenu, setOpenMenu] = useState(false);
   const [blocks, setBlocks] = useState(() =>
     savedBlocks.length > 0
@@ -35,10 +36,15 @@ export function QuickNotes({
   }
 
   function handleAddBlock(type) {
-    const nextBlocks = [...blocks, createBlock(type)];
+    const newBlock = createBlock(type);
+    const nextBlocks = [...blocks, newBlock];
 
     saveBlocks(nextBlocks);
     setOpenMenu(false);
+
+    requestAnimationFrame(() => {
+      inputRefs.current.get(newBlock.id)?.focus();
+    });
   }
 
   function saveBlocks(nextBlocks) {
@@ -64,6 +70,30 @@ export function QuickNotes({
     );
 
     saveBlocks(nextBlocks);
+  }
+
+  function handleBlockKeyDown(event, blockIndex) {
+    const isEmptyBackspace =
+      event.key === "Backspace" && event.currentTarget.value === "";
+
+    if (!isEmptyBackspace || blockIndex === 0) return;
+
+    event.preventDefault();
+
+    const previousBlock = blocks[blockIndex - 1];
+    const nextBlocks = blocks.filter((_, index) => index !== blockIndex);
+
+    saveBlocks(nextBlocks);
+
+    requestAnimationFrame(() => {
+      const previousInput = inputRefs.current.get(previousBlock.id);
+
+      previousInput?.focus();
+      previousInput?.setSelectionRange(
+        previousInput.value.length,
+        previousInput.value.length,
+      );
+    });
   }
 
   function handleUndo() {
@@ -98,7 +128,7 @@ export function QuickNotes({
       middlePosition="top"
       middle={
         <div className="flex flex-col gap-2 p-2">
-          {blocks.map((block) => (
+          {blocks.map((block, blockIndex) => (
             <div
               key={block.id}
               className="flex items-center gap-2"
@@ -112,16 +142,26 @@ export function QuickNotes({
               )}
 
               <TextInput
+                inputRef={(element) => {
+                  if (element) {
+                    inputRefs.current.set(block.id, element);
+                  } else {
+                    inputRefs.current.delete(block.id);
+                  }
+                }}
                 value={block.content}
                 onChange={(event) =>
                   updateBlock(block.id, {
                     content: event.target.value,
                   })
                 }
+                onKeyDown={(event) =>
+                  handleBlockKeyDown(event, blockIndex)
+                }
                 placeholder={
                   block.type === "checkbox"
-                    ? "Task..."
-                    : "Quick notes"
+                    ? "Task?"
+                    : ""
                 }
                 className="flex-1 bg-transparent text-gray-800"
               />

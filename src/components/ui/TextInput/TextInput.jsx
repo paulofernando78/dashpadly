@@ -4,11 +4,13 @@ export function TextInput({
   name,
   id,
   placeholder,
+  inputRef,
   className = "",
   ...props
 }) {
   return (
     <input
+      ref={inputRef}
       {...props}
       type="text"
       id={id}
