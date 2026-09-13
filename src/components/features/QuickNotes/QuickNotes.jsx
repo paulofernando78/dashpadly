@@ -1,14 +1,23 @@
 import { useState } from "react";
 
-import {
-  WidgetBody,
-  WidgetControls,
-} from "@/components/ui/Widget";
+import { WidgetBody, WidgetControls } from "@/components/ui/Widget";
+
+import { Icon } from "@/components/ui/Icon";
+import { TextInput } from "@/components/ui/TextInput";
+import { CheckboxIcon } from "@/components/ui/CheckboxIcon";
 
 export function QuickNotes({ note = "", onConfigChange, onClose }) {
+  const [openMenu, setOpenMenu] = useState(false);
+  const [addBlock, setAddBlock] = useState();
   const [currentNote, setCurrentNote] = useState(note);
   const [past, setPast] = useState([]);
   const [future, setFuture] = useState([]);
+
+  function handleOpenMenu() {
+    setOpenMenu((current) => !current);
+  }
+
+  function handleAddBlock() {}
 
   function handleNoteChange(event) {
     const nextNote = event.target.value;
@@ -49,28 +58,32 @@ export function QuickNotes({ note = "", onConfigChange, onClose }) {
   return (
     <WidgetBody
       onClose={onClose}
+      middlePosition="top"
       middle={
-        <textarea
-          value={currentNote}
-          onChange={handleNoteChange}
-          placeholder="Quick notes..."
-          className={`
-            flex-1
-            min-h-0
-            w-full
-            h-full
-            text-xl
-            text-black
-            font-['Indie_Flower',cursive]
-            rounded
-            leading-6
-            resize-none
-            outline-0
-          `}
-        />
+        <div className="flex items-center border border-black">
+          <div className="relative flex items-center">
+            <TextInput className="text-gray-800 border" />
+            <CheckboxIcon />
+          </div>
+        </div>
       }
       bottom={
         <WidgetControls>
+          <div className="relative">
+            {openMenu && (
+              <div className="absolute bottom-12 grid gap-2 p-2 bg-[#333333] rounded text">
+                <div className="flex items-center gap-2">
+                  <Icon name="type" />
+                  <span>Text</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Icon name="squareCheck" />
+                  <span>Checkbox</span>
+                </div>
+              </div>
+            )}
+            <WidgetControls.Add onClick={handleOpenMenu} />
+          </div>
           <WidgetControls.Reset onClick={handleReset} />
           <WidgetControls.Undo onClick={handleUndo} />
           <WidgetControls.Redo onClick={handleRedo} />

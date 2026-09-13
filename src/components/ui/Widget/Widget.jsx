@@ -240,6 +240,14 @@ export function WidgetControls({ children }) {
   );
 }
 
+WidgetControls.Add = ({ onClick }) => {
+  return (
+    <button onClick={onClick} className="clickable">
+      <Icon name="plus" />
+    </button>
+  );
+};
+
 WidgetControls.Play = ({ isRunning, onClick, disabled = false }) => {
   return (
     <button

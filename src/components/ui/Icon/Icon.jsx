@@ -72,6 +72,7 @@ import {
   Thermometer,
   Timer,
   Trash,
+  Type,
   // U
   Undo2,
   // W
@@ -299,6 +300,7 @@ const icons = {
   thermometer: Thermometer,
   timer: Timer,
   trash: Trash,
+  type: Type,
   // U
   undo: Undo2,
   // W

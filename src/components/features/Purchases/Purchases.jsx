@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/Widget";
 
 import { Icon } from "@/components/ui/Icon";
+import { CheckboxIcon } from "@/components/ui/CheckboxIcon";
 
 // const purchase = [
 //   {
@@ -114,17 +115,12 @@ export function Purchases() {
                   ${isSelected ? "text-gray-500" : "text-white"}
                 `}
               >
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={isSelected}
-                    onChange={() => handleToggle(purchase.id)}
-                    aria-label={`Select purchase from ${purchase.merchant}`}
-                  />
-                  <Icon name={isSelected ?
-                      "squareCheck" : "square"}
-                  />
-                </label>
+                <CheckboxIcon
+                  checked={isSelected}
+                  onChange={() => handleToggle(purchase.id)}
+                  ariaLabel={`Select purchase from ${purchase.merchant}`}
+                  className="purchase-item"
+                />
                 <div className="flex gap-2 items-center">
                   <Icon
                     name="calendar"

@@ -1,5 +1,5 @@
 id,date,merchant,paymentMethod,currency,amount
-1,12-09-26,10:00,iFood,Google Pay,BRL,129.90
-2,11-09-26,15:13:10,Amazon,Itaú,BRL,89.90
+1,12-09-26,10:57,iFood,Google Pay,BRL,129.90
+2,11-09-26,15:11,Amazon,Itaú,BRL,89.90
 3,10-09-26,16:03,Mercado Livre,Bradesco,BRL,25.90
 4,09-09-26,21:17,Carrefour,Google Pay,BRL,100
