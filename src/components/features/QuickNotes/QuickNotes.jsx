@@ -24,9 +24,7 @@ export function QuickNotes({
   const inputRefs = useRef(new Map());
   const [openMenu, setOpenMenu] = useState(false);
   const [blocks, setBlocks] = useState(() =>
-    savedBlocks.length > 0
-      ? savedBlocks
-      : [createBlock("text", note)],
+    savedBlocks.length > 0 ? savedBlocks : [createBlock("text", note)],
   );
   const [past, setPast] = useState([]);
   const [future, setFuture] = useState([]);
@@ -37,13 +35,64 @@ export function QuickNotes({
 
   function handleAddBlock(type) {
     const newBlock = createBlock(type);
-    const nextBlocks = [...blocks, newBlock];
+
+    const hasOnlyOneEmptyBlock =
+      blocks.length === 1 && blocks[0].content.trim() === "";
+
+    const nextBlocks = hasOnlyOneEmptyBlock
+      ? [newBlock]
+      : [...blocks, newBlock];
 
     saveBlocks(nextBlocks);
     setOpenMenu(false);
 
     requestAnimationFrame(() => {
       inputRefs.current.get(newBlock.id)?.focus();
+    });
+  }
+
+  function handleBlockKeyDown(event, blockIndex) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+
+      const currentBlock = blocks[blockIndex];
+      const newBlock = createBlock(currentBlock.type);
+
+      const nextBlocks = [...blocks];
+
+      nextBlocks.splice(blockIndex + 1, 0, newBlock);
+
+      saveBlocks(nextBlocks);
+
+      requestAnimationFrame(() => {
+        inputRefs.current.get(newBlock.id)?.focus();
+      });
+
+      return;
+    }
+
+    const isEmptyBackspace =
+      event.key === "Backspace" && event.currentTarget.value === "";
+
+    if (!isEmptyBackspace || blockIndex === 0) return;
+
+    event.preventDefault();
+
+    const previousBlock = blocks[blockIndex - 1];
+
+    const nextBlocks = blocks.filter((_, index) => index !== blockIndex);
+
+    saveBlocks(nextBlocks);
+
+    requestAnimationFrame(() => {
+      const previousInput = inputRefs.current.get(previousBlock.id);
+
+      previousInput?.focus();
+
+      previousInput?.setSelectionRange(
+        previousInput.value.length,
+        previousInput.value.length,
+      );
     });
   }
 
@@ -64,36 +113,10 @@ export function QuickNotes({
 
   function toggleBlock(id) {
     const nextBlocks = blocks.map((block) =>
-      block.id === id
-        ? { ...block, checked: !block.checked }
-        : block,
+      block.id === id ? { ...block, checked: !block.checked } : block,
     );
 
     saveBlocks(nextBlocks);
-  }
-
-  function handleBlockKeyDown(event, blockIndex) {
-    const isEmptyBackspace =
-      event.key === "Backspace" && event.currentTarget.value === "";
-
-    if (!isEmptyBackspace || blockIndex === 0) return;
-
-    event.preventDefault();
-
-    const previousBlock = blocks[blockIndex - 1];
-    const nextBlocks = blocks.filter((_, index) => index !== blockIndex);
-
-    saveBlocks(nextBlocks);
-
-    requestAnimationFrame(() => {
-      const previousInput = inputRefs.current.get(previousBlock.id);
-
-      previousInput?.focus();
-      previousInput?.setSelectionRange(
-        previousInput.value.length,
-        previousInput.value.length,
-      );
-    });
   }
 
   function handleUndo() {
@@ -127,11 +150,15 @@ export function QuickNotes({
       onClose={onClose}
       middlePosition="top"
       middle={
-        <div className="flex flex-col gap-2 p-2">
+        <div className="flex flex-col gap-2 p-">
           {blocks.map((block, blockIndex) => (
             <div
               key={block.id}
-              className="flex items-center gap-2"
+              className="
+                flex
+                items-center
+                gap-2
+                w-45"
             >
               {block.type === "checkbox" && (
                 <CheckboxIcon
@@ -155,15 +182,14 @@ export function QuickNotes({
                     content: event.target.value,
                   })
                 }
-                onKeyDown={(event) =>
-                  handleBlockKeyDown(event, blockIndex)
-                }
-                placeholder={
-                  block.type === "checkbox"
-                    ? "Task?"
-                    : ""
-                }
-                className="flex-1 bg-transparent text-gray-800"
+                onKeyDown={(event) => handleBlockKeyDown(event, blockIndex)}
+                placeholder={block.type === "checkbox" ? "..." : "..."}
+                className="
+                  flex-1
+                  bg-transparent
+                  text-lg
+                  text-gray-800
+                  font-['Indie_Flower',cursive]"
               />
             </div>
           ))}
