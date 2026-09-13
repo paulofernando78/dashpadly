@@ -39,7 +39,7 @@ export const widgetCatalog = {
     iconName: "quickNotes",
     widgetClassName: "paper-texture",
     defaultConfig: {
-      note: "",
+      blocks: [],
     },
   },
 

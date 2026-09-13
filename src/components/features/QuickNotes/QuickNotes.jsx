@@ -6,10 +6,27 @@ import { Icon } from "@/components/ui/Icon";
 import { TextInput } from "@/components/ui/TextInput";
 import { CheckboxIcon } from "@/components/ui/CheckboxIcon";
 
-export function QuickNotes({ note = "", onConfigChange, onClose }) {
+function createBlock(type = "text", content = "") {
+  return {
+    id: crypto.randomUUID(),
+    type,
+    content,
+    checked: false,
+  };
+}
+
+export function QuickNotes({
+  note = "",
+  blocks: savedBlocks = [],
+  onConfigChange,
+  onClose,
+}) {
   const [openMenu, setOpenMenu] = useState(false);
-  const [addBlock, setAddBlock] = useState();
-  const [currentNote, setCurrentNote] = useState(note);
+  const [blocks, setBlocks] = useState(() =>
+    savedBlocks.length > 0
+      ? savedBlocks
+      : [createBlock("text", note)],
+  );
   const [past, setPast] = useState([]);
   const [future, setFuture] = useState([]);
 
@@ -17,42 +34,62 @@ export function QuickNotes({ note = "", onConfigChange, onClose }) {
     setOpenMenu((current) => !current);
   }
 
-  function handleAddBlock() {}
+  function handleAddBlock(type) {
+    const nextBlocks = [...blocks, createBlock(type)];
 
-  function handleNoteChange(event) {
-    const nextNote = event.target.value;
+    saveBlocks(nextBlocks);
+    setOpenMenu(false);
+  }
 
-    setPast((currentPast) => [...currentPast, currentNote]);
+  function saveBlocks(nextBlocks) {
+    setPast((currentPast) => [...currentPast, blocks]);
     setFuture([]);
-    setCurrentNote(nextNote);
-    onConfigChange?.({ note: nextNote });
+    setBlocks(nextBlocks);
+    onConfigChange?.({ blocks: nextBlocks });
+  }
+
+  function updateBlock(id, changes) {
+    const nextBlocks = blocks.map((block) =>
+      block.id === id ? { ...block, ...changes } : block,
+    );
+
+    saveBlocks(nextBlocks);
+  }
+
+  function toggleBlock(id) {
+    const nextBlocks = blocks.map((block) =>
+      block.id === id
+        ? { ...block, checked: !block.checked }
+        : block,
+    );
+
+    saveBlocks(nextBlocks);
   }
 
   function handleUndo() {
     if (past.length === 0) return;
 
-    const previousNote = past.at(-1);
+    const previousBlocks = past.at(-1);
 
     setPast((currentPast) => currentPast.slice(0, -1));
-    setFuture((currentFuture) => [...currentFuture, currentNote]);
-    setCurrentNote(previousNote);
-    onConfigChange?.({ note: previousNote });
+    setFuture((currentFuture) => [...currentFuture, blocks]);
+    setBlocks(previousBlocks);
+    onConfigChange?.({ blocks: previousBlocks });
   }
 
   function handleRedo() {
     if (future.length === 0) return;
 
-    const nextNote = future.at(-1);
+    const nextBlocks = future.at(-1);
 
     setFuture((currentFuture) => currentFuture.slice(0, -1));
-    setPast((currentPast) => [...currentPast, currentNote]);
-    setCurrentNote(nextNote);
-    onConfigChange?.({ note: nextNote });
+    setPast((currentPast) => [...currentPast, blocks]);
+    setBlocks(nextBlocks);
+    onConfigChange?.({ blocks: nextBlocks });
   }
 
   function handleReset() {
-    setCurrentNote("");
-    onConfigChange?.({ note: "" });
+    saveBlocks([createBlock()]);
   }
 
   return (
@@ -60,33 +97,77 @@ export function QuickNotes({ note = "", onConfigChange, onClose }) {
       onClose={onClose}
       middlePosition="top"
       middle={
-        <div className="flex items-center border border-black">
-          <div className="relative flex items-center">
-            <TextInput className="text-gray-800 border" />
-            <CheckboxIcon />
-          </div>
+        <div className="flex flex-col gap-2 p-2">
+          {blocks.map((block) => (
+            <div
+              key={block.id}
+              className="flex items-center gap-2"
+            >
+              {block.type === "checkbox" && (
+                <CheckboxIcon
+                  checked={block.checked}
+                  onChange={() => toggleBlock(block.id)}
+                  ariaLabel={block.content || "Task..."}
+                />
+              )}
+
+              <TextInput
+                value={block.content}
+                onChange={(event) =>
+                  updateBlock(block.id, {
+                    content: event.target.value,
+                  })
+                }
+                placeholder={
+                  block.type === "checkbox"
+                    ? "Task..."
+                    : "Quick notes"
+                }
+                className="flex-1 bg-transparent text-gray-800"
+              />
+            </div>
+          ))}
         </div>
       }
       bottom={
         <WidgetControls>
           <div className="relative">
             {openMenu && (
-              <div className="absolute bottom-12 grid gap-2 p-2 bg-[#333333] rounded text">
-                <div className="flex items-center gap-2">
+              <div
+                className="
+                  absolute
+                  bottom-12
+                  grid
+                  gap-2
+                  p-2
+                  bg-[#333333]
+                  rounded
+                  z-10
+                "
+              >
+                <button
+                  type="button"
+                  onClick={() => handleAddBlock("text")}
+                  className="flex items-center gap-2 p-1 rounded hover:bg-gray-600"
+                >
                   <Icon name="type" />
                   <span>Text</span>
-                </div>
-                <div className="flex items-center gap-2">
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleAddBlock("checkbox")}
+                  className="flex items-center gap-2 p-1 rounded hover:bg-gray-600"
+                >
                   <Icon name="squareCheck" />
                   <span>Checkbox</span>
-                </div>
+                </button>
               </div>
             )}
             <WidgetControls.Add onClick={handleOpenMenu} />
           </div>
-          <WidgetControls.Reset onClick={handleReset} />
           <WidgetControls.Undo onClick={handleUndo} />
           <WidgetControls.Redo onClick={handleRedo} />
+          <WidgetControls.Reset onClick={handleReset} />
         </WidgetControls>
       }
     />

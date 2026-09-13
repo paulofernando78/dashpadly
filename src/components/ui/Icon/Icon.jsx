@@ -327,7 +327,7 @@ export function Icon({
       size={size}
       className={`
         shrink-0
-        ${cursorNone ? "cursor-default" : "cursor-pointe"}
+        ${cursorNone ? "cursor-default" : "cursor-pointer"}
         ${className}
         `}
       {...props}
